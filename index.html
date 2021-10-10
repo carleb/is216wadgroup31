@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style> 
+    /* striped table */
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+    
+    tr:nth-child(odd) {
+    background-color: #f1f1f1;
+    }
+</style>
+
+<body>
+    <div id='parentDesc1'>
+        <div style='display:block'> <span class = 'fw-bold' style = 'color:blue' onclick='openDesc(this)'>[+]</span><span>this is a short desc</span></div>
+        <div style='display:None'> <span class = 'fw-bold' style = 'color:blue'onclick='closeDesc(this)' >[-]</span><span>this is a long desc this is a long desc this is a long desc this is a long descthis is a long descthis is a long desc</span></div>
+    </div> 
+
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+    function openDesc(e){
+            parent = e.parentElement.parentElement
+            parent.childNodes[1].style.display = 'None'
+            parent.childNodes[3].style.display = 'block'
+            // console.log(parent.childNodes)
+            // console.log(parent.childNodes[1])
+            // console.log(parent.childNodes[3])
+        }
+
+    function closeDesc(e){
+            parent = e.parentElement.parentElement
+            parent.childNodes[3].style.display = 'None'
+            parent.childNodes[1].style.display = 'block'
+            // console.log(parent.childNodes)
+            // console.log(parent.childNodes[1])
+            // console.log(parent.childNodes[3])
+        }
+        
+    // adding event listerner    
+    box1 = document.getElementById('color1')
+    function colour1(){
+        // #do smth
+    }
+    box1.addEventListener('input',colour1)
+    
+    // ## end of event lister
+    function loadChat() {
+        let url = 'http://localhost/is216/revision/apidemo/chat/server/chat.php'
+
+        //get req only
+        axios.get(base_url)
+            .then((response) => {
+                let data = response.data
+                console.log(data)
+            });
+
+        // with data clearning
+        axios.get(url)
+            .then((response) => {
+                let chatData = response.data
+                // console.log(chatData);
+                let messages = document.getElementById('messages')
+                // console.log(messages.innerHTML)
+
+                newInnerHTML = ""
+                chatData = chatData.reverse()
+                for (chat of chatData) {
+                    // console.log(chat)
+                    let who = chat.who
+                    let mes = chat.text
+                    mes = mes.replace('<', '&lt;')
+                    mes = mes.replace('<', '&lt;')
+                    mes = mes.replace('>', '&gt;')
+                    mes = mes.replace('>', '&gt;')
+                    // console.log(mes)
+                    html = `<div class='row border-bottom pb-2'>
+                                <div class='col-3 font-weight-bold'>`+ who + `</div>
+                                <div class='col-9'>`+ mes + `</div>
+                            </div>`
+                    newInnerHTML = newInnerHTML + html
+                }
+                newHtml = newInnerHTML + messages.innerHTML
+                // console.log(newHtml)
+                messages.innerHTML = newHtml
+
+            });
+            // end of axios  
+            
+        // with error handle
+        axios.get(url)
+            .then((response) => {
+            console.log(response);
+            }, (error) => {
+            console.log(error);
+            });
+            
+            
+    }
+</script>
+
+</html>
