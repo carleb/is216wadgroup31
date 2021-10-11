@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style> 
+body{
+    /* background-color:#fef9f8; */
+    background-image: url("/img/background.png");
+    background-size:cover ;  
+    background-repeat:   no-repeat;
+    background-position: center center;  
+    background-color: #ccc;
+    /* width: 100%; You must set a specified height */
+    /* background-position: center; Center the image */
+    /* background-repeat: no-repeat; Do not repeat the image */
+
+
+}
+a{
+    color: rgb(92,79,86);
+    text-decoration: underline;
+}
+a:hover {
+  color:#ef9273;
+}
+#welcome{
+    color:#ef9273;
+}
+/*.login{
+    margin-right:10rem;
+    margin-left:10rem;
+}*/
+#another{
+    background-color:#fef9f8;
+    margin-top: 10%;
+}
+
+</style>
+
+<body>
+    <div id='main' class ='container-fluid'>
+        <div id='another' class='row py-5 shadow p-3 mb-5 rounded'>
+            <div id="welcome"class='col text-center my-auto'>
+                <!-- <h1 style="font-family:'Klavika'">Pet Society!</h1> -->
+                <img style='width:50%;'  src='/img/logo.png'>
+                <p >Connect with animal lovers and explore community animals today.</p>
+            </div>
+
+            <div id="loginbox" class ='col text-center container-fluid rounded mx-5 pb-1 col-md-4 shadow p-3 mb-5 bg-white rounded-10' style='background-color: rgba(255,255,255,0.75); color:#ef9273 '>
+                <div class='innerloginbox mx-4'>
+
+                <div id='emailrow' class ='row'>
+                    <!-- <p class='mb-0'>Email</p> -->
+                    <div class="input-group mb-3">
+                    <input id='input-email' type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                </div>
+                </div>
+
+                <div id='passwordrow' class ='row'>
+                    <!-- <p class='mb-0'>Password</p> -->
+                    <div class="input-group mb-3">
+                        <input id='input-password'  type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                
+
+                <div id='loginbutton' class='row justify-content-center mt-2' >
+                    <button onclick='startLogin()' type="button" class="btn text-light btn-block" style='background-color: #ef9273'>Log in</button>
+                </div>
+                <div class="col mx-0 py-3" style='border-bottom: 1px solid rgba(0, 0, 0, 0.1)'>
+                    <a style='color:#ef9273;text-decoration: none;font-size: small;' href="https://www.google.com">Forgotten password?</a>
+                </div>
+
+                <div id='failedlogin-prompt' style='color:red; display: none;'>
+                    Invalid email or password
+                </div>
+
+                <div class='row'>
+                    <div id='createbutton' class='justify-content-center mt-3 mx-auto ' >
+                        <button onclick='createNewAccount()' type="button" class="btn text-light btn-block fw-bold" style='background-color: #52ab98;'>Create New Account</button>
+                    </div>
+                </div>
+                
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<script src="/firebase-API/connector.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+    function startLogin(){
+        inputEmail = document.getElementById('input-email').value
+        inputPassword = document.getElementById('input-password').value
+        console.log(inputEmail)
+        console.log(inputPassword)
+        login(inputEmail,inputPassword)
+    }
+    
+    function createNewAccount(){
+        window.location.href = "/screens/welcomeScreen/registration.html"; 
+    }
+</script>
+
+    
+
+</body>

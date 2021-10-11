@@ -1,0 +1,24 @@
+[
+    //chat messages will be achieve with web sockets.. this is just to store the chat id and details.
+    {
+        "chatID":"string",
+        "userID1":"string",
+        "userID2":"string",
+        "startDateTime":"string",
+        "hasChatEnded":false
+    },
+    {
+        "chatID":"string",
+        "userID1":"string",
+        "userID2":"string",
+        "startDateTime":"string",
+        "hasChatEnded":false
+    },
+    {
+        "chatID":"string",
+        "userID1":"string",
+        "userID2":"string",
+        "startDateTime":"string",
+        "hasChatEnded":false
+    }
+]

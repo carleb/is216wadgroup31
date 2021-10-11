@@ -1,0 +1,34 @@
+[
+    {
+        "userID": "1",
+        "name":"Gerald Lee Jie Ren",
+        "email":"handsomegerald@gmail.com",
+        "age":"23",
+        "gender":"string",
+        "profilePictureUrl":"https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/userProfilePictures%2Fuserid-01.jpg?alt=media&token=765b1300-89ab-49f1-934b-82ec74f2e055",
+        "profileDetails":{
+            "followingUsers":null,
+            "followedByUsers":null,
+            "followingPet":null
+        },
+        "posts" : null,
+        "postsWithPhotos":null
+    },
+    {
+        "userID": "string",
+        "name":"string",
+        "email":"string",
+        "age":"string",
+        "gender":"string",
+        "profilePictureUrl":"string",
+        "profileDetails":{
+            "followingUsers":["userID1string","userID2string"],
+            "followedByUsers":["userID1string","userID2string"],
+            "followingPet":["petIDString","petIDString"]
+        },
+        "posts" : {
+            "date": "list of post id"
+        }
+        
+    }
+]

@@ -2,7 +2,6 @@
 # :wave: is216-project
 
 ## 🤓 IS216 - Group 31 - PetSociety 
-## This is the public verision of https://github.com/orgs/is216-supreme/teams/group31/repositories
 ## Purpose is to allow heroku to host this repo
 * Please update the above header. For example, it should look like this: **IS216 - Group 123 - Supreme Children**
 * Who are your group members? List everyone's full name, SMU email address, and other info you wish to put here.

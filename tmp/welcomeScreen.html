@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style> 
+</style>
+
+<body>
+    <h1>Pet Society Welcome Screen</h1>
+    <h2>Login</h2>
+    <h2>Register as New User</h2>
+
+    Work in Progress
+    <div>
+        <h1 id="welcome-message">Welcome </h1>
+        <h2 id="info-message">Your userid is </h2>
+    </div>
+
+    <div>
+        <button onclick="logout()">click here to logout</button>
+    </div>
+
+    <img src="https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/userProfilePictures%2Fuserid-01.jpg?alt=media&token=765b1300-89ab-49f1-934b-82ec74f2e055">
+</body>
+
+<script>
+    myStorage = window.sessionStorage;
+    // sessionStorage.setItem('userID', '1');
+    userid = myStorage.userID
+    userName = myStorage.userName
+    document.getElementById('welcome-message').innerText="Welcome "+userName
+    document.getElementById('info-message').innerText="Your userid is "+userid
+    console.log(myStorage)
+
+    function logout(){
+        // myStorage = window.sessionStorage;
+        // sessionStorage.setItem('userID', undefined);
+        // sessionStorage.setItem('userName', undefined);
+        sessionStorage.clear();  
+        // console.log(myStorage)
+        window.location.href = "/screens/welcomeScreen/logoutScreen.html"; 
+    }
+    if (myStorage.userID===undefined){
+        console.log("Not login")
+        sessionStorage.clear();  
+        window.location.href = "/screens/welcomeScreen/logoutScreen.html"; 
+    }else{
+        console.log("Login")
+    }
+</script>
