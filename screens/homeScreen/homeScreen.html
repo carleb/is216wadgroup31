@@ -1,74 +1,373 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel='stylesheet' href='homepage.css'>
-<script src="homepage.js"></script>
+
 <body>
 
+  <!-- navbar start -->
+  <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+      <div class='mx-md-2'>
+        <img class='hover-zoom' src='../../img/logo.png' width=80 height=80>
+      </div>
+      <form class='ms-lg-5'>
+        <input class="form-control rounded1 me-2" type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <!-- modal button start -->
+      <button onmouseover='typeWriter()' id="post" style='width:200px' class='btn' data-bs-toggle="modal"
+        data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
+          src='icons/pencil-square.svg'><span style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1"
+          id='newpost'></span></button>
+      <!-- modal button end -->
 
-    <nav class="shadow-sm navbar navbar-expand-md navbar-light bg-white">
-        <div class="container-fluid" >
-            <div class='mx-md-2'>
-                <img class='hover-zoom' src='./images/logo.png' width=80 height=80>
-            </div>
-                    <form class='ms-lg-5'>
-                        <input class="form-control rounded1 me-2" type="search" placeholder="Search" aria-label="Search" >
-                    </form>
-                
-        
-          <button  class="navbar-toggler mx-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span  class="navbar-toggler-icon"></span>
-          </button>
-          
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
-              <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                <a class="nav-link active px-3" aria-current="page" href="#"><img  src="icons/house.svg" alt="Bootstrap" width="32" height="32"><span class='d-sm-inline d-md-none my-auto mx-3 text-dark'>Home</span></a>
-               
-              </li>
-              <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                <a class="nav-link px-3" href="#"><img src="./icons/chat.svg" alt="Bootstrap" width="32" height="32"><span class='d-sm-inline d-md-none my-auto mx-3 text-dark'>Chat</span></a>  
-              </li>
-              <li id="profile" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                <a class="nav-link px-3" href="#"><img src="./icons/person.svg" alt="Bootstrap" width="32" height="32"><span class='d-sm-inline d-md-none my-auto mx-3 text-dark'>Profile</span></a>
-              </li> 
-              <li id="map" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                <a class="nav-link px-3" href="#"><img src="./icons/pin-map.svg" alt="Bootstrap" width="30" height="30"><span class='d-sm-inline d-md-none my-auto mx-3 text-dark'>Nearby Pets</span></a>
-              </li>   
-              <li id="settings" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                <a class="nav-link px-3" href="#"><img src="./icons/gear.svg" alt="Bootstrap" width="32" height="32"><span class='d-sm-inline d-md-none my-auto mx-3 text-dark'>Settings</span></a>
-              </li>
-            </ul>
-          </div>
-         
-        </div>
-      </nav>
-      <div class="row">
-        <div class="sidebar col-2">
-            <div class="font-monospace fs-6 text-center my-5">Nearby Pets</div>
-            <div class="font-monospace text-center border mx-2 my-4 py-2 ">Nearby Pet 1</div>
-            <div class="font-monospace text-center border mx-2 my-4 py-2 ">Nearby Pet 2</div>
-            <div class="font-monospace text-center border mx-2 my-4 py-2 ">Nearby Pet 3</div>
-        </div>
-        
-        <div class="body-text mx-1">
-        <!-- body content -->
-        </div>
+      <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
+          <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+            <a class="nav-link active px-3" aria-current="page" href="#"><img src="icons/house-fill.svg" alt="Bootstrap"
+                width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
+          </li>
+          <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+            <a class="nav-link px-3" href="#"><img src="./icons/chat.svg" alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
+          </li>
+          <li id="profile" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+            <a class="nav-link px-3" href="#"><img src="./icons/person.svg" alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>
+          </li>
+          <li id="map" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+            <a class="nav-link px-3" href="#"><img src="./icons/pin-map.svg" alt="Bootstrap" width="30" height="30">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Nearby
+                Pets</span></a>
+          </li>
+          <li id="settings" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+            <a class="nav-link px-3" href="#"><img src="./icons/gear.svg" alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Settings</span></a>
+          </li>
+        </ul>
+      </div>
+
     </div>
+  </nav>
+  <!-- navbar end -->
+
+  <!-- modal start -->
+  <div class="modal fade" id="createPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <!-- form start -->
+          <form>
+            <!-- drop files start-->
+            <div class="input-group">
+              <button type="button" class="btn btn-secondary"><label for="file">Choose a file</label></button>
+              <input type="file" class="button button-secondary m-2" style="display:none" id="file"
+                accept="image/png, image/jpeg, image/heic" name="file" class="form control" multiple>
+              <div id="dropbox" class="container p-3 border border-5 text-center m-2" style="color:grey">
+                Drag a file here
+              </div>
+            </div>
+            <!-- drop files end-->
+
+            <!-- post text start -->
+            <div class="input-group m-2">
+              <input placeholder="Caption" id="post-text" name="text" type="text" class="form-control">
+            </div>
+
+            <!-- post text end -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createPost()">Post</button>
+        </div>
+        </form>
+        <!-- form end -->
+
+      </div>
+    </div>
+  </div>
+  <!-- modal end -->
+
+  <!-- sidebar start -->
+  <div class='container mt-3 '>
+    <div class='row mx-1'>
+      <div class="sidebar col-md-3 col-sm-12 shadow rounded-3 themebg d-sm-flex d-md-block">
+        <div class="font-monospace fs-6 text-center my-5">Nearby Pets</div>
+        <div class="font-monospace text-center  mx-2 my-4 py-2 bg-white border rounded-2">Nearby Pet 1</div>
+        <div class="font-monospace text-center  mx-2 my-4 py-2 bg-white border rounded-2">Nearby Pet 2</div>
+        <div class="font-monospace text-center  mx-2 my-4 py-2 bg-white border rounded-2">Nearby Pet 3</div>
+        <button class='btn bg-white rounded2 m-3 my-sm-5'>Add new pet</button>
+      </div>
+      <!-- sidebar end -->
+
+      <!-- body content start -->
+      <div class="col-md-9 col-sm-12 body-text mt-sm-3 m-md-0" id='card-list'>
+        <div style="max-width:800px;" class="card shadow border border-0 themebg font-monospace rounded-3 p-5 mx-auto">
+          <!-- Who shared the post -->
+          <div>
+            <a class='fw-bold text-decoration-none text-dark' id='whichPerson'>Name</a> and <a
+              class='fw-bold text-decoration-none text-dark' id='whichAnimal'>Name</a> shared a post together
+          </div>
+          <hr>
+          <!-- Who shared the post end -->
+          <!-- Profile Images, Time, Location Div -->
+          <div class='row mb-3'>
+            <!-- profile images -->
+            <div class='col-3'>
+              <div class='row'>
+                <a id='postee' class='col-6'>
+                  <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                    src='images/sample.png'>
+                </a>
+                <a id='animal' class='col-6'>
+                  <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                    src='images/sample.png'>
+                </a>
+              </div>
+            </div>
+            <!-- profile images end -->
+            <!-- time, location -->
+            <div class='col-9 text-end'>
+              <span class='d-block'>Time</span>
+              <span class='d-block mt-3'>Location</span>
+            </div>
+            <!-- time, location end -->
+          </div>
+          <!-- Profile Images, Time, Location Div End-->
+          <!-- Image -->
+          <img class="card-img-top rounded2 shadow" src="images/sample.png" alt="Card image cap">
+          <!-- Image end -->
+          <div class="card-body">
+            <!-- caption -->
+            <p class="card-text" id='caption'>caption: Some quick example text to build on the card title and make up
+              the bulk of the card's content.</p>
+            <!-- caption end-->
+            <!-- number of likes -->
+            <p class='fw-bold my-auto' id='numLikes'>15 Likes</p>
+            <!-- number of likes end-->
+            <!-- like, comment, share -->
+            <div class='row d-flex mt-2'>
+              <div class='col-4'>
+                <a id="heart" onclick=fillHeart(this.id) id="like" style='width:200px' class='btn'><img
+                    class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like"
+                    style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1">Like</span></a>
+              </div>
+              <div class='col-4'>
+                <a id="comment" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                    src='icons/chat-left.svg'><span id="like" style='white-space:nowrap'
+                    class="font-monospace ms-2 float-start mt-1">Comment</span></a>
+              </div>
+              <div class='col-4'>
+                <a id="share" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                    src='icons/share.svg'><span id="like" style='white-space:nowrap'
+                    class="font-monospace ms-2 float-start mt-1">Share</span></a>
+              </div>
+            </div>
+            <!-- like, comment, share end-->
+          </div>
+          <!-- body end -->
+          <!-- Comment field -->
+          <div class="card-footer py-3 border-0 themebg">
+            <div class="d-flex">
+              <img class="rounded-circle shadow-1-strong me-3" src="images/sample.png" alt="avatar" width="40"
+                height="40" />
+              <div class=" w-100">
+                <input type='text'  class="form-control" id="commentField" rows="1" placeholder="Comment">
+              </div>
+            </div>
+            <div class="float-end mt-2 pt-1">
+              <button type="button" class="btn bg-white rounded2 btn-lg fw-bold">Post</button>
+            </div>
+          </div>
+        </div>
         
+      </div>
+    </div>
+  </div>
+
+
 
 
 </body>
 <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="homepage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
+<script src='/firebase-API/createPost.js'></script>
+
+<script>
+  
+
+  // test()
+
+  // get user location
+  currentLocation = "no location"
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    currentLocation = { latitude: latitude, longitude: longitude }
+  }
+
+  function error() {
+    console.log(currentLocation)
+  }
+
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+  function createPost() {
+    const file = document.getElementById("file").files[0]
+    // const name = newPostID + "-"+file.name
+    // console.log(file.name)
+    createNewPost()
+  }
+
+  // cardList = document.getElementById('card-list')
+
+  
+// cardList.innerHTML = newCardHTML+newCardHTML
+
+
+function getAllPost() {
+    tableName = "post"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+
+    postFeedHTML = ""
+    url = firebaseurl + tableName + ".json"
+    cardList = document.getElementById('card-list')
+
+    axios.get(url)
+      .then((response) => {
+        allPostData = response.data.data
+        console.log(allPostData)
+        allPostData.reverse()
+        for(postData of allPostData){
+          type = postData.postType
+          if (type == "photo"){
+            console.log(type)
+            firstPhotoUrl = postData.photoUrl[0]
+            console.log(firstPhotoUrl)
+            postText = postData.postText
+            postedByID = postData.postedByID
+            postedOn = postData.postedOn
+            postedAtLocation = postData.postedAt
+            newCardHTML = `<div style="max-width:800px;" class="card shadow border border-0 themebg font-monospace rounded-3 p-5 mx-auto my-3">
+                  <!-- Who shared the post -->
+                  <div>
+                    <a class='fw-bold text-decoration-none text-dark' id='whichPerson'>Name</a> and <a
+                      class='fw-bold text-decoration-none text-dark' id='whichAnimal'>Name</a> shared a post together
+                  </div>
+                  <hr>
+                  <!-- Who shared the post end -->
+                  <!-- Profile Images, Time, Location Div -->
+                  <div class='row mb-3'>
+                    <!-- profile images -->
+                    <div class='col-3'>
+                      <div class='row'>
+                        <a id='postee' class='col-6'>
+                          <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                            src='images/sample.png'>
+                        </a>
+                        <a id='animal' class='col-6'>
+                          <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                            src='images/sample.png'>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- profile images end -->
+                    <!-- time, location -->
+                    <div class='col-9 text-end'>
+                      <span class='d-block'>Time : `+postedOn+`</span>
+                      <span class='d-block mt-3'>Location</span>
+                    </div>
+                    <!-- time, location end -->
+                  </div>
+                  <!-- Profile Images, Time, Location Div End-->
+                  <!-- Image -->
+                  <img class="card-img-top rounded2 shadow" src="`+firstPhotoUrl+`" alt="Card image cap">
+                  <!-- Image end -->
+                  <div class="card-body">
+                    <!-- caption -->
+                    <p class="card-text" id='caption'>`+postText+`</p>
+                    <!-- caption end-->
+                    <!-- number of likes -->
+                    <p class='fw-bold my-auto' id='numLikes'>15 Likes</p>
+                    <!-- number of likes end-->
+                    <!-- like, comment, share -->
+                    <div class='row d-flex mt-2'>
+                      <div class='col-4'>
+                        <a id="heart" onclick=fillHeart(this.id) id="like" style='width:200px' class='btn'><img
+                            class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like"
+                            style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1">Like</span></a>
+                      </div>
+                      <div class='col-4'>
+                        <a id="comment" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                            src='icons/chat-left.svg'><span id="like" style='white-space:nowrap'
+                            class="font-monospace ms-2 float-start mt-1">Comment</span></a>
+                      </div>
+                      <div class='col-4'>
+                        <a id="share" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                            src='icons/share.svg'><span id="like" style='white-space:nowrap'
+                            class="font-monospace ms-2 float-start mt-1">Share</span></a>
+                      </div>
+                    </div>
+                    <!-- like, comment, share end-->
+                  </div>
+                  <!-- body end -->
+                  <!-- Comment field -->
+                  <div class="card-footer py-3 border-0 themebg">
+                    <div class="d-flex">
+                      <img class="rounded-circle shadow-1-strong me-3" src="images/sample.png" alt="avatar" width="40"
+                        height="40" />
+                      <div class=" w-100">
+                        <input type='text' ] class="form-control" id="commentField" rows="1" placeholder="Comment">
+                      </div>
+                    </div>
+                    <div class="float-end mt-2 pt-1">
+                      <button type="button" class="btn bg-white rounded2 btn-lg fw-bold">Post</button>
+                    </div>
+                  </div>
+                </div>`
+                postFeedHTML = postFeedHTML + newCardHTML
+          }
+        }
+        cardList.innerHTML = postFeedHTML
+      }, (error) => {
+        console.log(error);
+        output = error
+
+      });
+  }
+  getAllPost()
+</script>
+
 </html>

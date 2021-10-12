@@ -1,0 +1,46 @@
+.rounded1 {
+  border-radius: 25px !important;
+}
+.rounded2 {
+  border-radius: 15px !important;
+}
+
+.dropdown-menu {
+  width : px;
+  height: px;
+}
+
+.hover-color {
+  transition   : background-color .2s;
+  border-radius: 10px;
+}
+.themebg{
+  background-color: #FFC19D;
+}
+.hover-color:hover {
+  background-color: #FFC19D;
+  border-radius   : 10px;
+}
+
+.hover-zoom {
+  transition: transform .2s
+}
+
+.hover-zoom:hover {
+  transform: scale(1.2)
+}
+
+
+.sidebar {
+    height: 100%;
+  }
+
+
+
+/* ::-webkit-input-placeholder {
+  text-align: center;
+} */
+
+#text {
+  text-align: center;
+}
