@@ -109,6 +109,8 @@ function login(email, password) {
             // console.log(data)
             data = data.splice(1, data.length)
             checker = true
+            email_check = true
+            password_check = true
             for (row of data) {
                 console.log(row)
                 dataEmail = row.email
@@ -117,16 +119,42 @@ function login(email, password) {
                 userName = row.name
                 if (dataPassword == password && dataEmail == email) {
                     checker = false
+                    email_check = false
+                    password_check = false
                     myStorage = window.sessionStorage;
                     sessionStorage.setItem('userID', userId);
                     sessionStorage.setItem('userName', userName);
                     console.log(myStorage)
                     window.location.href = "/screens/homeScreen/homeScreen.html";
                 }
+                else if (dataEmail == email && dataPassword != password) {
+                    email_check = false;
+                    break;
+                }
+                else if (dataEmail != email && dataPassword == password) {
+                    password_check = false;
+                }
+
+
             }
             if (checker) {
-                document.getElementById('failedlogin-prompt').style.display = 'block'
-                console.log("email/password invalid")
+                let error = "";
+                // document.getElementById('failedlogin-prompt').style.display = 'block'
+                // console.log("email/password invalid")
+
+                if (email_check == true && password_check == true) {
+                    error = "Incorrect Email and Password."
+                }
+                else if (email_check == false && password_check == true) {
+                    error = "Incorrect Password."
+                }
+                else if (email_check == true && password_check == false) {
+                    error = "Invalid Email."
+                }
+
+                document.getElementById('failedlogin').style.display = 'block';
+                document.getElementById('failedlogin').innerText = error;
+
             }
         }, (error) => {
             console.log(error);

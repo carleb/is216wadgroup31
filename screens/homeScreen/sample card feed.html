@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="max-width:800px;" class="card shadow border border-0 themebg font-monospace rounded-3 p-5 mx-auto">
+        <!-- Who shared the post -->
+        <div>
+          <a class='fw-bold text-decoration-none text-dark' id='whichPerson'>Name</a> and <a
+            class='fw-bold text-decoration-none text-dark' id='whichAnimal'>Name</a> shared a post together
+        </div>
+        <hr>
+        <!-- Who shared the post end -->
+        <!-- Profile Images, Time, Location Div -->
+        <div class='row mb-3'>
+          <!-- profile images -->
+          <div class='col-3'>
+            <div class='row'>
+              <a id='postee' class='col-6'>
+                <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                  src='images/sample.png'>
+              </a>
+              <a id='animal' class='col-6'>
+                <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                  src='images/sample.png'>
+              </a>
+            </div>
+          </div>
+          <!-- profile images end -->
+          <!-- time, location -->
+          <div class='col-9 text-end'>
+            <span class='d-block'>Time</span>
+            <span class='d-block mt-3'>Location</span>
+          </div>
+          <!-- time, location end -->
+        </div>
+        <!-- Profile Images, Time, Location Div End-->
+        <!-- Image -->
+        <img class="card-img-top rounded2 shadow" src="images/sample.png" alt="Card image cap">
+        <!-- Image end -->
+        <div class="card-body">
+          <!-- caption -->
+          <p class="card-text" id='caption'>caption: Some quick example text to build on the card title and make up
+            the bulk of the card's content.</p>
+          <!-- caption end-->
+          <!-- number of likes -->
+          <p class='fw-bold my-auto' id='numLikes'>15 Likes</p>
+          <!-- number of likes end-->
+          <!-- like, comment, share -->
+          <div class='row d-flex mt-2'>
+            <div class='col-4'>
+              <a id="heart" onclick=fillHeart(this.id) id="like" style='width:200px' class='btn'><img
+                  class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like"
+                  style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1">Like</span></a>
+            </div>
+            <div class='col-4'>
+              <a id="comment" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                  src='icons/chat-left.svg'><span id="like" style='white-space:nowrap'
+                  class="font-monospace ms-2 float-start mt-1">Comment</span></a>
+            </div>
+            <div class='col-4'>
+              <a id="share" style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                  src='icons/share.svg'><span id="like" style='white-space:nowrap'
+                  class="font-monospace ms-2 float-start mt-1">Share</span></a>
+            </div>
+          </div>
+          <!-- like, comment, share end-->
+        </div>
+        <!-- body end -->
+        <!-- Comment field -->
+        <div class="card-footer py-3 border-0 themebg">
+          <div class="d-flex">
+            <img class="rounded-circle shadow-1-strong me-3" src="images/sample.png" alt="avatar" width="40"
+              height="40" />
+            <div class=" w-100">
+              <input type='text'  class="form-control" id="commentField" rows="1" placeholder="Comment">
+            </div>
+          </div>
+          <div class="float-end mt-2 pt-1">
+            <button type="button" class="btn bg-white rounded2 btn-lg fw-bold">Post</button>
+          </div>
+        </div>
+      </div> 
+</body>
+</html>

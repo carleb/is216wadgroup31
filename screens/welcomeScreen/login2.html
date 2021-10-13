@@ -62,9 +62,6 @@
                 <div class='mx-4 my-3'>
 
                     <form name="login-form" class="needs-validation" novalidate>
-                        <div class='row mb-3'>
-                            <u id='redirect'></u>
-                        </div>
                         <h2>Login</h2>
                         <div id='emailrow' class='row'>
                             <div class="input-group mb-3 has-validation">
@@ -78,7 +75,7 @@
 
                         <div id='passwordrow' class='row'>
                             <div class="input-group mb-3 has-validation">
-                                <input id='input-password' type="password" class="form-control rounded"
+                                <input id='input-password' type="text" class="form-control rounded"
                                     placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
                                     required>
                                 <div class="invalid-feedback">
@@ -129,12 +126,6 @@
     <script src="/firebase-API/connector.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        myStorage = window.sessionStorage;
-        console.log(myStorage);
-        if(myStorage.redirect == 'fromLoginNoAccount'){
-            console.log("do this");
-            document.getElementById('redirect').innerText='You need to be logged in order view the Homepage'
-        }
         var forms = document.querySelectorAll('.needs-validation');
         Array.prototype.slice.call(forms)
             .forEach(function (form) {

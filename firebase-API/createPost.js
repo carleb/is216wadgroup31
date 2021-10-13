@@ -15,7 +15,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-console.log(firebase)
 
 myStorage = window.sessionStorage;
 if (myStorage.userID===undefined){
@@ -30,6 +29,7 @@ if (myStorage.userID===undefined){
 
 
 function createNewPost(){
+
     const file = document.getElementById("file").files[0]
     textInput = document.getElementById("post-text").value    
     if(textInput == ""){
@@ -52,7 +52,13 @@ firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedat
 url = firebaseurl + tableName + ".json"
 axios.get(url)
     .then((response) => {
-        newPostID = response.data.data.length
+        console.log(response)
+        if(response.data == null){
+            newPostID = 0
+        }
+        else{
+            newPostID = response.data.data.length
+        }
         console.log(newPostID)
         const ref= firebase.storage().ref()
         const file = document.getElementById("file").files[0]
@@ -62,12 +68,22 @@ axios.get(url)
         }
         
         textInput = document.getElementById("post-text").value
+        tagNameInput = document.getElementById("post-tag").value
+
+        // need to add function to get tag name ID after tagName
+        date = new Date();
+        const [hour,seconds] = [date.getHours(), date.getMinutes()];
+        date = date.toDateString()
+        date = date.split(" ")
+        newDate = date[1]+" "+date[2]+","+date[3]
+        newTime = hour+":"+seconds
         const task = ref.child("postFiles/"+name).put(file,metadata)
             task
             .then(snapshot => snapshot.ref.getDownloadURL())
             .then(url =>{
             console.log(url)
             photoURL = url
+            myStorage = window.sessionStorage;
             url = firebaseurl + tableName + "/data/" + newPostID + ".json"
             axios.put(url, {
                 "postID":newPostID,
@@ -75,14 +91,18 @@ axios.get(url)
                 "photoUrl": [photoURL],
                 "postText":textInput,
                 "postedBy": user_id,
-                "postedOn": new Date(),
+                "postedOn": newDate,
+                "postedOnTime": newTime,
                 "postedAt": currentLocation,
+                "nameOfPoseter":myStorage.userName,
+                "nameOfTagged":tagNameInput,
                 "tagged" : "petID",
                 "comments":null,
                 "like": null,
                 "shareableURL":"string"
             }).then((response) => {
                 console.log(response);
+                getAllPost();
         });
         })
     }, (error) => {
@@ -96,25 +116,39 @@ function createNewPostTextOnly() {
 tableName = "post"
 firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
 textInput = document.getElementById("post-text").value
+tagNameInput = document.getElementById("post-tag").value
+
 url = firebaseurl + tableName + ".json"
 axios.get(url)
     .then((response) => {
         newPostID = response.data.data.length
         console.log(newPostID)
         url = firebaseurl + tableName + "/data/" + newPostID + ".json"
+        date = new Date();
+        const [hour,seconds] = [date.getHours(), date.getMinutes()];
+        date = date.toDateString()
+        date = date.split(" ")
+        newDate = date[1]+" "+date[2]+","+date[3]
+        newTime = hour+":"+seconds
+        myStorage = window.sessionStorage;
         axios.put(url, {
             "postID":newPostID,
             "postType":"text",
             "postText":textInput,
             "postedBy": user_id,
-            "postedOn": new Date(),
+            "postedOn": newDate,
+            "postedOnTime": newTime,
             "postedAt": currentLocation,
+            "nameOfPoseter":myStorage.userName,
+            "nameOfTagged":tagNameInput,
             "tagged" : "petID",
             "comments":null,
             "like": null,
             "shareableURL":"string"
         }).then((response) => {
             console.log(response);
+            getAllPost();
+
         });
     }, (error) => {
         console.log(error);
@@ -135,6 +169,7 @@ axios.get(url)
         }, (error) => {
         console.log(error);
         output = error
-
+        
     });
 }
+
