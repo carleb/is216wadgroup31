@@ -707,7 +707,7 @@ function populateSideBar() {
         //sort array by distance
         all_pets_arr.sort((a,b) => a[0] - b[0])
         document.getElementById('petsDiv').innerHTML +=`
-        <div id='addPetDiv' class='mx-4 mx-xl-0 mb-xl-3 mt-4 mt-xl-0'>
+        <div id='addPetDiv' class='mx-2 mx-xl-0 mb-xl-3 mt-4 mt-xl-0' style='white-space:nowrap'>
           <a href="/screens/petprofile/netPetForm.html" class='justify-content-center my-auto d-xl-flex d-block text-decoration-none text-dark'>
             <div id='addPetIcon' class="img_cont2 rounded-circle ms-3 ms-xl-1">
               <img src="icons/plus-circle.svg" class="rounded-circle user_img2">
