@@ -245,7 +245,7 @@
   // cardList = document.getElementById('card-list')
  
 // update profile ID
-profileHTML = `<a class="nav-link px-3" href="/screens/userprofile/user_profile.html?userid=`+window.sessionStorage.userID+`"><img src="./icons/person.svg" alt="Bootstrap" width="32" height="32">
+profileHTML = `<a class="nav-link px-3" href="/screens/userProfile/user_profile.html?userid=`+window.sessionStorage.userID+`"><img src="./icons/person.svg" alt="Bootstrap" width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>`
 document.getElementById("profile").innerHTML= profileHTML
 
@@ -295,7 +295,7 @@ function getAllPost() {
           postId = postData.postID
           postComments(postId)
           allPostIdPictureToUpdate.push([postId,postedByID])
-          posterURL = "/screens/userprofile/user_profile.html?userid="+postedByID
+          posterURL = "/screens/userProfile/user_profile.html?userid="+postedByID
           //check if tagged is human or pet
           if(nameOfTagged==''){
             titleHtml =  `<h5><a class='fw-bold text-decoration-none text-dark' href='`+posterURL+`' id='whichPerson'>`+nameOfPoseter+`</a>'s post</h5>`
