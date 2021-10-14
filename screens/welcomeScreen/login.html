@@ -62,8 +62,8 @@
                 <div class='mx-4 my-3'>
 
                     <form name="login-form" class="needs-validation" novalidate>
-                        <div class='row mb-3'>
-                            <u id='redirect'></u>
+                        <div class='row mb-3' >
+                            <u id='redirect' class='mx-auto'></u>
                         </div>
                         <h2>Login</h2>
                         <div id='emailrow' class='row'>
@@ -134,6 +134,9 @@
         if(myStorage.redirect == 'fromLoginNoAccount'){
             console.log("do this");
             document.getElementById('redirect').innerText='You need to be logged in order view the Homepage'
+        }else if (myStorage.redirect == 'loggingout'){
+            sessionStorage.clear();
+            document.getElementById('redirect').innerText='You are now logged out'
         }
         var forms = document.querySelectorAll('.needs-validation');
         Array.prototype.slice.call(forms)

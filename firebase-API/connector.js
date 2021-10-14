@@ -4,7 +4,7 @@ firebaseUrl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedat
 
 testUrl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/.json?print=pretty"
 
-
+console.log('import functions from connector.js')
 
 // just a test function not to be used in MVP
 function getWholeDataBase() {
@@ -43,7 +43,7 @@ function createUserProfile(inputName, inputEmail, inputAge, inputGender, inputPa
                 "password": inputPassword,
                 "age": inputAge,
                 "gender": inputGender,
-                "profilePictureUrl": null,
+                "profilePictureUrl": '/img/male_empty.png',
                 "profileDetails": {
                     "followingUsers": null,
                     "followedByUsers": null,
@@ -164,20 +164,203 @@ function login(email, password) {
 }
 
 
-// const getUserByID = async () => {
-//     url = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/userProfile/data/1.json"
-//     const response = await axios.get(url);
-//     return response.data
+function createPetProfile() {
+    console.log('----javascript is running-----')
+    tableName = "petProfile"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = firebaseurl + tableName + ".json"
+    axios.get(url)
+    .then((response) => {
+        newPetID = response.data.data.length
+        const ref= firebase.storage().ref()
+        const file = document.getElementById("file").files[0]
+        const name = newPetID + "-"+file.name
+        const metadata = {
+            contentType:file.type
+        }
+
+        // need to add function to get tag name ID after tagName
+        date = new Date();
+        const [hour,seconds] = [date.getHours(), date.getMinutes()];
+        date = date.toDateString()
+        date = date.split(" ")
+        newDate = date[1]+" "+date[2]+","+date[3]
+        newTime = hour+":"+seconds
+        founderID = window.sessionStorage.userID
+        founderName = window.sessionStorage.userName
+        petName = document.getElementById('input-name').value
+        petBreed = document.getElementById('input-breed').value
+        petGender = document.getElementById('input-gender').value
+        console.log(name)
+
+        const task = ref.child("petProfilePictures/"+name).put(file,metadata)
+            task
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url =>{
+            console.log(url)
+            photoURL = url
+            myStorage = window.sessionStorage;
+            url = firebaseurl + tableName + "/data/" + newPetID + ".json"
+            axios.put(url, {
+                "petID": newPetID,
+                "petName": petName,
+                "petPictureUrl": photoURL,
+                "breed": petBreed,
+                "foundedDate": newDate,
+                "founder": founderID,
+                "founderName": founderName,
+                "gender": petGender,
+                "profileDetails": {
+                    "detailTitle1": "null",
+                    "detailTitle2": "null",
+                },
+                "lastSeenLocation": currentLocation,
+            }).then((response) => {
+                console.log(response);
+        });
+        })
+    })
+}
+function updateProfilePicture() {
+    // console.log('----javascript is running-----')
+    tableName = "userProfile"
+    currentUserID= window.sessionStorage.userID
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = `${firebaseurl + tableName}/data/${currentUserID}.json`
+    // console.log(url)
+    axios.get(url)
+    .then((response) => {
+        // console.log(response)
+
+        // newPetID = response.data.data.length
+        const ref= firebase.storage().ref()
+        const file = document.getElementById("file").files[0]
+        const name = currentUserID+"-profilePicture".name
+        const metadata = {
+            contentType:file.type
+        }
+
+        const task = ref.child("profilePicture/"+name).put(file,metadata)
+            task
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then(url =>{
+            // console.log(url)
+            photoURL = url
+            myStorage = window.sessionStorage;
+            url = `${firebaseurl + tableName}/data/${currentUserID}.json`
+            document.getElementById('profilepic').src = photoURL
+
+            axios.put(url, {
+                "userID": currentUserID,
+                "name": response.data.name,
+                "email": response.data.email,
+                "password": response.data.password,
+                "age": response.data.age,
+                "gender": response.data.gender,
+                "profilePictureUrl": photoURL,
+                "profileDetails": {
+                    "followingUsers": null,
+                    "followedByUsers": null,
+                    "followingPet": null
+                },
+                "posts": null,
+                "postsWithPhotos": null
+            }).then((response) => {
+                console.log(response);
+        });
+        })
+    })
+}
+
+function getCurrentProfilePicture(currentUserID){
+    console.log("loading profile picture"+currentUserID)
+    tableName = "userProfile"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = `${firebaseurl + tableName}/data/${currentUserID}.json`
+    // console.log(url)
+    axios.get(url)
+    .then((response) => {
+        profilePictureUrl = response.data.profilePictureUrl
+        if (profilePictureUrl== undefined){
+            profilePictureUrl='/img/male_empty.png'
+        }
+        document.getElementById('profilepic').src = profilePictureUrl
+    })
+}
+// axios.get(url)
+//     .then((response) => {
+//         newPetID = response.data.data.length
+//         // output = response
+//         url = firebaseurl + tableName + "/data/" + newPetID + ".json"
+//         console.log(url)
+//         petName = document.getElementById('input-name')
+//         petBreed = document.getElementById('input-breed')
+//         petGender = document.getElementById('input-gender')
+//         petName = document.getElementById('input-name')
+//         axios.put(url, {
+//             "petID": newPetID,
+//             "petName": petName,
+//             "petPictureUrl": detail[2],
+//             "breed": petBreed,
+//             "foundedDate": detail[4],
+//             "founder": detail[5],
+//             "gender": detail[6],
+//             "profileDetails": {
+//                 "detailTitle1": detail[7],
+//                 "detailTitle2": detail[8],
+//             },
+//             "lastSeenLocation": detail[9],
+//         }).then((response) => {
+//             console.log(response)
+//             console.log("pet profile created sucessfully")
+//             window.location.href = "petprofile.html?PetID="+newPetID;
+//         });
+//     }, (error) => {
+//         console.log(error);
+//         output = error
+
+//     });
 // }
 
+// function createPetProfileOld(detail) {
+//     console.log('----javascript is running-----')
+//     tableName = "petProfile"
+//     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+//     url = firebaseurl + tableName + ".json"
+//     axios.get(url)
+//         .then((response) => {
+//             newPetID = response.data.data.length
+//             // output = response
+//             url = firebaseurl + tableName + "/data/" + newPetID + ".json"
+//             console.log(url)
+//             petName = document.getElementById('input-name')
+//             petBreed = document.getElementById('input-breed')
+//             petGender = document.getElementById('input-gender')
+//             petName = document.getElementById('input-name')
+//             axios.put(url, {
+//                 "petID": newPetID,
+//                 "petName": petName,
+//                 "petPictureUrl": detail[2],
+//                 "breed": petBreed,
+//                 "foundedDate": detail[4],
+//                 "founder": detail[5],
+//                 "gender": detail[6],
+//                 "profileDetails": {
+//                     "detailTitle1": detail[7],
+//                     "detailTitle2": detail[8],
+//                 },
+//                 "lastSeenLocation": {
+//                     "latitude": detail[9],
+//                     "longitude": detail[10],
+//                 }
+//             }).then((response) => {
+//                 console.log(response)
+//                 console.log("pet profile created sucessfully")
+//                 window.location.href = "petprofile.html?PetID="+newPetID;
+//             });
+//         }, (error) => {
+//             console.log(error);
+//             output = error
 
-// (async () => {
-//     const response = await getUserByID()
-//     console.log(response)
-// })();
-// console.log(response)
-
-
-
-
-// getUsersByID(1)
+//         });
+// }

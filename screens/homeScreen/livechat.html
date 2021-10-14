@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var myName = prompt("Enter your name")
+        // var myName = "rou"
+    </script>
+    <form onSubmit="sendMessage(); showMessages();">
+        <input id="message" placeholder="Enter message">
+
+        <input type="submit">
+    </form>
+
+    <ul id="messages">
+
+    </ul>
+    
+</body>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script> -->
+<!-- <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js'></script> -->
+<script src="/firebase-API/livechat.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</html>

@@ -1,3 +1,4 @@
+console.log("import functions from homepage.js")
 function checkIfUserOnLocation(){
   if(currentLocation == 'no location'){
     console.log("no s a dsada d")
@@ -105,28 +106,35 @@ function getLikesToUpdateHTML(postId){
     numLikesId = 'numLikes-'+postId
     heartId = 'heart-'+postId
     likeId = 'like-' + postId
+    popoverId = 'popLikes-' + postId
     if(response.data.likes == null){
       numLikes = 0
       like_str = numLikes + ' Likes'
       document.getElementById(numLikesId).innerText = like_str
       document.getElementById(heartId).querySelector('img').src='icons/heart.svg'
       document.getElementById(likeId).innerText = 'Like'
+      document.getElementById(popoverId).innerText = 'No Likes Yet.'
     }
     else{
+      document.getElementById(popoverId).innerHTML = '<b>Liked By:</b>'
+      document.getElementById(popoverId).innerHTML += '<ul>'
       like_arr = response.data.likes.like_arr
       numLikes = like_arr.length
       like_str = numLikes + ' Likes'
       document.getElementById(numLikesId).innerText = like_str
       let checker = false
       for(ele of like_arr){
+        document.getElementById(popoverId).innerHTML += `<li>`+ele+`</li>`
         if(ele == username){
-          document.getElementById(heartId).querySelector('img').src='icons/heart-fill.svg'
-          document.getElementById(likeId).innerText = 'Liked'
           checker = true
-          break
         }
       }
-      if(checker == false){
+      document.getElementById(popoverId).innerHTML += '</ul>'
+      if(checker == true){
+        document.getElementById(heartId).querySelector('img').src='icons/heart-fill.svg'
+        document.getElementById(likeId).innerText = 'Liked'
+      }
+      else if(checker == false){
         document.getElementById(heartId).querySelector('img').src='icons/heart.svg'
         document.getElementById(likeId).innerText = 'Like'
       }
@@ -134,7 +142,7 @@ function getLikesToUpdateHTML(postId){
     
     
   }, (error) => { console.log(error); });
-  
+
 }
 // change post icon from pencil-square to pencil-fill
 function fillPost(id){
@@ -211,32 +219,32 @@ function handleFiles(e) {
 }
 
 // post- drag and drop files
-let dropbox;
+// let dropbox;
 
-dropbox = document.getElementById("dropbox");
-dropbox.addEventListener("dragenter", dragenter, false);
-dropbox.addEventListener("dragover", dragover, false);
-dropbox.addEventListener("drop", drop, false);
+// dropbox = document.getElementById("dropbox");
+// dropbox.addEventListener("dragenter", dragenter, false);
+// dropbox.addEventListener("dragover", dragover, false);
+// dropbox.addEventListener("drop", drop, false);
 
-function dragenter(e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
+// function dragenter(e) {
+//     e.stopPropagation();
+//     e.preventDefault();
+//   }
   
-function dragover(e) {
-    e.stopPropagation();
-    e.preventDefault();
-}
+// function dragover(e) {
+//     e.stopPropagation();
+//     e.preventDefault();
+// }
 
-function drop(e) {
-    e.stopPropagation();
-    e.preventDefault();
+// function drop(e) {
+//     e.stopPropagation();
+//     e.preventDefault();
 
-    const dt = e.dataTransfer;
-    const files = dt.files;
+//     const dt = e.dataTransfer;
+//     const files = dt.files;
 
-    handleFiles(files); // above
-}
+//     handleFiles(files); // above
+// }
 
 function showChat(ele){
     console.log(window.sessionStorage.userID)
@@ -251,6 +259,7 @@ function showChat(ele){
     </div>
   </div>`
 }
+
 function backToContacts(ele){
     document.getElementById('chatSidebar').innerHTML = `<div class='card stick themebg rounded2 p-4 border border-0 shadow font-monospace chatSidebar'>
     <div class="input-group">
@@ -310,9 +319,9 @@ function processComment(ele){
   postId = ele.id.split('-')[1]
   comment = ele.previousElementSibling.children[0].value
   if(comment == ''){
-    alert('Please type something in the comments')
+    alert('Comments cannot be blank')
   }
-  else if(comment.length >80){
+  else if(comment.length >100){
     alert('Maximum comment length is 100 characters')
   }
   else{
@@ -399,19 +408,34 @@ function postComments(postId){
       output = response.data.comment_arr
       output.reverse()
       document.getElementById(dom_id).innerHTML = ''
+      date_year = ''
       if(output.length <=4){
         for(ele of output){
+          if(ele[2]!=null){
+            date_year = ele[2].split(',')
+          }
+          else{
+            date_year = ['Old data']
+          }         
           document.getElementById(dom_id).innerHTML += `<div class="row">
-                                                            <div class='col-8'><b>`+ele[1]+`  :</b>`+`&nbsp `+ele[0]+`</div>
-                                                            <div class='col-4'>`+ele[2]+` `+ele[3]+`</div>
+                                                            <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                            <div class='col-4 text-end'>
+                                                            <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                         </div>`
         }
       }
-      else if(output.length > 3){
+      else if(output.length > 3){  
         for(ele of output.slice(0,3)){
+          if(ele[2]!=null){
+            date_year = ele[2].split(',')
+          }
+          else{
+            date_year = ['Old data']
+          }
           document.getElementById(dom_id).innerHTML += `<div class="row">
-                                                          <div class='col-8'><b>`+ele[1]+`  :</b>`+`&nbsp `+ele[0]+`</div>
-                                                          <div class='col-4'>`+ele[2]+` `+ele[3]+`</div>
+                                                          <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                          <div class='col-4 text-end'>
+                                                          <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                       </div>`
         }
         document.getElementById(dom_id).innerHTML += `
@@ -426,8 +450,9 @@ function postComments(postId){
       collapse_id = 'collapse-'+postId
         for(ele of output.slice(3,output.length)){
           document.getElementById(collapse_id).innerHTML += `<div class="row">
-                                                                <div class='col-8'><b>`+ele[1]+`  :</b>`+`&nbsp `+ele[0]+`</div>
-                                                                <div class='col-4'>`+ele[2]+` `+ele[3]+`</div>
+                                                                <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                                <div class='col-4 text-end'
+                                                                <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                             </div>`
         }
         document.getElementById(collapse_id).innerHTML += `<a onClick='showLess(`+postId+`)' class='text-decoration-none text-muted' data-bs-toggle="collapse" href="#collapseExample`+postId+`" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -466,6 +491,41 @@ function focusInput(ele) {
   document.getElementById(id).focus();
 }
 
+function updatePosterPicture(userID,postID){
+  tableName = "userProfile"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = `${firebaseurl + tableName}/data/${userID}.json`
+    // console.log(url)
+    axios.get(url)
+    .then((response) => {
+        profilePictureUrl = response.data.profilePictureUrl
+        if (profilePictureUrl== undefined){
+            profilePictureUrl='/img/male_empty.png'
+        }
+        console.log("CHANGING POSTER PIC")
+        console.log(document.getElementById('postPicture-'+postID).innerHTML)
+        document.getElementById('postPicture-'+postID).src = profilePictureUrl
+
+    })
+}
+
+/// not in used yet
+function updateTaggedPicture(userID,postID){
+  tableName = "userProfile"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = `${firebaseurl + tableName}/data/${userID}.json`
+    // console.log(url)
+    axios.get(url)
+    .then((response) => {
+        profilePictureUrl = response.data.profilePictureUrl
+        if (profilePictureUrl== undefined){
+            profilePictureUrl='/img/male_empty.png'
+        }
+        console.log(document.getElementById('postPicture-'+postID).innerHTML)
+        document.getElementById('postPicture-'+postID).src = profilePictureUrl
+
+    })
+}
 
 // function getAllPost() {
 //   console.log()
@@ -600,13 +660,98 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
-// if(myStorage.redirect == 'fromLoginNoAccount'){
-//     console.log("do this");
-//     document.getElementById('redirect').innerText='You need to be logged in order view the Homepage'
-// }
-  // myStorage = window.sessionStorage;
-  // console.log("myStorage", myStorage);
+
 function logout(){
-  window.location.href = "/screens/welcomeScreen/logoutScreen.html";
-  sessionStorage. clear();
+  window.location.href = "/screens/welcomeScreen/login.html";
+  window.sessionStorage.redirect = 'loggingout'
 }
+
+// On enter, comments will post
+function onEnter(ele, e){
+      if (e.keyCode === 13) {
+        ele.parentElement.nextElementSibling.click()
+      }
+  }
+  
+
+
+function loadImageDisplay(event){
+  var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+  document.getElementById('uploadImageLabel').innerText = 'Change image'
+}
+
+// Sidebar
+function populateSideBar() {
+  // userID= toString(userID)
+  tableName = "petProfile"
+  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+  url = firebaseurl + tableName + "/data/" + ".json"
+  output = null
+  axios.get(url)
+      .then((response) => {
+        all_pets_arr= []
+        for(let pet of response.data){
+          petBreed = pet.breed
+          petName = pet.petName;
+          petImage = pet.petPictureUrl
+          petLocation = pet.lastSeenLocation
+          distanceFromPet = getDistanceFromLatLonInKm(currentLocation['latitude'], petLocation['longitude'], petLocation['latitude'], currentLocation['longitude'])
+          distanceFromPet=Math.round(distanceFromPet * 100) / 100
+          console.log(distanceFromPet)
+          if(!isNaN(distanceFromPet)){
+              pet_arr = [distanceFromPet,petName, petBreed ,petImage]
+              all_pets_arr.push(pet_arr)
+          } 
+        }
+        //sort array by distance
+        all_pets_arr.sort((a,b) => a[0] - b[0])
+        document.getElementById('petsDiv').innerHTML +=`
+        <div id='addPetDiv' class='mx-4 mx-xl-0 mb-xl-3 mt-4 mt-xl-0'>
+          <a href="/screens/petprofile/netPetForm.html" class='justify-content-center my-auto d-xl-flex d-block text-decoration-none text-dark'>
+            <div id='addPetIcon' class="img_cont2 rounded-circle ms-3 ms-xl-1">
+              <img src="icons/plus-circle.svg" class="rounded-circle user_img2">
+            </div>
+            <div class=' fw-bold  ms-xl-2'>
+              Add Pet
+            </div>
+          </a>
+        </div>`
+        console.log(all_pets_arr)
+        for(arr of all_pets_arr){
+          
+          petLocation = arr[0]
+          petLocation = petLocation.toFixed(0) + 'km away'
+          petName = arr[1]
+          petBreed = arr[2]
+          petImage = arr[3]
+          document.getElementById('petsDiv').innerHTML += `
+        <div class='row-cols-xl-3' style='white-space:nowrap'>
+          <div class='d-xl-flex d-block'>
+            <span class='d-xl-none ms-3 fw-bold'>`+petName+`</span>
+            <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
+              <img src="`+petImage+`" class="rounded-circle user_img">
+            </div>
+            <span class='d-xl-none ms-2 ms-xl-0' style='font-size: 15px;'>`+petLocation+`</span>
+            <div class='ms-3 text-start my-auto'>
+              <p class='d-xl-flex d-none mt-2 fw-bold'>`+petName+`</p>
+              <p class='d-xl-flex d-none mt-2'>Breed</p>
+            </div>
+            <div class='ms-3 my-auto'>
+              <p class='d-xl-flex d-none mt-2'>`+petLocation+`</p>
+            </div>
+          </div>   
+        </div>
+          `
+           
+        }
+       
+        // <div class="font-monospace text-center  mx-2 my-3 py-2 bg-white border rounded-2">Nearby Pet 2</div>
+          
+      }, 
+      (error) => {
+          console.log(error);
+          output = error
+          
+      });}
+
