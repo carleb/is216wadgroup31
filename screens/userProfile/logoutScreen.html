@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="/firebase-API/connector.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<style> 
+</style>
+
+<body>
+    <h1>You have been logged out</h1>
+    email
+    <input id='email'>
+    pass
+    <input id='pass'>
+    <button onclick="runlogin()">click here to login</button>
+</body>
+
+<script>
+    myStorage = window.sessionStorage;
+    if (myStorage.userID===undefined){
+        console.log("Not login")
+    }else{
+        console.log("Login")
+    }
+    // console.log(myStorage)
+
+    function runlogin(){
+        email = document.getElementById('email').value
+        pass = document.getElementById('pass').value
+
+        console.log("running login to welcomescreen")
+        login(email,pass)
+    }
+</script>
