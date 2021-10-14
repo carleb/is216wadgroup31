@@ -351,6 +351,7 @@ function covert24Hrto12Hr(time) {
 function create_comment(postId, comment){
   let comment_arr = []
   username = window.sessionStorage.userName
+  userId = window.sessionStorage.userID
   tableName = "post"
   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
   url = firebaseurl + tableName + "/data/" + postId + ".json"
@@ -372,10 +373,10 @@ function create_comment(postId, comment){
 
   axios.get(url2).then((response) => {
     if(response.data == null){
-      comment_arr = [[comment, username,newDate,newTime]]
+      comment_arr = [[comment, username,newDate,newTime, userId]]
     }
     else{
-      response.data.comment_arr.push([comment, username,newDate,newTime])
+      response.data.comment_arr.push([comment, username,newDate,newTime, userId])
       comment_arr = response.data.comment_arr
     }
     axios.put(url2,{
@@ -411,14 +412,15 @@ function postComments(postId){
       date_year = ''
       if(output.length <=4){
         for(ele of output){
-          if(ele[2]!=null){
-            date_year = ele[2].split(',')
+          if(ele[4]!=null){
+            posterId = ele[4]
+            posterURL = "/screens/userProfile/user_profile.html?userid="+posterId
           }
           else{
-            date_year = ['Old data']
+            posterURL=''
           }         
           document.getElementById(dom_id).innerHTML += `<div class="row">
-                                                            <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                            <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
                                                             <div class='col-4 text-end'>
                                                             <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                         </div>`
@@ -426,14 +428,15 @@ function postComments(postId){
       }
       else if(output.length > 3){  
         for(ele of output.slice(0,3)){
-          if(ele[2]!=null){
-            date_year = ele[2].split(',')
+          if(ele[4]!=null){
+            posterId = ele[4]
+            posterURL = "/screens/userProfile/user_profile.html?userid="+posterId
           }
           else{
-            date_year = ['Old data']
+            posterURL=''
           }
           document.getElementById(dom_id).innerHTML += `<div class="row">
-                                                          <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                          <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
                                                           <div class='col-4 text-end'>
                                                           <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                       </div>`
@@ -449,8 +452,15 @@ function postComments(postId){
         </div>`
       collapse_id = 'collapse-'+postId
         for(ele of output.slice(3,output.length)){
+          if(ele[4]!=null){
+            posterId = ele[4]
+            posterURL = "/screens/userProfile/user_profile.html?userid="+posterId
+          }
+          else{
+            posterURL=''
+          }
           document.getElementById(collapse_id).innerHTML += `<div class="row">
-                                                                <div class='col-8'><b>`+ele[1]+`:</b>`+` `+ele[0]+`</div>
+                                                                <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
                                                                 <div class='col-4 text-end'
                                                                 <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                             </div>`
