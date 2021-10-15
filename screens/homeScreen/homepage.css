@@ -3,61 +3,59 @@
 @media only screen and (min-width: 0px){
   *{
     margin: 0;
-    overflow-x:visible;
+    overflow-x:hidden;
     padding: 0;
   }
+  #addPetDiv, #nearbyPet{
+    overflow:visible;
+  }
+  #petsDiv{
+    overflow-y: hidden!important;
+    overflow-x: scroll!important;
+
+  }
+  
 }
-@media only screen and (min-width: 400px){
+@media only screen and (min-width: 576px){
   *{
     overflow-x:visible;
   }
+  
 }
-#sideBar{
-  overflow:hidden;
-}
-#petsDiv{
-  overflow:hidden;
 
-}
-@media only screen and (min-width: 0px){
-  #petsDiv:hover{
-    overflow-y: hidden!important;
-    overflow-x: scroll!important;
-  }
-  #sideBar:hover{
-    overflow-x:scroll!important;
-  }
-}
 
 @media only screen and (min-width: 1200px){
-  #petsDiv:hover{
-    overflow-x: hidden!important;
-    overflow-y: hidden!important;
-  }
-  #sideBar:hover{
+  #sideBar{
     overflow-y:scroll!important;
+    
+  }
+  #petsDiv{
+    overflow-x: hidden!important; 
   }
 }
 /* Scroll bar */
 .scrollbar::-webkit-scrollbar-track
 {
-	border-radius: 10px;
-	background-color:#FFC19D;
+	border-radius: 15px;
+  
 }
 
 .scrollbar::-webkit-scrollbar
 {
-  border-radius: 10px;
+  border-radius: 15px;
 	height:9px;
   width:9px;
-	background-color: #f1a97e;
+  
 }
 
 .scrollbar::-webkit-scrollbar-thumb
 {
-	border-radius: 10px;
+	border-radius: 15px;
 	background-color:#f1a97e;
 }
+::-webkit-scrollbar-corner {
+   background:transparent; 
+  }
 
 body{
   background-image: url("/img/background-min.png");
@@ -67,7 +65,7 @@ body{
   border-radius: 25px !important;
 }
 .rounded2 {
-  border-radius: 15px !important;
+  border-radius: 8px !important;
 }
 
 .dropdown-menu {

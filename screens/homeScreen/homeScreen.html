@@ -27,9 +27,9 @@
         <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search" aria-label="Search">
       </form>
       <!-- modal button start -->
-      <button  id="post" style='width:200px' class='btn ms-2' data-bs-toggle="modal"
+      <button  id="post" style='width:170px'class='btn ms-lg-3 d-flex' data-bs-toggle="modal"
         data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
-          src='icons/pencil-square.svg'><span style='white-space:nowrap' class="d-none d-sm-flex font-monospace ms-1 float-start mt-1"
+          src='icons/pencil-square.svg'><span style='white-space:nowrap' class="d-none d-sm-flex font-monospace ms-1 float-start mt-2"
           id='newpost'></span></button>
       <!-- modal button end -->
 
@@ -41,6 +41,11 @@
 
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
+          <li id="search" class="nav-item mx-4 d-inline d-sm-none mt-2 mb-3">
+            <form class='px-2'>
+              <input class="form-control rounded1 me-2" type="search" placeholder="Search" aria-label="Search">
+            </form>
+          </li>
           <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
             <a class="nav-link active px-3" aria-current="page" href="#"><img src="icons/house-fill.svg" alt="Bootstrap"
                 width="32" height="32">
@@ -115,16 +120,16 @@
   <!-- modal end -->
   
   
-  <div class='container-fluid fadein'>
-    <div class='row mx-1'>
+  <div class='container-fluid px-xl-3 px-xxl-5 px-lg-0 px-sm-3 px-0 fadein'>
+    <div class='row'>
        <!-- sidebar start -->
       <div class='col-xl-3 col-md-12 col-sm-12 col-xs-12 mt-3 mt-xl-0 ms-sm-0'> 
-        <div id='sideBar'style="max-width:800px;" class="scrollbar p-3 shadow rounded2 themebg  mx-auto stick sidebar">
-          <div class='text-center font-monospace fs-5 fw-bold my-auto'>
+        <div id='sideBar'style="max-width:800px;" class="scrollbar shadow rounded2 themebg mx-auto stick sidebar px-xl-4 px-0 pt-2 pt-sm-3">
+          <div class='text-center font-monospace fs-5 fw-bold'>
             Nearby Pets
           </div>
           
-          <div id='petsDiv' class='mb-4 rounded2 scrollbar text-center font-monospace mt-4 d-flex d-xl-block'>
+          <div id='petsDiv' class='scrollbar  rounded2 text-center font-monospace mt-1 mt-xl-3 d-flex d-xl-block'>
           
 
           </div>

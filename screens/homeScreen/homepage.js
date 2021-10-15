@@ -419,6 +419,12 @@ function postComments(postId){
           else{
             posterURL=''
           }         
+          if(ele[2]!=null){
+            date_year = ele[2].split(',')
+          }
+          else{
+            date_year = ['Old data']
+          }
           document.getElementById(dom_id).innerHTML += `<div class="row">
                                                             <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
                                                             <div class='col-4 text-end'>
@@ -434,6 +440,12 @@ function postComments(postId){
           }
           else{
             posterURL=''
+          }
+          if(ele[2]!=null){
+            date_year = ele[2].split(',')
+          }
+          else{
+            date_year = ['Old data']
           }
           document.getElementById(dom_id).innerHTML += `<div class="row">
                                                           <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
@@ -459,9 +471,15 @@ function postComments(postId){
           else{
             posterURL=''
           }
+          if(ele[2]!=null){
+            date_year = ele[2].split(',')
+          }
+          else{
+            date_year = ['Old data']
+          }
           document.getElementById(collapse_id).innerHTML += `<div class="row">
                                                                 <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+posterURL+`>`+ele[1]+`:</a>`+` `+ele[0]+`</div>
-                                                                <div class='col-4 text-end'
+                                                                <div class='col-4 text-end'>
                                                                 <span class='d-sm-inline d-none'>`+date_year[0]+`</span> `+ele[3]+`</div>
                                                             </div>`
         }
@@ -717,7 +735,7 @@ function populateSideBar() {
         //sort array by distance
         all_pets_arr.sort((a,b) => a[0] - b[0])
         document.getElementById('petsDiv').innerHTML +=`
-        <div id='addPetDiv' class='mx-2 mx-xl-0 mb-xl-3 mt-4 mt-xl-0' style='white-space:nowrap'>
+        <div id='addPetDiv' class='mx-2 mx-xl-0 mb-xl-3 mt-4 mt-xl-0 ms-4 ms-xl-0' style='white-space:nowrap'>
           <a href="/screens/petprofile/netPetForm.html" class='justify-content-center my-auto d-xl-flex d-block text-decoration-none text-dark'>
             <div id='addPetIcon' class="img_cont2 rounded-circle ms-3 ms-xl-1">
               <img src="icons/plus-circle.svg" class="rounded-circle user_img2">
@@ -736,7 +754,7 @@ function populateSideBar() {
           petBreed = arr[2]
           petImage = arr[3]
           document.getElementById('petsDiv').innerHTML += `
-        <div class='row-cols-xl-3' style='white-space:nowrap'>
+        <div id='nearbyPet' class='row-cols-xl-3' style='white-space:nowrap'>
           <div class='d-xl-flex d-block'>
             <span class='d-xl-none ms-3 fw-bold'>`+petName+`</span>
             <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
@@ -745,7 +763,7 @@ function populateSideBar() {
             <span class='d-xl-none ms-2 ms-xl-0' style='font-size: 15px;'>`+petLocation+`</span>
             <div class='ms-3 text-start my-auto'>
               <p class='d-xl-flex d-none mt-2 fw-bold'>`+petName+`</p>
-              <p class='d-xl-flex d-none mt-2'>Breed</p>
+              <p class='d-xl-flex d-none mt-2'>`+petBreed+`</p>
             </div>
             <div class='ms-3 my-auto'>
               <p class='d-xl-flex d-none mt-2'>`+petLocation+`</p>
