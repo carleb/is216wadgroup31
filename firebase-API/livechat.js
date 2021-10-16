@@ -42,45 +42,106 @@ firebase.initializeApp(firebaseConfig);
 //     return false;
 // }
 
-function sendMessage(){
+// function createChat(user1, user2){
+//     tableName = "chat"
+//     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+//     url = firebaseurl + tableName + ".json"
+//     axios.get(url)
+//         .then((response) => {
+//             newChatId = user1 + user2
+//             url = firebaseurl + tableName + "/data/" + newChatId + ".json"
+//             axios.put(url, {
+//                 "user1": user1,
+//                 "user2": user2,
+//                 "messages": []
+//             }). then((response) => {
+//                 console.log(response)               
+//             })
+//         })
+// }
+
+function sendMessage(user1, user2){
     event.preventDefault() // prevent the form from redirecting to somewhere else
-    var message = document.getElementById("message").value;
-    tableName = "messages"
+    if (document.getElementById("message1").value){
+        var message = document.getElementById("message1").value
+        var sender = user1
+    }
+    else{
+        var message = document.getElementById("message2").value
+        var sender = user2
+    }
+    tableName = "chat"
     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-    url = firebaseurl + tableName + ".json"
+    newChatId = user1 + user2
+    url = firebaseurl + tableName + "/data/" + newChatId + ".json"
 
-    axios.put(url, {
-        "sender": myName,
-        "message": message
-    }).then((response) => {
-        // console.log(response)
-    })
+    axios.get(url)
+        .then((response) => {
+            // console.log(response)
+            newData = {"sender": sender, "messages": message}
+            // console.log(response.data)
 
+            if(response.data == undefined){
+                console.log("newChat")
+                messages = [newData];
+            }
+            else{
+                messages = response.data.messages;
+                messages.push(newData)
+            }
+
+            axios.put(url, {
+                "user1": user1,
+                "user2": user2,
+                "messages": messages
+            })
+        })
+    showMessages(message, sender)
     return false;
 
 }
 
-// firebase.database().ref("messages").on("child_added", function snapshot(snapshot){
-//     var html="";
-//     // give each message a unique ID
-//     html += "<li id='message-" + snapshot.key + "'>";
+// showMessages does not need to pull directly from the database
+function showMessages(message, sender){
+    // var message = document.getElementById("message").value;
+    // tableName = "chat"
+    // firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    // newChatId = user1 + user2
+    // url = firebaseurl + tableName + "/data/" + newChatId + ".json"
+    // axios.get(url)
+    //     .then((response) => {
+    //         console.log(response)
+    //         msgs = response.data.messages
+    //         html = ""
+    //         for (let i = 0; i < msgs.length; i++) {
+    //             html += `<li>${msgs[i]["sender"]}: ${msgs[i]["msg"]}</li>`                              
+    //         }
 
-//     html += snapshot.val().sender + ": " + snapshot.val().message;
-//     html += "</li>";
-
-//     document.getElementById("messages").innerHTML += html;
-// })
-
-function showMessages(){
-
-    tableName = "messages"
-    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-    url = firebaseurl + tableName + ".json"
-    axios.get(url)
-        .then((response) => {
-            // console.log(response)
-            html = `<li>${response.data.sender}: ${response.data.message}</li>`
-
-            document.getElementById("messages").innerHTML += html;
-        })
+    //         document.getElementById("messages").innerHTML = html;
+    //     })
+    html = `<li>${sender}: ${message}</li>`
+    document.getElementById("messages").innerHTML += html
 }
+
+// function getContacts(){
+//     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+//     tableName = "userProfile"
+//     url = firebaseurl + tableName + "/data.json"
+//     axios.get(url)
+//         .then((response) => {
+//             // console.log(response.data)
+//             response = response.data
+//             for (let i = 1; i < response.length; i++) {
+//                 const ele = response[i];
+//                 // console.log(ele)
+//                 // console.log(ele.name)
+//                 name = ele.name
+                
+//             }
+//         })
+// }
+
+
+
+
+

@@ -37,8 +37,8 @@
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
                     <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link px-3" aria-current="page" href="/screens/homeScreen/homeScreen.html"><img src="icons/house-fill.svg"
-                                alt="Bootstrap" width="32" height="32">
+                        <a class="nav-link px-3" aria-current="page" href="/screens/homeScreen/homeScreen.html"><img
+                                src="icons/house-fill.svg" alt="Bootstrap" width="32" height="32">
                             <span
                                 class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
                     </li>
@@ -72,22 +72,36 @@
         </div>
     </nav>
 
-    <div class="bg-image" style="height: 435px; background-image: url('img/blank_background.jpeg');">
+    <div class="bg-image" style="height: 435px; background-color: #FEF8DD;">
 
         <div id='imagebox' class="col col-md-5 mx-auto py-4 text-center">
 
-            <img class="card-img-top rounded" id="profilepic"
+            <img class="card-img-top rounded shadow-lg " id="profilepic"
                 style="border-radius: 25%; max-height:300px; object-fit: cover; width: 450px;" src="/img/male_empty.png"
                 alt="Card image cap">
 
 
             <div class="card-body">
                 <h2 id="profilename" class='card-title'></h2>
-                <label id='editProfileButton' for="file-upload" class="custom-file-upload rounded mx-auto" style='display:none;width: 40%'>
+
+                <label id='editProfileButton' for="file-upload"
+                    class="custom-file-upload rounded mx-auto border border-dark" style='display:none;width: 40%'>
                     <i class="fa fa-camera"></i> Edit Profile
                 </label>
-                <button  id="file-upload" style='width:200px' class='btn ms-3' data-bs-toggle="modal"
-                data-bs-target="#createPost" type="file"></button>
+
+
+                <label id='follow_or_unfollow' for="followbutton" class="custom-file-upload rounded mx-auto btn-primary"
+                    style='display:none;width: 40%;'>
+                    Follow
+                </label>
+
+                <button id="file-upload" style='width:200px' class='btn ms-3' data-bs-toggle="modal"
+                    data-bs-target="#createPost" type="file"></button>
+
+                <button id="followbutton" style='width:200px;' class='btn ms-3' onclick="followandunfollow()"
+                    type="button"></button>
+
+
             </div>
         </div>
 
@@ -98,60 +112,86 @@
     <div id='petdetails'>
         <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts"
+                <button class="lead nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts"
                     type="button" role="tab" aria-controls="posts" aria-selected="true">Posts</button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers"
-                    type="button" role="tab" aria-controls="followers" aria-selected="false">Followers</button>
+                <button class="lead nav-link" id="followers-tab" data-bs-toggle="modal"
+                    data-bs-target="#followerBackdrop" type="button" role="tab" aria-controls="followers"
+                    aria-selected="false" onclick="followerlist()">Followers</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button"
+                <button class="lead nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button"
                     role="tab" aria-controls="following" aria-selected="false">Following</button>
             </li>
 
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button"
-                    role="tab" aria-controls="photos" aria-selected="false">Photos</button>
+                <button class="lead nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos"
+                    type="button" role="tab" aria-controls="photos" aria-selected="false">Photos</button>
             </li>
         </ul>
     </div>
     <!-- navigation tabs END-->
-    
+
     <div class=" mx-auto" id='card-list'>
         <!-- asdasd -->
     </div>
     <div class="modal fade" id="createPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Profile Picture</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-        
-              <!-- form start -->
-                <!-- drop files start-->
-                <div class="input-group">
-                  <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
-                  <input type="file" class="button button-secondary m-2" style="display:none" id="file"
-                    accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadNewProfilePictureDisplay(event)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Profile Picture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class='ml-3'>
-                   <img id="output" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>  
+                <div class="modal-body">
+
+                    <!-- form start -->
+                    <!-- drop files start-->
+                    <div class="input-group">
+                        <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadImageLabel'
+                                for="file">Upload an Image</label></button>
+                        <input type="file" class="button button-secondary m-2" style="display:none" id="file"
+                            accept="image/png, image/jpeg, image/heic" name="file" multiple
+                            onchange="loadNewProfilePictureDisplay(event)">
+                    </div>
+                    <div class='ml-3'>
+                        <img id="output" class="card-img-top rounded2 shadow"
+                            style='max-height:500px; object-fit:cover'>
+                    </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id='updateProfilePic' style='display:none;' class="btn btn-primary"
+                        data-bs-dismiss="modal" onclick="updateProfilePicture()">Update Profile Picture</button>
+                </div>
+                <!-- form end -->
+
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" id='updateProfilePic' style='display:none;' class="btn btn-primary" data-bs-dismiss="modal" onclick="updateProfilePicture()">Update Profile Picture</button>
-            </div>
-            <!-- form end -->
-        
-          </div>
         </div>
-        
-      </div>
+
+    </div>
+
+
+    <div class="modal fade" id="followerBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title w-100 text-center" id="staticBackdropLabel">Followers</h5>
+                    <button id="the_x" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div id="followerbody" class="modal-body">
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 <!-- JavaScript Bundle with Popper -->
@@ -168,11 +208,310 @@
 
 
 <script>
-    function loadNewProfilePictureDisplay(event){
+    function followerlist() {
+        const queryString = window.location.search;
+        let the_user = parseInt(queryString.split("?")[1].split("=")[1])
+        tableName = "userProfile"
+        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        url = firebaseurl + tableName + ".json";
+        axios.get(url)
+            .then((response) => {
+                allprofiles = response.data.data
+                user_details = allprofiles[the_user]
+                if (user_details.ProfileDetails != undefined && user_details.ProfileDetails.followedByUsers != undefined) {
+                    my_followers = user_details.ProfileDetails.followedByUsers;
+                    console.log(my_followers)
+                    let to_be_insert = "";
+                    for (let follower of my_followers) {
+                        console.log(follower);
+                        console.log(allprofiles[follower]);
+                        user = allprofiles[follower];
+                        name = user.name;
+                        image = user.profilePictureUrl;
+                        let row_id = `${follower}things`;
+
+                        to_be_insert += `<div class="row mb-2" id=${row_id}>
+                        <div class="col-md-6">
+                            <img id = "profile_pic_small" style='object-fit:cover;' class='mx-1 rounded-circle shadow-1-strong' width='40' height='40'
+                                src=${image}>
+                            ${name}
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                            <button id=${follower} style='width:180px; height: 35px;'
+                                class='mt-auto mx-auto btn border border-dark' onclick="unfollow(this)"
+                                type="button">
+                                <h6>Remove</h6>
+                            </button>
+                        </div>
+                    </div>`
+
+                    }
+                    document.getElementById("followerbody").innerHTML = to_be_insert;
+                    // console.log(document.getElementById("followerbody").innerHTML )
+
+                }
+
+
+
+            })
+
+    }
+
+    function unfollow(event) {
+        // remove me from user following list
+        console.log(event)
+        let user_to_be_remove_id = parseInt(event.id);
+        // console.log(typeof(user_to_be_remove_id))
+
+        //remove user from my followedbyusers
+        let my_user_id = parseInt(myStorage.userID)
+
+        tableName = "userProfile"
+        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        url = firebaseurl + tableName + ".json";
+        let url2 = firebaseurl + tableName + "/data/" + my_user_id + '/ProfileDetails/' + ".json";
+        let url3 = firebaseurl + tableName + "/data/" + user_to_be_remove_id + '/ProfileDetails/' + ".json";
+        axios.get(url)
+            .then((response) => {
+                allprofiles = response.data.data
+                user_details = allprofiles[my_user_id]
+                followedByUsers = user_details.ProfileDetails.followedByUsers
+
+                const my_index = user_details.ProfileDetails.followedByUsers.indexOf(user_to_be_remove_id);
+                if (my_index > -1) {
+                    followedByUsers.splice(my_index, 1);
+                }
+
+                if (user_details.ProfileDetails.followingUsers == undefined) {
+                    axios.put(url2, {
+                        followedByUsers
+                    })
+                        .then(function (response) {
+                            console.log("Remove user from my followinguser successfully");
+                        })
+                }
+                else {
+                    followingUsers = user_details.ProfileDetails.followingUsers
+                    axios.put(url2, {
+                        followingUsers, followedByUsers
+                    })
+                        .then(function (response) {
+                            console.log("Remove user from my followinguser successfully");
+                        })
+                }
+
+
+
+                follower_user_details = allprofiles[user_to_be_remove_id]
+                followingUsers = follower_user_details.ProfileDetails.followingUsers
+
+                const my_index2 = follower_user_details.ProfileDetails.followingUsers.indexOf(my_user_id);
+                if (my_index2 > -1) {
+                    followingUsers.splice(my_index2, 1);
+                }
+
+                if (follower_user_details.ProfileDetails.followedByUsers == undefined) {
+                    axios.put(url3, {
+                        followingUsers
+                    })
+                        .then(function (response) {
+                            console.log("Remove user from my followinguser successfully");
+                        })
+                }
+                else {
+                    followedByUsers = follower_user_details.ProfileDetails.followedByUsers
+                    axios.put(url3, {
+                        followingUsers, followedByUsers
+                    })
+                        .then(function (response) {
+                            console.log("Remove user from my followinguser successfully");
+                        })
+                }
+
+            })
+
+        event.innerText = "Removed"
+        event.disabled = true;
+
+        var x_btn = document.getElementById("the_x");
+        //the first parameter
+        x_btn.addEventListener("click", function () {
+            the_user_row = event.id + "things";
+            document.getElementById(the_user_row).remove();
+        });
+
+
+
+    }
+
+    function followandunfollow() {
+
+        let follow_action = document.getElementById('follow_or_unfollow').innerText
+
+
+        let my_user_id = parseInt(myStorage.userID)
+
+        const queryString = window.location.search;
+        let the_user = parseInt(queryString.split("?")[1].split("=")[1])
+
+        tableName = "userProfile"
+        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        url = firebaseurl + tableName + ".json";
+        axios.get(url)
+            .then((response) => {
+                allprofiles = response.data.data
+                my_details = allprofiles[my_user_id]
+                user_details = allprofiles[the_user]
+
+                console.log(my_details.ProfileDetails)
+                console.log(user_details.ProfileDetails)
+                let url2 = firebaseurl + tableName + "/data/" + my_user_id + '/ProfileDetails/' + ".json";
+                let url3 = firebaseurl + tableName + "/data/" + the_user + '/ProfileDetails/' + ".json";
+
+                if (follow_action == "Follow") {
+                    let followingUsers = [];
+                    let followedByUsers = [];
+                    // ME
+
+                    if (my_details.ProfileDetails == undefined || my_details.ProfileDetails.followingUsers == undefined) {
+                        //Create followinguders in profiledetails with changes made to following user
+                        followingUsers = [the_user];
+                    }
+                    else {
+                        //add user into your following user list
+                        my_details.ProfileDetails.followingUsers.push(the_user);
+                        followingUsers = my_details.ProfileDetails.followingUsers
+                    }
+
+                    if (my_details.ProfileDetails == undefined || (my_details.ProfileDetails.followingUsers == undefined && my_details.ProfileDetails.followedByUsers == undefined)) {
+                        axios.put(url2, {
+                            followingUsers
+                        })
+                            .then(function (response) {
+                                console.log("Updated my followinguser successfully");
+                            })
+                    }
+                    else {
+                        followedByUsers = my_details.ProfileDetails.followedByUsers;
+                        axios.put(url2, {
+                            followingUsers, followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Updated my followinguser successfully");
+                            })
+                    }
+
+
+
+                    // THE_USER
+
+                    if (user_details.ProfileDetails == undefined || user_details.ProfileDetails.followedByUsers == undefined) {
+                        //Create followedByUsers in profiledetails with changes made to followedByUsers
+                        followedByUsers = [my_user_id];
+                    }
+                    else {
+                        //add user into your followedByUsers
+                        user_details.ProfileDetails.followedByUsers.push(my_user_id);
+                        followedByUsers = user_details.ProfileDetails.followedByUsers
+                    }
+
+                    if (user_details.ProfileDetails == undefined || (user_details.ProfileDetails.followedByUsers == undefined && user_details.ProfileDetails.followingUsers == undefined)) {
+                        axios.put(url3, {
+                            followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Updated user followedby successfully");
+                            })
+                    }
+                    else {
+                        followingUsers = user_details.ProfileDetails.followingUsers;
+                        axios.put(url3, {
+                            followingUsers, followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Updated user followedby successfully");
+                            })
+                    }
+
+
+                    document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
+                    // document.getElementById('follow_or_unfollow').innerText = "Following"
+                    document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
+                }
+
+
+                if (follow_action.trim() == "Following") {
+                    console.log(follow_action);
+                    let followingUsers = my_details.ProfileDetails.followingUsers;
+                    let followedByUsers = user_details.ProfileDetails.followedByUsers;
+                    // ME
+                    //remove user from your following user list
+                    const my_index = my_details.ProfileDetails.followingUsers.indexOf(the_user);
+                    if (my_index > -1) {
+                        followingUsers.splice(my_index, 1);
+
+                    }
+
+                    if (my_details.ProfileDetails.followedByUsers == undefined) {
+                        axios.put(url2, {
+                            followingUsers
+                        })
+                            .then(function (response) {
+                                console.log("Remove user from my followinguser successfully");
+                            })
+                    }
+                    else {
+                        followedByUsers = my_details.ProfileDetails.followedByUsers
+                        axios.put(url2, {
+                            followingUsers, followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Remove user from my followinguser successfully");
+                            })
+                    }
+
+
+                    // THE_USER     
+                    //remove me from user followedByUsers
+                    const my_index2 = user_details.ProfileDetails.followedByUsers.indexOf(my_user_id);
+                    if (my_index2 > -1) {
+                        followedByUsers.splice(my_index2, 1);
+                    }
+
+                    if (user_details.ProfileDetails.followingUsers == undefined) {
+                        axios.put(url3, {
+                            followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Remove me from user followedby successfully");
+                            })
+                    }
+                    else {
+                        followingUsers = user_details.ProfileDetails.followingUsers
+                        axios.put(url3, {
+                            followingUsers, followedByUsers
+                        })
+                            .then(function (response) {
+                                console.log("Remove me from user followedby successfully");
+
+                            })
+                    }
+
+
+                    document.getElementById('follow_or_unfollow').innerHTML = `Follow`;
+                    document.getElementById('follow_or_unfollow').style.backgroundColor = "";
+
+                }
+
+
+            })
+    }
+
+    function loadNewProfilePictureDisplay(event) {
         var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
+        image.src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('uploadImageLabel').innerText = 'Change image'
-        document.getElementById('updateProfilePic').style.display='Block'
+        document.getElementById('updateProfilePic').style.display = 'Block'
     }
 
 
@@ -199,7 +538,7 @@
     allPostIdPictureToUpdate = []
     allPostId = []
     oldData = ""
-    allPostData=""
+    allPostData = ""
 
     function get_user_post_by_id(userid) {
         allPostId = []
@@ -211,75 +550,72 @@
         url = firebaseurl + tableName + ".json"
         cardList = document.getElementById('card-list')
         if (!navigator.geolocation) {
-        console.log('Geolocation is not supported by your browser');
+            console.log('Geolocation is not supported by your browser');
         } else {
-        navigator.geolocation.getCurrentPosition(success, error);
+            navigator.geolocation.getCurrentPosition(success, error);
         }
 
-    axios.get(url)
-      .then((response) => {
-        allPostData = response.data.data
-        // console.log(response.data.data)
-        allPostData.reverse()
-        for(postData of allPostData){
-            if (postData.postedBy == userid) {
-                userPicture = '/screens/homeScreen/images/sample.png'
+        axios.get(url)
+            .then((response) => {
+                allPostData = response.data.data
+                // console.log(response.data.data)
+                allPostData.reverse()
+                for (postData of allPostData) {
+                    if (postData.postedBy == userid) {
+                        userPicture = '/screens/homeScreen/images/sample.png'
 
-                console.log(postData)
-                type = postData.postType
-                postText = postData.postText
-                postedByID = postData.postedBy
-                postedOn = postData.postedOn
-                postedAtLocation = postData.postedAt
-                nameOfPoseter = postData.nameOfPoseter
-                nameOfTagged = postData.nameOfTagged
-                distanceFromPost = getDistanceFromLatLonInKm(currentLocation['latitude'], postedAtLocation['longitude'], postedAtLocation['latitude'], currentLocation['longitude'])
-                distanceFromPost=Math.round(distanceFromPost * 100) / 100
-                if(distanceFromPost == 0){
-                    distanceFromPost = "Nearby < 0.1km"
-                }else if(isNaN(distanceFromPost))
-                { distanceFromPost = "No location"}
-                else{
-                    distanceFromPost = distanceFromPost+"km away"
-                }
-                postId = postData.postID
-                postComments(postId)
-                allPostIdPictureToUpdate.push([postId,postedByID])
+                        console.log(postData)
+                        type = postData.postType
+                        postText = postData.postText
+                        postedByID = postData.postedBy
+                        postedOn = postData.postedOn
+                        postedAtLocation = postData.postedAt
+                        nameOfPoseter = postData.nameOfPoseter
+                        nameOfTagged = postData.nameOfTagged
+                        taggedPetID = postData.tagged
+                        distanceFromPost = getDistanceFromLatLonInKm(currentLocation['latitude'], postedAtLocation['longitude'], postedAtLocation['latitude'], currentLocation['longitude'])
+                        distanceFromPost = Math.round(distanceFromPost * 100) / 100
+                        if (distanceFromPost == 0) {
+                            distanceFromPost = "Nearby < 0.1km"
+                        } else if (isNaN(distanceFromPost)) { distanceFromPost = "No location" }
+                        else {
+                            distanceFromPost = distanceFromPost + "km away"
+                        }
+                        postId = postData.postID
+                        postComments(postId)
+                        allPostIdPictureToUpdate.push([postId, postedByID, taggedPetID])
+                        posterURL = "/screens/userprofile/user_profile.html?userid=" + postedByID
 
-                // postComments(postId)
-                // console.log(postedByID)
-                // check if no tag
-                posterURL = "/screens/userprofile/user_profile.html?userid="+postedByID
-
-                //check if tagged is human or pet
-                if(nameOfTagged==''){
-                    titleHtml =  `<h5><a class='fw-bold text-decoration-none text-dark' href='`+posterURL+`' id='whichPerson'>`+nameOfPoseter+`</a>'s post</h5>`
-                    profilePictureHTML =`<div class='row' id='profilePicturesOfPost'>
-                        <a id='postee' class='col-6'>
-                          <img id="postPicture-`+postId+`" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                            src='/screens/homeScreen/images/sample.png'>
-                        </a>
-                      </div>`
-                }else{
-                    titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='`+posterURL+`' id='whichPerson'>`+nameOfPoseter+`</a>'s post with <a
-                            class='fw-bold text-decoration-none text-dark' id='whichAnimal'>`+nameOfTagged+`</a></h5>`
-                    profilePictureHTML =`<div class='row' id='profilePicturesOfPost'>
-                        <a id='postee' class='col-6'>
-                          <img id="postPicture-`+postId+`" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                          src='/screens/homeScreen/images/sample.png'>
-                        </a>
-                        <a id='animal' class='col-6'>
-                          <img id="postTagPicture-`+postId+`" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-                            src='https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/postFiles%2F16-Picture1.png?alt=media&token=5b932851-98a7-433f-b889-336e8198fe4b'>
-                        </a>
-                      </div>`
-                }
-                if (type == "photo"){
-                    firstPhotoUrl = postData.photoUrl[0]
-                    newCardHTML = `<div style="max-width:800px;" id="postid-`+postId+`" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
+                        //check if tagged is human or pet
+                        if (nameOfTagged == undefined) {
+                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
+                            profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
+                                        <a id='postee' class='col-6'>
+                                        <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
+                                            src='/screens/homeScreen/images/sample.png'>
+                                        </a>
+                                    </div>`
+                        } else {
+                            taggedURL = "/screens/petprofile/petprofile.html?petID=" + taggedPetID
+                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
+                                    class='fw-bold text-decoration-none text-dark' id='whichAnimal' href='`+ taggedURL + `'>` + nameOfTagged + `</a></h5>`
+                            profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
+                                        <a id='postee' class='col-6'>
+                                        <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
+                                        src='/screens/homeScreen/images/sample.png'>
+                                        </a>
+                                        <a id='animal' class='col-6'>
+                                        <img id="postTagPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
+                                            src='https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/postFiles%2F16-Picture1.png?alt=media&token=5b932851-98a7-433f-b889-336e8198fe4b'>
+                                        </a>
+                                    </div>`
+                        }
+                        if (type == "photo") {
+                            firstPhotoUrl = postData.photoUrl[0]
+                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
                         <!-- Who shared the post -->
                         <div>
-                        `+titleHtml+` 
+                        `+ titleHtml + ` 
                         </div>
                         <hr>
                         <!-- Who shared the post end -->
@@ -287,29 +623,29 @@
                         <div class='row mb-3'>
                             <!-- profile images -->
                             <div class='col-6 col-sm-3'>
-                                `+profilePictureHTML+`
+                                `+ profilePictureHTML + `
                             </div>
                             <!-- profile images end -->
                             <!-- time, location -->
                             <div class='col-6 col-sm-9 text-end'>
-                            <span class='d-block'><b>`+postedOn+`</b></span>
-                            <span class='d-block mt-3'>`+distanceFromPost+`</span>
+                            <span class='d-block'><b>`+ postedOn + `</b></span>
+                            <span class='d-block mt-3'>`+ distanceFromPost + `</span>
                             </div>
                             <!-- time, location end -->
                         </div>
                         <!-- Profile Images, Time, Location Div End-->
                         <!-- Image -->
-                        <img class="card-img-top rounded2 shadow hover-zoom-img" style='max-height:500px; object-fit:cover' src="`+firstPhotoUrl+`" alt="Card image cap">
+                        <img class="card-img-top rounded2 shadow hover-zoom-img" style='max-height:500px; object-fit:cover' src="`+ firstPhotoUrl + `" alt="Card image cap">
                         <!-- Image end -->
                         <div class="card-body">
                             <!-- caption -->
-                            <p class="card-text" id='caption'>`+postText+`</p>
+                            <p class="card-text" id='caption'>`+ postText + `</p>
                             <!-- caption end-->
                             <!-- number of likes -->
                             <div class='popover__wrapper'>
-                            <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+postId+`'></a>
+                            <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
                             <div class="popover__content">
-                                <p class="popover__message" id="popLikes-`+postId+`"></p>
+                                <p class="popover__message" id="popLikes-`+ postId + `"></p>
                             </div>
                             </div>
                             <hr '>
@@ -317,12 +653,12 @@
                             <!-- like, comment, share -->
                             <div class='row d-flex mt-2'>
                             <div class='col-4'>
-                                <a id="heart-`+postId+`" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
-                                class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like-`+postId+`"
+                                <a id="heart-`+ postId + `" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
+                                class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like-`+ postId + `"
                                     style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Like</span></a>
                             </div>
                             <div class='col-4'>
-                                <a id='commentButton-`+postId+`' onClick='focusInput(this)' style='width:200px' class='btn'>
+                                <a id='commentButton-`+ postId + `' onClick='focusInput(this)' style='width:200px' class='btn'>
                                 <img class='float-start' width=32 height=32
                                     src='icons/chat-left.svg'><span style='white-space:nowrap'
                                     class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
@@ -335,7 +671,7 @@
                             </ul>
                             </div>
                             <hr class='d-none d-sm-flex'>   
-                                <div id="commentList-`+postId+`">
+                                <div id="commentList-`+ postId + `">
                                 </div> 
                             
                             
@@ -345,27 +681,27 @@
                         <!-- Comment field -->
                         <div class="card-footer py-sm-3 py-0 border-0 themebg">
                             <div class="d-flex ">
-                            <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none" src="`+userPicture+`" alt="avatar" width="40"
+                            <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="`+ userPicture + `" alt="avatar" width="40"
                                 height="40" />
                             <div class=" w-100">
-                                <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+postId+`" rows="1" placeholder="Add Comment...">
+                                <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
                             </div>      
-                            <button id=post-`+postId+`  onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='icons/symmetry-horizontal.svg' width=25></button>
+                            <button id=post-`+ postId + `  onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='icons/symmetry-horizontal.svg' width=25></button>
                             </div>
                         </div>
                         </div>`
-                        postFeedHTML = postFeedHTML + newCardHTML
-                        getLikesToUpdateHTML(postId)
-                        if(newcomment == true){
-                        postComments(postId)
-                        }
-                        // console.log(postFeedHTML)
-                        
-                }else if (type == "text"){
-                        newCardHTML = `<div style="max-width:800px;" id="postid-`+postId+`" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
+                            postFeedHTML = postFeedHTML + newCardHTML
+                            getLikesToUpdateHTML(postId)
+                            if (newcomment == true) {
+                                postComments(postId)
+                            }
+                            // console.log(postFeedHTML)
+
+                        } else if (type == "text") {
+                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
                         <!-- Who shared the post -->
                         <div>
-                            `+titleHtml+` 
+                            `+ titleHtml + ` 
                         </div>
                         <hr>
                         <!-- Who shared the post end -->
@@ -373,27 +709,27 @@
                         <div class='row mb-3'>
                             <!-- profile images -->
                             <div class='col-6 col-sm-3'>
-                                `+profilePictureHTML+`
+                                `+ profilePictureHTML + `
                             </div>
                             <!-- profile images end -->
                             <!-- time, location -->
                             <div class='col-6 col-sm-9 text-end'>
-                            <span class='d-block'><b>`+postedOn+`</b></span>
-                            <span class='d-block mt-3'>`+distanceFromPost+`</span>
+                            <span class='d-block'><b>`+ postedOn + `</b></span>
+                            <span class='d-block mt-3'>`+ distanceFromPost + `</span>
                             </div>
                             <!-- time, location end -->
                         </div>
                         <!-- Profile Images, Time, Location Div End-->
                         <div class="card-body">
                             <!-- caption -->
-                            <p class="card-text" id='caption'>`+postText+`</p>
+                            <p class="card-text" id='caption'>`+ postText + `</p>
                             <!-- caption end-->
                         
                             <!-- number of likes end-->
                             <div class='popover__wrapper'>
-                            <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+postId+`'></a>
+                            <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
                             <div class="popover__content">
-                                <p class="popover__message" id="popLikes-`+postId+`"></p>
+                                <p class="popover__message" id="popLikes-`+ postId + `"></p>
                             </div>
                             </div>
                             <hr>
@@ -401,12 +737,12 @@
                             <!-- like, comment, share -->
                             <div class='row d-flex mt-2'>
                             <div class='col-4'>
-                                <a id="heart-`+postId+`" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
-                                class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like-`+postId+`"
+                                <a id="heart-`+ postId + `" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
+                                class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like-`+ postId + `"
                                     style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Like</span></a>
                             </div>
                             <div class='col-4'>
-                                <a id='commentButton-`+postId+`' onClick='focusInput(this)' style='width:200px' class='btn'>
+                                <a id='commentButton-`+ postId + `' onClick='focusInput(this)' style='width:200px' class='btn'>
                                 <img class='float-start' width=32 height=32
                                     src='icons/chat-left.svg'><span style='white-space:nowrap'
                                     class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
@@ -419,7 +755,7 @@
                             </ul>
                             </div>
                             <hr class='d-none d-sm-flex'>   
-                                <div id="commentList-`+postId+`">
+                                <div id="commentList-`+ postId + `">
                                 </div> 
                             
                             
@@ -429,57 +765,58 @@
                         <!-- Comment field -->
                         <div class="card-footer py-sm-3 py-0 border-0 themebg">
                             <div class="d-flex ">
-                            <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none" src="`+userPicture+`" alt="avatar" width="40"
+                            <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="`+ userPicture + `" alt="avatar" width="40"
                                 height="40" />
                             <div class=" w-100">
-                                <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+postId+`" rows="1" placeholder="Add Comment...">
+                                <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
                             </div>      
-                            <button id=post-`+postId+` onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='icons/symmetry-horizontal.svg' width=25></button>
+                            <button id=post-`+ postId + ` onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='icons/symmetry-horizontal.svg' width=25></button>
                             </div>
                         </div>
                         </div>`
-                          postFeedHTML = postFeedHTML + newCardHTML
-                        //   console.log(postFeedHTML)
+                            postFeedHTML = postFeedHTML + newCardHTML
+                            //   console.log(postFeedHTML)
 
                         }
-                    getLikesToUpdateHTML(postId)
-                    if(newcomment == true){
-                    postComments(postId)
+                        getLikesToUpdateHTML(postId)
+                        if (newcomment == true) {
+                            postComments(postId)
+                        }
+
                     }
-                
+                    // console.log(postFeedHTML)
+
                 }
-                // console.log(postFeedHTML)
-                
-        }
 
-        document.getElementById('card-list').innerHTML=postFeedHTML
+                document.getElementById('card-list').innerHTML = postFeedHTML
 
-                newcomment =false
-                if(allPostData.length ==  oldData.length){
+                newcomment = false
+                if (allPostData.length == oldData.length) {
                     console.log('no changes')
-                    console.log("Why 3 tines")
-                }else{
+                } else {
                     console.log("change detected reloading posts")
-                    document.getElementById('card-list').innerHTML=postFeedHTML
+                    document.getElementById('card-list').innerHTML = postFeedHTML
                     oldData = allPostData
-                    console.log("asidjosa JDIOSAJ ")
                     console.log(allPostIdPictureToUpdate)
-                    for(update of allPostIdPictureToUpdate){
+                    for (update of allPostIdPictureToUpdate) {
                         postID = update[0]
                         posterID = update[1]
-                        console.log("RUANSDN SAIOD ")
-                        updatePosterPicture(posterID,postID)
+                        taggedID = update[2]
+                        updatePosterPicture(posterID, postID)
+                        if (taggedID != undefined) {
+                            updatTaggedPicture(taggedID, postID)
+                        }
                     }
                 }
-      }, (error) => {
-        console.log(error);
-        output = error
+            }, (error) => {
+                console.log(error);
+                output = error
 
-      });
+            });
     }
 
 
-    function get_user_details(userid) {
+    function get_user_details(userid, me) {
         tableName = "userProfile"
         firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
         url = firebaseurl + tableName + ".json";
@@ -490,6 +827,25 @@
                 the_user = allprofiles[userid]
                 console.log(the_user)
                 user_name = the_user.name
+
+                me_details = allprofiles[me]
+                // followings = me_details.ProfileDetails['followingUsers']
+                // console.log(followings);
+                if (me_details.ProfileDetails == undefined || me_details.ProfileDetails.followingUsers == undefined) {
+                    //Create followinguders in profiledetails with changes made to following user
+
+                }
+                else {
+                    followings = me_details.ProfileDetails.followingUsers;
+                    if (followings.includes(parseInt(userid))) {
+                        document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
+                        // document.getElementById('follow_or_unfollow').innerText = "Following"
+                        document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
+
+                    }
+
+                }
+
                 document.getElementById('profilename').innerText = user_name;
                 if (the_user.hasOwnProperty("profilePictureUrl")) {
 
@@ -534,28 +890,34 @@
         // console.log(queryString.split("?")[1].split("=")[1])
         if (queryString == "") {
             console.log("viewing my own profile:", my_user_id)
-            document.getElementById('editProfileButton').style.display='block'
-            get_user_details(my_user_id)
+            document.getElementById('editProfileButton').style.display = 'block'
+            get_user_details(my_user_id, my_user_id)
             get_user_post_by_id(my_user_id)
             getCurrentProfilePicture(my_user_id)
+            loadCurrentAvatar()
+
 
         }
         else if (queryString.split("?")[1].split("=")[1] == my_user_id) {
             console.log("viewing my own profile:", my_user_id)
-            document.getElementById('editProfileButton').style.display='block'
-            get_user_details(my_user_id)
+            document.getElementById('editProfileButton').style.display = 'block'
+            get_user_details(my_user_id, my_user_id)
             get_user_post_by_id(my_user_id)
             getCurrentProfilePicture(my_user_id)
+            loadCurrentAvatar()
+
         }
         else {
             // console.log(queryString);
             userid = queryString.split("?")[1].split("=")[1]
             console.log(typeof (userid))
             console.log("viewing other people profile:", userid)
-            get_user_details(userid)
+            get_user_details(userid, my_user_id)
+
+            document.getElementById('follow_or_unfollow').style.display = 'block'
             get_user_post_by_id(userid)
             getCurrentProfilePicture(userid)
-
+            loadCurrentAvatar()
 
         }
     }

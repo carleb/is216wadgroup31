@@ -145,18 +145,19 @@ function getLikesToUpdateHTML(postId){
 
 }
 // change post icon from pencil-square to pencil-fill
+//GOT BUG keep causing an error
 function fillPost(id){
-    if (document.getElementById(id).querySelector('img').src.indexOf("fill") == -1) {
-        document.getElementById(id).querySelector('img').src = document.getElementById(id).querySelector('img').src.replace("-square", "-fill")
-    }
+    // if (document.getElementById(id).querySelector('img').src.indexOf("fill") == -1) {
+    //     document.getElementById(id).querySelector('img').src = document.getElementById(id).querySelector('img').src.replace("-square", "-fill")
+    // }
 
-    var arr = ["chat", "settings", "profile", "map", "home"]
+    // var arr = ["chat", "settings", "profile", "map", "home"]
 
-    arr.forEach(e => {
-        if (e != id) {
-            document.getElementById(e).querySelector('img').src = document.getElementById(e).querySelector('img').src.replace("-fill", "")
-        }
-    });
+    // arr.forEach(e => {
+    //     if (e != id) {
+    //         document.getElementById(e).querySelector('img').src = document.getElementById(e).querySelector('img').src.replace("-fill", "")
+    //     }
+    // });
 
 }
 
@@ -246,72 +247,101 @@ function handleFiles(e) {
 //     handleFiles(files); // above
 // }
 
-function showChat(ele){
-    console.log(window.sessionStorage.userID)
-    userID = window.sessionStorage.userID
-    document.getElementById('chatSidebar').innerHTML = `<div class='card stick themebg rounded2 p-4 border border-0 shadow font-monospace chatSidebar'>
-    <div>
-        <button class='btn' onClick='backToContacts(this)'>Back</button>
-    </div>
-    <h1>Person</h1>
-    <div class="card-body contacts_body">
-      
-    </div>
-  </div>`
-}
+// function sendMessage(user1, user2){
+//   event.preventDefault() // prevent the form from redirecting to somewhere else
+//   if (document.getElementById("message1").value){
+//       var message = document.getElementById("message1").value
+//       var sender = user1
+//   }
+//   else{
+//       var message = document.getElementById("message2").value
+//       var sender = user2
+//   }
+//   tableName = "chat"
+//   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+//   newChatId = user1 + user2
+//   url = firebaseurl + tableName + "/data/" + newChatId + ".json"
 
-function backToContacts(ele){
-    document.getElementById('chatSidebar').innerHTML = `<div class='card stick themebg rounded2 p-4 border border-0 shadow font-monospace chatSidebar'>
-    <div class="input-group">
-      <input type="text" placeholder="Search Chat..." name="" class="form-control search rounded1 ">
-      <i class="fa fa-search icon position-absolute" style='right:20px; top:10px'></i>
-    </div>
-    <hr>
-    <div class="card-body contacts_body">
-      <ul class="contacts" id=contactList>
-        <li class='float-start'>
-          <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-            <div class="img_cont">
-              <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+//   axios.get(url)
+//       .then((response) => {
+//           // console.log(response)
+//           newData = {"sender": sender, "messages": message}
+//           // console.log(response.data)
+
+//           if(response.data == undefined){
+//               console.log("newChat")
+//               messages = [newData];
+//           }
+//           else{
+//               messages = response.data.messages;
+//               messages.push(newData)
+//           }
+
+//           axios.put(url, {
+//               "user1": user1,
+//               "user2": user2,
+//               "messages": messages
+//           })
+//       })
+//   showMessages(message, sender)
+//   return false;
+
+// }
+
+// function createChat(userName, friendName){
+//   tableName = "chat"
+//   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+//   chatId = userName + friendName
+//   url = firebaseurl + tableName + "/data/" + chatId + ".json"
+//   axios.get(url)
+//     .then((response) => {
+//       console.log(response.data)
+//     })
+
+// }
+
+// function showChat(ele){
+//   userName = window.sessionStorage.userName
+//   friendName = ele.id
+//   createChat(userName, friendName)
+// }
+
+
+
+function backToContacts(){
+  console.log("--- start backToContacts ---")
+  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  tableName = "userProfile"
+  url = firebaseurl + tableName + "/data" + ".json"
+  output = null
+  axios.get(url)
+      .then((response) => {
+          response = response.data
+          for (let i = 1; i < response.length; i++) {
+            const ele = response[i];
+            // console.log(ele)
+            // console.log(ele.name)
+            friendName = ele.name
+            // console.log(friendName)
+            document.getElementById('chatSidebar').innerHTML += 
+            `
+            <div id="friendName${i} class='row-cols-xl-3' style='white-space:nowrap'>
+              <div class="d-flex">
+                <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
+                  <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+                </div>
+                <div class='ms-3 friendName text-start text-nowrap'>
+                  <span>${friendName}</span>
+                  <img id= '${friendName}' src="icons/chevron-right.svg" alt="Bootstrap" onclick="showChat(this)">
+                </div>
+              </div>
             </div>
-            <div class='col-2 d-block user_info my-auto'>
-              <h5 id='friendName' class='text-start'>Gerald</h5>
-            </div>
-            <div class='col-5 my-auto text-end' style='height:38px'>
-              <i class="fa fa-chevron-right mt-2" ></i>
-            </div>   
-          </button>
-        </li>
-     
-        <li class='float-start'>
-          <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-            <div class="img_cont">
-              <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-            </div>
-            <div class='col-2 d-block user_info my-auto'>
-              <h5 id='friendName' class='text-start'>Rou</h5>
-            </div>
-            <div class='col-5 my-auto text-end' style='height:38px'>
-              <i class="fa fa-chevron-right mt-2" ></i>
-            </div>    
-          </button>
-        </li>
-        <li class='float-start'>
-          <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-            <div class="img_cont">
-              <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-            </div>
-            <div class='col-2 d-block user_info my-auto'>
-              <h5 id='friendName' class='text-start'>Caleb</h5>
-            </div>
-            <div class='col-5 my-auto text-end' style='height:38px'>
-              <i class="fa fa-chevron-right mt-2" ></i>
-            </div>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>`
+            `
+            }
+      }).catch(error => {
+        console.log(error.message) }
+      )
+  console.log("--- end backToContacts ---")
 }
 
 function processComment(ele){
@@ -513,7 +543,7 @@ function showMore(ele){
 
 }
 function focusInput(ele) {
-  console.log(ele.id)
+  // console.log(ele.id)
   postId = ele.id.split('-')[1]
   id = "commentField-"+postId
   document.getElementById(id).focus();
@@ -530,9 +560,27 @@ function updatePosterPicture(userID,postID){
         if (profilePictureUrl== undefined){
             profilePictureUrl='/img/male_empty.png'
         }
-        console.log("CHANGING POSTER PIC")
-        console.log(document.getElementById('postPicture-'+postID).innerHTML)
+        // console.log("CHANGING POSTER PIC")
+        // console.log(document.getElementById('postPicture-'+postID).innerHTML)
         document.getElementById('postPicture-'+postID).src = profilePictureUrl
+
+    })
+}
+
+function updatTaggedPicture(petID,postID){
+  tableName = "petProfile"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    url = `${firebaseurl + tableName}/data/${petID}.json`
+    // console.log(url)
+    axios.get(url)
+    .then((response) => {
+      petPictureUrl = response.data.petPictureUrl
+        if (petPictureUrl== undefined){
+          petPictureUrl='/img/male_empty.png'
+        }
+        // console.log("CHANGING POSTER PIC")
+        // console.log(document.getElementById('postPicture-'+postID).innerHTML)
+        document.getElementById('postTagPicture-'+postID).src = petPictureUrl
 
     })
 }
@@ -554,122 +602,6 @@ function updateTaggedPicture(userID,postID){
 
     })
 }
-
-// function getAllPost() {
-//   console.log()
-//   tableName = "post"
-//   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-//   postFeedHTML = ""
-//   url = firebaseurl + tableName + ".json"
-//   cardList = document.getElementById('card-list')
-
-//   axios.get(url)
-//     .then((response) => {
-//       allPostData = response.data.data
-//       // console.log(response.data.data)
-//       allPostData.reverse()
-//       for(postData of allPostData){
-//         type = postData.postType
-//         if (type == "photo"){
-//           firstPhotoUrl = postData.photoUrl[0]
-//           postText = postData.postText
-//           postedByID = postData.postedByID
-//           postedOn = postData.postedOn
-//           postedAtLocation = postData.postedAt
-//           postId = postData.postID
-//           postComments(postId)
-//           newCardHTML = `<div style="max-width:800px;" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-5 mt-sm-3 mt-3 mx-auto fadein">
-//                 <!-- Who shared the post -->
-//                 <div>
-//                   <a class='fw-bold text-decoration-none text-dark' id='whichPerson'>Name</a> and <a
-//                     class='fw-bold text-decoration-none text-dark' id='whichAnimal'>Name</a> shared a post together
-//                 </div>
-//                 <hr>
-//                 <!-- Who shared the post end -->
-//                 <!-- Profile Images, Time, Location Div -->
-//                 <div class='row mb-3'>
-//                   <!-- profile images -->
-//                   <div class='col-3'>
-//                     <div class='row'>
-//                       <a id='postee' class='col-6'>
-//                         <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-//                           src='images/sample.png'>
-//                       </a>
-//                       <a id='animal' class='col-6'>
-//                         <img style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-//                           src='images/sample.png'>
-//                       </a>
-//                     </div>
-//                   </div>
-//                   <!-- profile images end -->
-//                   <!-- time, location -->
-//                   <div class='col-9 text-end'>
-//                     <span class='d-block'>Time : `+postedOn+`</span>
-//                     <span class='d-block mt-3'>Location</span>
-//                   </div>
-//                   <!-- time, location end -->
-//                 </div>
-//                 <!-- Profile Images, Time, Location Div End-->
-//                 <!-- Image -->
-//                 <img class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover' src="`+firstPhotoUrl+`" alt="Card image cap">
-//                 <!-- Image end -->
-//                 <div class="card-body">
-//                   <!-- caption -->
-//                   <p class="card-text" id='caption'>`+postText+`</p>
-//                   <!-- caption end-->
-//                   <!-- number of likes -->
-//                   <p class='fw-bold my-auto' id='numLikes'>15 Likes</p>
-//                   <!-- number of likes end-->
-//                   <hr>
-//                   <!-- like, comment, share -->
-//                   <div class='row d-flex mt-2'>
-//                     <div class='col-4'>
-//                       <a id="heart" onclick=fillHeart(this.id) id="like" style='width:200px' class='btn'><img
-//                           class='float-start' width=32 height=32 src='icons/heart.svg'><span id="like"
-//                           style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Like</span></a>
-//                     </div>
-//                     <div class='col-4'>
-//                       <a style='width:200px' class='btn'>
-//                         <img class='float-start' width=32 height=32
-//                           src='icons/chat-left.svg'><span id="like" style='white-space:nowrap'
-//                           class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Comments</span></a>
-//                     </div>
-//                     <div class='col-4'>
-//                       <a id="share" style='width:200px' class='btn'><img class='float-start' width=32 height=32
-//                           src='icons/share.svg'><span id="like" style='white-space:nowrap'
-//                           class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Share</span></a>
-//                     </div>    
-//                     <ul class='list-unstyled mt-3' id="commentList-`+postId+`">
-//                     </ul>
-//                   </div>
-//                   <!-- like, comment, share end-->
-                  
-//                 </div>
-                
-//                 <!-- body end -->
-//                 <!-- Comment field -->
-//                 <div class="card-footer py-3 border-0 themebg">
-//                   <div class="d-flex ">
-//                     <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none" src="images/sample.png" alt="avatar" width="40"
-//                       height="40" />
-//                     <div class=" w-100">
-//                       <input type='text' class="form-control rounded1" id="commentField" rows="1" placeholder="Add Comment...">
-//                     </div>      
-//                     <button id=post-`+postId+` onClick='processComment(this)' type="button" class="btn ms-2"><img src='icons/symmetry-horizontal.svg' width=25></button>
-//                   </div>
-//                 </div>
-//               </div>`
-//               postFeedHTML = postFeedHTML + newCardHTML
-//         }
-//       }
-//       cardList.innerHTML = postFeedHTML
-//     }, (error) => {
-//       console.log(error);
-//       output = error
-
-//     });
-// }
-
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
@@ -720,15 +652,16 @@ function populateSideBar() {
       .then((response) => {
         all_pets_arr= []
         for(let pet of response.data){
+          petID = pet.petID
           petBreed = pet.breed
           petName = pet.petName;
           petImage = pet.petPictureUrl
           petLocation = pet.lastSeenLocation
           distanceFromPet = getDistanceFromLatLonInKm(currentLocation['latitude'], petLocation['longitude'], petLocation['latitude'], currentLocation['longitude'])
           distanceFromPet=Math.round(distanceFromPet * 100) / 100
-          console.log(distanceFromPet)
+          // console.log(distanceFromPet)
           if(!isNaN(distanceFromPet)){
-              pet_arr = [distanceFromPet,petName, petBreed ,petImage]
+              pet_arr = [distanceFromPet,petName, petBreed ,petImage,petID]
               all_pets_arr.push(pet_arr)
           } 
         }
@@ -745,7 +678,7 @@ function populateSideBar() {
             </div>
           </a>
         </div>`
-        console.log(all_pets_arr)
+        // console.log(all_pets_arr)
         for(arr of all_pets_arr){
           
           petLocation = arr[0]
@@ -753,22 +686,26 @@ function populateSideBar() {
           petName = arr[1]
           petBreed = arr[2]
           petImage = arr[3]
+          petID = arr[4]
+          urlLink ='/screens/petprofile/petprofile.html?petID='+petID
           document.getElementById('petsDiv').innerHTML += `
         <div id='nearbyPet' class='row-cols-xl-3' style='white-space:nowrap'>
-          <div class='d-xl-flex d-block'>
-            <span class='d-xl-none ms-3 fw-bold'>`+petName+`</span>
-            <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
-              <img src="`+petImage+`" class="rounded-circle user_img">
-            </div>
-            <span class='d-xl-none ms-2 ms-xl-0' style='font-size: 15px;'>`+petLocation+`</span>
-            <div class='ms-3 text-start my-auto'>
-              <p class='d-xl-flex d-none mt-2 fw-bold'>`+petName+`</p>
-              <p class='d-xl-flex d-none mt-2'>`+petBreed+`</p>
-            </div>
-            <div class='ms-3 my-auto'>
-              <p class='d-xl-flex d-none mt-2'>`+petLocation+`</p>
-            </div>
-          </div>   
+          <a href='`+urlLink+`' style='text-decoration:none;color:black'>
+            <div class='d-xl-flex d-block'>
+              <span class='d-xl-none ms-3 fw-bold'>`+petName+`</span>
+              <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
+                <img src="`+petImage+`" class="rounded-circle user_img">
+              </div>
+              <span class='d-xl-none ms-2 ms-xl-0' style='font-size: 15px;'>`+petLocation+`</span>
+              <div class='ms-3 text-start my-auto'>
+                <p class='d-xl-flex d-none mt-2 fw-bold'>`+petName+`</p>
+                <p class='d-xl-flex d-none mt-2'>`+petBreed+`</p>
+              </div>
+              <div class='ms-3 my-auto'>
+                <p class='d-xl-flex d-none mt-2'>`+petLocation+`</p>
+              </div>
+            </div>   
+          </a>
         </div>
           `
            
@@ -781,5 +718,162 @@ function populateSideBar() {
           console.log(error);
           output = error
           
-      });}
+      });
+}
 
+
+function loadWebSearch(){
+  input = document.getElementById("websearchInput");
+  filter = input.value.toUpperCase();
+  // console.log(filter)
+  ul = document.getElementById("webSearchDisplay");
+  li = ul.getElementsByTagName("li");
+  if(filter ==''){
+    // console.log("empty")
+    ul.style.display='none'
+  }else{
+    ul.style.display='block'
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "block";
+      } else {
+          li[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function loadWebSearchList(){
+  // console.log("load")
+  display = document.getElementById('webSearchDisplay')
+  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // console.log(searchData)
+  newHTML = ``
+  for(searchdataID in searchData){
+     data = searchData[searchdataID]
+    //  console.log(searchdataID)
+    //  console.log(data)
+     id = data[0]
+     nameDisplay = data[1]
+     type = data[2]
+     pictureUrl = data[3]
+     if (type=='user'){
+       urlLink = '/screens/userProfile/user_profile.html?userid='+id
+     }else{
+       urlLink ='/screens/petprofile/petprofile.html?petID='+id
+     }
+     display_text =  nameDisplay +" - "+type
+
+     liHtml = `<li `+styling+`><a href="`+urlLink+`" style='text-decoration: none'>`+display_text+`</a></li>`
+     newHTML = newHTML + liHtml
+  }
+  display.innerHTML=newHTML
+}
+
+function loadMobileSearch(){
+  input = document.getElementById("mobilesearchInput");
+  filter = input.value.toUpperCase();
+  // console.log(filter)
+  ul = document.getElementById("mobileSearchDisplay");
+  li = ul.getElementsByTagName("li");
+  if(filter ==''){
+    // console.log("empty")
+    ul.style.display='none'
+  }else{
+    ul.style.display='block'
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "block";
+      } else {
+          li[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function loadMobileSearchList(){
+  console.log("Searchin mobile list")
+  display = document.getElementById('mobileSearchDisplay')
+  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // console.log(searchData)
+  newHTML = ``
+  for(searchdataID in searchData){
+     data = searchData[searchdataID]
+    //  console.log(searchdataID)
+    //  console.log(data)
+     id = data[0]
+     nameDisplay = data[1]
+     type = data[2]
+     pictureUrl = data[3]
+     if (type=='user'){
+       urlLink = '/screens/userProfile/user_profile.html?userid='+id
+     }else{
+       urlLink ='/screens/petprofile/petprofile.html?petID='+id
+     }
+     display_text =  nameDisplay +" - "+type
+
+     liHtml = `<li `+styling+`><a href="`+urlLink+`" style='text-decoration: none'>`+display_text+`</a></li>`
+     newHTML = newHTML + liHtml
+  }
+  display.innerHTML=newHTML
+}
+
+
+function loadTagSearch(){
+  input = document.getElementById("tagsearchInput");
+  filter = input.value.toUpperCase();
+  // console.log(filter)
+  ul = document.getElementById("tagSearchDisplay");
+  li = ul.getElementsByTagName("li");
+  if(filter ==''){
+    // console.log("empty")
+    ul.style.display='none'
+  }else{
+    ul.style.display='block'
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "block";
+      } else {
+          li[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function loadTagSearchList(){
+  console.log("load tag list")
+  display = document.getElementById('tagSearchDisplay')
+  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // console.log(searchData)
+  newHTML = ``
+  for(searchdataID in searchData){
+     data = searchData[searchdataID]
+    //  console.log(searchdataID)
+    //  console.log(data)
+     id = data[0]
+     nameDisplay = data[1]
+     type = data[2]
+     pictureUrl = data[3]
+
+     if (type!='user'){
+      display_text =  nameDisplay +" - "+type
+      display_text = display_text.split(" - ")
+      display_text = display_text[0] + " - "+display_text[2] + " - Pet ID : "+id
+      liHtml = `<li `+styling+` onclick='replaceTagSearch("`+display_text+`")'><a href="#" style='text-decoration: none'>`+display_text+`</a></li>`
+      newHTML = newHTML + liHtml
+     }
+     
+  }
+  display.innerHTML=newHTML
+}
+
+function replaceTagSearch(input){
+  document.getElementById('tagsearchInput').value = input
+  document.getElementById("tagSearchDisplay").style.display='none'
+}

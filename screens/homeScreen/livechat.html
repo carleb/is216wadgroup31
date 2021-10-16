@@ -8,11 +8,17 @@
 </head>
 <body>
     <script>
-        var myName = prompt("Enter your name")
-        // var myName = "rou"
+        // var myName = prompt("Enter your name")
+        var user1 = "bailey"
+        var user2 = "dashy"
     </script>
-    <form onSubmit="sendMessage(); showMessages();">
-        <input id="message" placeholder="Enter message">
+    <form onSubmit="sendMessage(user1, user2);">
+        <input id="message1" placeholder="Enter message">
+
+        <input type="submit">
+    </form>
+    <form onSubmit="sendMessage(user1, user2);">
+        <input id="message2" placeholder="Enter message">
 
         <input type="submit">
     </form>
@@ -22,10 +28,14 @@
     </ul>
     
 </body>
+
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
 <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script> -->
 <!-- <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js'></script> -->
 <script src="/firebase-API/livechat.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    getContacts()
+</script>
 </html>

@@ -43,6 +43,30 @@ function createNewPost(){
         createNewPostWithPhoto()
     }
     }
+    setTimeout(function() {   
+        document.getElementById("post-body").innerHTML = `<div class="input-group">
+        <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
+        <input type="file" class="button button-secondary m-2" style="display:none" id="file"
+          accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadImageDisplay(event)">
+      </div>
+      <div class='ml-3'>
+         <img id="output" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>  
+      </div>
+
+      <!-- drop files end-->
+
+      <!-- post text start -->
+      <div class="input-group m-2">
+        <textarea placeholder="Post Caption" id="post-text" name="text" type="textbox" class="form-control"></textarea>
+      </div>
+      <form class='input-group m-2' autocomplete="off">
+        Tag : <input placeholder="Who are you with?" id='tagsearchInput' onkeyup="loadTagSearch()" onclick="loadTagSearchList()" name="Tag" type="Tag" class="form-control ml-3">
+        <!-- <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()"> -->
+      </form>
+      <ul id="tagSearchDisplay" style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
+      </ul>`
+      }, 3000)
+    
 }
 
 function createNewPostWithPhoto() {
@@ -68,7 +92,7 @@ axios.get(url)
         }
         
         textInput = document.getElementById("post-text").value
-        tagNameInput = document.getElementById("post-tag").value
+        tagNameInput = document.getElementById("tagsearchInput").value
 
         // need to add function to get tag name ID after tagName
         date = new Date();
@@ -85,6 +109,16 @@ axios.get(url)
             photoURL = url
             myStorage = window.sessionStorage;
             url = firebaseurl + tableName + "/data/" + newPostID + ".json"
+            if(tagNameInput!=""){
+                tagNameInput = tagNameInput.split(" - ")
+                taggedPetName =  tagNameInput[0]
+                taggedPetID = tagNameInput[2]
+                taggedPetID = taggedPetID.split(" : ")
+                taggedPetID = taggedPetID[1]
+            }else{
+                taggedPetID=null
+                taggedPetName=null
+            }
             axios.put(url, {
                 "postID":newPostID,
                 "postType":"photo",
@@ -95,14 +129,18 @@ axios.get(url)
                 "postedOnTime": newTime,
                 "postedAt": currentLocation,
                 "nameOfPoseter":myStorage.userName,
-                "nameOfTagged":tagNameInput,
-                "tagged" : "petID",
+                "nameOfTagged":taggedPetName,
+                "tagged" : taggedPetID,
                 "comments":null,
                 "like": null,
                 "shareableURL":"string"
             }).then((response) => {
                 console.log(response);
+                if(tagNameInput!=""){
+                    updatePetLocation(taggedPetID,currentLocation);
+                }
                 getAllPost();
+
         });
         })
     }, (error) => {
@@ -116,7 +154,7 @@ function createNewPostTextOnly() {
 tableName = "post"
 firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
 textInput = document.getElementById("post-text").value
-tagNameInput = document.getElementById("post-tag").value
+tagNameInput = document.getElementById("tagsearchInput").value
 
 url = firebaseurl + tableName + ".json"
 axios.get(url)
@@ -131,6 +169,16 @@ axios.get(url)
         newDate = date[1]+" "+date[2]+","+date[3]
         newTime = hour+":"+seconds
         myStorage = window.sessionStorage;
+        if(tagNameInput!=""){
+            tagNameInput = tagNameInput.split(" - ")
+            taggedPetName =  tagNameInput[0]
+            taggedPetID = tagNameInput[2]
+            taggedPetID = taggedPetID.split(" : ")
+            taggedPetID = taggedPetID[1]
+        }else{
+            taggedPetID=null
+            taggedPetName=null
+        }
         axios.put(url, {
             "postID":newPostID,
             "postType":"text",
@@ -140,14 +188,18 @@ axios.get(url)
             "postedOnTime": newTime,
             "postedAt": currentLocation,
             "nameOfPoseter":myStorage.userName,
-            "nameOfTagged":tagNameInput,
-            "tagged" : "petID",
+            "nameOfTagged":taggedPetName,
+            "tagged" : taggedPetID,
             "comments":null,
             "like": null,
             "shareableURL":"string"
         }).then((response) => {
             console.log(response);
+            if(tagNameInput!=""){
+                updatePetLocation(taggedPetID,currentLocation);
+            }
             getAllPost();
+
 
         });
     }, (error) => {

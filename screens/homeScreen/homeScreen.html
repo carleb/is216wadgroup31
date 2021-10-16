@@ -23,9 +23,15 @@
       <div class='mx-md-2'>
         <img class='hover-zoom' src='../../img/logo.png' width=80 height=80>
       </div>
-      <form class='ms-lg-5'>
-        <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search" aria-label="Search">
+
+
+
+      <form class='ms-lg-5' autocomplete="off">
+        <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()">
+        <ul id="webSearchDisplay" style='position:fixed;z-index: -1;list-style-type: none; padding: 0; margin: 0;'>
+        </ul>
       </form>
+
       <!-- modal button start -->
       <button  id="post" style='width:170px'class='btn ms-lg-3 d-flex' data-bs-toggle="modal"
         data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
@@ -42,8 +48,10 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
           <li id="search" class="nav-item mx-4 d-inline d-sm-none mt-2 mb-3">
-            <form class='px-2'>
-              <input class="form-control rounded1 me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class='px-2' autocomplete="off">
+              <input class="form-control rounded1 me-2" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='mobilesearchInput' onkeyup="loadMobileSearch()" onclick="loadMobileSearchList()">
+              <ul id="mobileSearchDisplay" style='list-style-type: none; padding: 0; margin: 0;'>
+              </ul>
             </form>
           </li>
           <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
@@ -82,7 +90,7 @@
           <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id='post-body'>
     
           <!-- form start -->
             <!-- drop files start-->
@@ -101,9 +109,14 @@
             <div class="input-group m-2">
               <textarea placeholder="Post Caption" id="post-text" name="text" type="textbox" class="form-control"></textarea>
             </div>
-            <div class="input-group m-2">
-              Tag : <input placeholder="Who are you with?" id="post-tag" name="Tag" type="Tag" class="form-control ml-3">
-            </div>
+            <form class='input-group m-2' autocomplete="off">
+              Tag : <input placeholder="Who are you with?" id='tagsearchInput' onkeyup="loadTagSearch()" onclick="loadTagSearchList()" name="Tag" type="Tag" class="form-control ml-3">
+              <!-- <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()"> -->
+            </form>
+            <ul id="tagSearchDisplay" style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
+            </ul>
+            <!-- <div class="input-group m-2">
+            </div> -->
     
             <!-- post text end -->
     
@@ -129,7 +142,7 @@
             Nearby Pets
           </div>
           
-          <div id='petsDiv' class='scrollbar  rounded2 text-center font-monospace mt-1 mt-xl-3 d-flex d-xl-block'>
+          <div id='petsDiv' class='scrollbar rounded2 text-center font-monospace mt-1 mt-xl-3 d-flex d-xl-block'>
           
 
           </div>
@@ -145,57 +158,17 @@
       <div class="col-xl-6 col-md-12 col-sm-12 col-xs-12 body-text ms-sm-0" id='card-list'>
       </div>
       <!-- Chat sidebar -->
-      <div class='col-md-3 mt-3 d-xl-inline d-none' id='chatSidebar'>
-        <div class='card stick themebg rounded2 p-4 border border-0 shadow font-monospace chatSidebar'>
-          <div class="input-group">
-            <input type="text" placeholder="Search Chat..." name="" class="form-control search rounded1 ">
-            <i class="fa fa-search icon position-absolute" style='right:20px; top:10px'></i>
+      <div class='col-xl-3 col-md-12 col-sm-12 col-xs-12 mt-3 mt-xl-0 ms-sm-0'> 
+        <div id='sideBar'style="max-width:800px;" class="scrollbar shadow rounded2 themebg mx-auto stick sidebar px-xl-4 px-0 pt-2 pt-sm-3">
+          <div class='text-center font-monospace fs-5 fw-bold'>
+            Live chat
           </div>
-          <hr>
-          <div class="card-body contacts_body">
-            <ul class="contacts" id=contactList>
-              <li class='float-start'>
-                <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-                  <div class="img_cont">
-                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-                  </div>
-                  <div class='col-2 d-block user_info my-auto'>
-                    <h5 id='friendName' class='text-start'>Gerald</h5>
-                  </div>
-                  <div class='col-5 my-auto text-end' style='height:38px'>
-                    <i class="fa fa-chevron-right mt-2" ></i>
-                  </div>   
-                </button>
-              </li>
-           
-              <li class='float-start'>
-                <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-                  <div class="img_cont">
-                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-                  </div>
-                  <div class='col-2 d-block user_info my-auto'>
-                    <h5 id='friendName' class='text-start'>Rou</h5>
-                  </div>
-                  <div class='col-5 my-auto text-end' style='height:38px'>
-                    <i class="fa fa-chevron-right mt-2" ></i>
-                  </div>    
-                </button>
-              </li>
-              <li class='float-start'>
-                <button class="d-flex w-100 rounded2" onClick='showChat(this)'>
-                  <div class="img_cont">
-                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
-                  </div>
-                  <div class='col-2 d-block user_info my-auto'>
-                    <h5 id='friendName' class='text-start'>Caleb</h5>
-                  </div>
-                  <div class='col-5 my-auto text-end' style='height:38px'>
-                    <i class="fa fa-chevron-right mt-2" ></i>
-                  </div>
-                </button>
-              </li>
-            </ul>
+          
+          <div id='chatSidebar' class='scrollbar rounded2 text-center font-monospace mt-1 mt-xl-3 d-flex d-xl-block'>
+          
+          
           </div>
+          
         </div>
       </div>
     </div>
@@ -209,6 +182,7 @@
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script src="homepage.js"></script>
+<!-- <script src="/firebase-API/livechat.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
@@ -220,6 +194,8 @@
 <script src="https://unpkg.com/vue@next"></script>
 
 <script>
+
+  backToContacts()
 
   // get user location
   currentLocation = "no location"
@@ -254,6 +230,8 @@ profileHTML = `<a class="nav-link px-3" href="/screens/userProfile/user_profile.
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>`
 document.getElementById("profile").innerHTML= profileHTML
 
+
+
 // cardList.innerHTML = newCardHTML+newCardHTML
 allPostId = []
 oldData = ""
@@ -278,7 +256,9 @@ function getAllPost() {
     axios.get(url)
       .then((response) => {
         allPostData = response.data.data
+        allPostData.splice(0,1)
         // console.log(response.data.data)
+        console.log(allPostData)
         allPostData.reverse()
         for(postData of allPostData){
           type = postData.postType
@@ -288,6 +268,7 @@ function getAllPost() {
           postedAtLocation = postData.postedAt
           nameOfPoseter = postData.nameOfPoseter
           nameOfTagged = postData.nameOfTagged
+          taggedPetID = postData.tagged
           distanceFromPost = getDistanceFromLatLonInKm(currentLocation['latitude'], postedAtLocation['longitude'], postedAtLocation['latitude'], currentLocation['longitude'])
           distanceFromPost=Math.round(distanceFromPost * 100) / 100
           if(distanceFromPost == 0){
@@ -299,10 +280,10 @@ function getAllPost() {
           }
           postId = postData.postID
           postComments(postId)
-          allPostIdPictureToUpdate.push([postId,postedByID])
+          allPostIdPictureToUpdate.push([postId,postedByID,taggedPetID])
           posterURL = "/screens/userProfile/user_profile.html?userid="+postedByID
           //check if tagged is human or pet
-          if(nameOfTagged==''){
+          if(nameOfTagged==undefined){
             titleHtml =  `<h5><a class='fw-bold text-decoration-none text-dark' href='`+posterURL+`' id='whichPerson'>`+nameOfPoseter+`</a>'s post</h5>`
             profilePictureHTML =`<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
@@ -311,8 +292,9 @@ function getAllPost() {
                         </a>
                       </div>`
           }else{
+            taggedURL = "/screens/petprofile/petprofile.html?petID="+taggedPetID
             titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='`+posterURL+`' id='whichPerson'>`+nameOfPoseter+`</a>'s post with <a
-                      class='fw-bold text-decoration-none text-dark' id='whichAnimal'>`+nameOfTagged+`</a></h5>`
+                      class='fw-bold text-decoration-none text-dark' id='whichAnimal' href='`+taggedURL+`'>`+nameOfTagged+`</a></h5>`
             profilePictureHTML =`<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
                           <img id="postPicture-`+postId+`" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
@@ -356,9 +338,9 @@ function getAllPost() {
                     <p class="card-text" id='caption'>`+postText+`</p>
                     <!-- caption end-->
                     <!-- number of likes -->
-                    <div class='popover__wrapper'>
+                    <div class='popover__wrapper overflow-visible'>
                       <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+postId+`'></a>
-                      <div class="popover__content">
+                      <div class="popover__content overflow-visible">
                         <p class="popover__message" id=popLikes-`+postId+`></p>
                       </div>
                     </div>
@@ -395,7 +377,7 @@ function getAllPost() {
                   <!-- Comment field -->
                   <div class="card-footer py-sm-3 py-0 border-0 themebg">
                     <div class="d-flex ">
-                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none" src="images/sample.png" alt="avatar" width="40"
+                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="images/sample.png" alt="avatar" width="40"
                         height="40" />
                       <div class=" w-100">
                         <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+postId+`" rows="1" placeholder="Add Comment...">
@@ -441,9 +423,9 @@ function getAllPost() {
                     <!-- caption end-->
                   
                     <!-- number of likes end-->
-                    <div class='popover__wrapper'>
+                    <div class='popover__wrapper overflow-visible'>
                       <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+postId+`'></a>
-                      <div class="popover__content">
+                      <div class="popover__content overflow-visible">
                         <p class="popover__message" id=popLikes-`+postId+`></p>
                       </div>
                     </div>
@@ -480,7 +462,7 @@ function getAllPost() {
                   <!-- Comment field -->
                   <div class="card-footer py-sm-3 py-0 border-0 themebg">
                     <div class="d-flex ">
-                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none" src="images/sample.png" alt="avatar" width="40"
+                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="images/sample.png" alt="avatar" width="40"
                         height="40" />
                       <div class=" w-100">
                         <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+postId+`" rows="1" placeholder="Add Comment...">
@@ -508,7 +490,11 @@ function getAllPost() {
           for(update of allPostIdPictureToUpdate){
             postID = update[0]
             posterID = update[1]
+            taggedID = update[2]
             updatePosterPicture(posterID,postID)
+            if(taggedID!= undefined){
+              updatTaggedPicture(taggedID,postID)
+            }
           }
         }
       }, (error) => {
@@ -529,32 +515,36 @@ function getAllPost() {
         user_id = myStorage.userID
         // console.log(user_id)
     }
-   
   getAllPost()
-  
+  loadCurrentAvatar()
+
+  populateSideBar()
   var i = 1;                  //  set your counter to 1
 
   function myLoop() {         //  create a loop function
     setTimeout(function() {   //  call a 3s setTimeout when the loop is called
       getAllPost()  //  your code here
+      loadCurrentAvatar()
+
       i++;                    //  increment the counter
       if (i < 100) {           //  if the counter < 10, call the loop function
         myLoop();             //  ..  again which will trigger another 
       }                       //  ..  setTimeout()
-    }, 10000)
+    }, 15000)
   }
 
   myLoop();                   //  start the loop
- 
   
+  // loadCurrentAvatar();
   function checkIfUserOnLocation() {         //  create a loop function
     setTimeout(function() {   
       console.log(currentLocation)
       if(currentLocation == "no location"){
         document.getElementById('location-check').style.display='block'
       }
-      populateSideBar()
-    }, 2000)
+      
+      
+    }, 1000)
   }
   checkIfUserOnLocation()
   const queryString = window.location.search;

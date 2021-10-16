@@ -11,7 +11,7 @@
     <script src='/screens/homeScreen/homepage.js'></script>
     <title>Pet Profile</title>
   </head>
-  <body id='petroot'>
+  <body id='petroot' onload='onboarding()'>
 
     <!-- navbar start -->
     <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white sticky-top">
@@ -79,10 +79,10 @@
                         Last Seen At
                     </p>
                     <p id='lastseenaddress' class='fw-bold mb-0'>
-                        Pasir Ris BLK 123
+                        Address
                     </p>
                     <p id='lastseentime' class='fw-bold mb-0' style='font-size: larger;'>
-                        10:30pm
+                        Lastseentime
                     </p>
                     <p class="card-text" style="font-size: small;">
                         To update his last seen, add a new post!
@@ -95,12 +95,13 @@
             <div id='imagebox' class="col col-md-5 mx-auto text-center">
                 <img id='petimg' class="card-img-top rounded2" 
                 style="max-height:300px; max-width:500px; object-fit:cover" 
-                src="images/stripy.jpeg" 
+                src="..." 
                 alt="Card image cap">
                 <div class="card-body">
                     <h5 id='petName' class='card-title'>
                         Somecat
                     </h5>
+                    <button id='follow_or_unfollow' type="button" class="btn btn-outline-secondary" onclick="followandunfollow()">Follow </button>
                 </div>
 
             </div>
@@ -143,27 +144,29 @@
                     <div class='row' style='height: 300px;'>
                         <div id='aboutdetails' class="card col-md">
                             <div class="card-body">
-                                <p id='founded'>Founded: 06/10/2020</p>
-                                <br>
-                                <p id='breed'>Breed: Cat, Some cat Breed</p>
-                                <br>
-                                <p id='gender'>Breed: Cat, Some cat Breed</p>
-                                <br>
+                                <p id='founded'></p>
+
+                                <p id='founder'></p>
                                 
-                                MORE DETAILS
+                                <p id='breed'></p>
+                                
+                                <p id='gender'></p>
+                                
+                                
+                                <h5>MORE DETAILS</h5>
+                                <p id='moredetails'>No extra details for this pet yet</p>
                             </div>
                         </div>
     
                         <div id='feederdetails'class="card col-md" >
                             <div class="card-body">
-                                Founded: 06/10/2020
-                                <br>
-                                Breed: Cat, Some cat Breed
-                                <br>
-                                Gender: MALE
-                                <br>
+                              <h5 class="card-title">Feeder Information:</h5>
+                              <p id='feederinfo' class="card-text">
+                                <li></li>
+                              </p>
+                              <p id='availdays 'class="card-text"> Looking for feeders for: </p>
                                 
-                                MORE DETAILS
+                              <button id='feederapply' type="button" class="btn btn-outline-secondary">Apply to be a feeder</button>
                             </div>
                         </div>
                     </div>
@@ -184,8 +187,40 @@
 
                 <!-- followers tab content START-->
                 <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                    Gerald
-                    Xuan
+                  <div class="row row-cols-1 row-cols-md-4 my-3 mx-3 g-4">
+                    <div class="col">
+                      <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Follower</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Follower</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- followers tab content END-->
 
@@ -198,7 +233,56 @@
 
                 <!-- photos tab content START-->
                 <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">
-                    Photos box
+                      <!-- Section: Images -->
+  <section class="">
+    <div class="row">
+      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <div
+          class="bg-image hover-overlay ripple shadow-1-strong rounded"
+          data-ripple-color="light"
+        >
+          <img
+            src="https://mdbootstrap.com/img/screens/yt/screen-video-1.jpg"
+            class="w-100"
+          />
+          <a href="#!" data-mdb-toggle="modal" data-mdb-target="#exampleModal1">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div
+          class="bg-image hover-overlay ripple shadow-1-strong rounded"
+          data-ripple-color="light"
+        >
+          <img
+            src="https://mdbootstrap.com/img/screens/yt/screen-video-2.jpg"
+            class="w-100"
+          />
+          <a href="#!" data-mdb-toggle="modal" data-mdb-target="#exampleModal2">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div
+          class="bg-image hover-overlay ripple shadow-1-strong rounded"
+          data-ripple-color="light"
+        >
+          <img
+            src="https://mdbootstrap.com/img/screens/yt/screen-video-3.jpg"
+            class="w-100"
+          />
+          <a href="#!" data-mdb-toggle="modal" data-mdb-target="#exampleModal3">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section: Images -->
                 </div>
                 <!-- photos tab content END-->
               </div>
@@ -207,8 +291,6 @@
         </div>
     </div>
     <!-- bottom box END-->
-
-
 
 
 
@@ -232,19 +314,18 @@
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
 <!-- vuejs -->
 <script src="https://unpkg.com/vue@next"></script>
-<script src='connectpet.js'></script>
+<script src='/firebase-API/connector.js'></script>
+
+
 <script>
 
   //get petID from url
     console.log(window.location.href)
     var url_string = window.location.href; //window.location.href
     var url = new URL(url_string);
-    var petID = url.searchParams.get("petID");
-    console.log(petID);
+    var petID = parseInt(url.searchParams.get("petID"));
     //get petID from url
-
-    
-    console.log("Pet loaded");
+    console.log("Pet loaded ",petID);
     getPetByID(petID);
     //run getpetID
     
@@ -260,20 +341,34 @@
     axios.get(url)
         .then((response) => {
             output = response.data
+            console.log(output)
             petName = output.petName;
-            console.log("YOYOYO: ",petName);
+            console.log("pet page for: ",petName);
             petPictureUrl = output.petPictureUrl;
             breed = output.breed;
             foundedDate = output.foundedDate;
-            founder = output.founder;
+            founder = output.founderName;
             pet_gender = output.gender;
-            lastSeenLocation = output.lastSeenLocation;
-            document.getElementById('founded').innerText=foundedDate;
+            latitude = output.lastSeenLocation.latitude;
+            longitude = output.lastSeenLocation.longitude;
+            details1 = output.profileDetails.detailTitle1;
+            details2 = output.profileDetails.detailTitle2;
+            var detailstr = 'No extra details for this pet yet'
+            if (details1 != null){
+              detailstr = `<li>${details1}</li>`;
+            }
+            if (details1 != null){
+              detailstr += `<li>${details2}</li>`;
+            }
+            document.getElementById('moredetails').innerHTML = detailstr;
+            document.getElementById('founded').innerHTML='<b>Founded on: </b>'+foundedDate;
+            document.getElementById('founder').innerHTML='<b>Founder: </b>'+founder;
             document.getElementById('petName').innerText=petName;
-            document.getElementById('gender').innerText=pet_gender;
+            document.getElementById('gender').innerHTML='<b>Gender: </b>'+pet_gender;
             document.getElementById('petimg').src=petPictureUrl;
-            document.getElementById('breed').innerText=breed;
-            document.getElementById('lastseenaddress').innerText=lastSeenLocation;
+            document.getElementById('breed').innerHTML='<b> Breed: </b>'+breed;
+            //document.getElementById('lastseenaddress').innerText=lastSeenLocation;
+            document.getElementById('feederapply').innerHTML=`<b>Apply to be a feeder for ${petName}</b>`;
             
         }, 
         (error) => {
@@ -282,20 +377,249 @@
             
         });}
     
+    //reverse latitude and longtitude to address
+    function getReverseGeocodingData(lat, lng) {
+    var latlng = new google.maps.LatLng(lat, lng);
+    // This is making the Geocode request
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        if (status !== google.maps.GeocoderStatus.OK) {
+            alert(status);
+        }
+        // This is checking to see if the Geoeode Status is OK before proceeding
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+            var address = (results[0].formatted_address);
+        }
+    });
+}
 
-   //login verification
-    /*
-    myStorage = window.sessionStorage;
-  if (myStorage.userID===undefined){
-        console.log("Not login")
-        // console.log(myStorage)
-        myStorage.redirect = 'fromLoginNoAccount'
-        window.location.href = "/screens/welcomeScreen/login.html"; 
-    }else{
-        console.log("Login")
-        // console.log(myStorage)
-        user_id = myStorage.userID
-        // console.log(user_id)
-    }*/
+function followandunfollow() {
+
+let follow_action = document.getElementById('follow_or_unfollow').innerText;
+
+
+let my_user_id = parseInt(myStorage.userID);
+
+console.log('current UserID: ',my_user_id);
+
+//const queryString = window.location.search;
+//let the_user = parseInt(queryString.split("?")[1].split("=")[1])
+
+tableName = "userProfile"
+firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+url = firebaseurl + tableName + ".json";
+axios.get(url)
+    .then((response) => {
+        allprofiles = response.data.data;
+        my_details = allprofiles[my_user_id];
+        //user_details = allprofiles[the_user]
+
+        console.log('my details ',my_details.ProfileDetails);
+        //console.log(user_details.ProfileDetails)
+        let url2 = firebaseurl + tableName + "/data/" + my_user_id + '/ProfileDetails/' + ".json";
+      
+        //followedByUsers = my_details.ProfileDetails.followedByUsers;
+
+        if (follow_action == "Follow") {
+            let followingPet = [];
+            //let followedByUsers = [];
+            // ME
+
+            if (my_details.ProfileDetails == undefined || my_details.ProfileDetails.followingPet == undefined) {
+                //Create followingPet in profiledetails with changes made to following pet
+                followingPet = [petID];
+            }
+            else {
+                //add user into your following user list
+                my_details.ProfileDetails.followingPet.push(petID);
+                followingPet = my_details.ProfileDetails.followingPet
+            }
+
+            if (my_details.ProfileDetails == undefined || (my_details.ProfileDetails.followingUsers == undefined && my_details.ProfileDetails.followedByUsers == undefined)) {
+                axios.put(url2, {
+                    "followingUsers": null,
+                    "followedByUsers": null,
+                    "followingPet": followingPet
+                },)
+                    .then(function (response) {
+                        console.log("Updated my followingpet successfully");
+                    })
+            }
+            else if(my_details.ProfileDetails.followingUsers == undefined){
+              followedByUsers = my_details.ProfileDetails.followedByUsers;
+              axios.put(url2, {
+                    "followingUsers": null,
+                    "followedByUsers": followedByUsers,
+                    "followingPet": followingPet
+                })
+                    .then(function (response) {
+                        console.log("Updated my followingpet successfully");
+                    })
+            }
+            else if(my_details.ProfileDetails.followedByUsers == undefined){
+              followingByUsers = my_details.ProfileDetails.followingUsers;
+              axios.put(url2, {
+                    "followingUsers": followingUsers,
+                    "followedByUsers": null,
+                    "followingPet": followingPet
+                })
+                    .then(function (response) {
+                        console.log("Updated my followingpet successfully");
+                    })
+            }
+
+            else { 
+            followingUsers = my_details.ProfileDetails.followingUsers;
+            followedByUsers = my_details.ProfileDetails.followedByUsers;
+            axios.put(url2, {
+                    "followingUsers": followingUsers,
+                    "followedByUsers": followedByUsers,
+                    "followingPet": followingPet
+            })
+                .then(function (response) {
+                    console.log("Updated my following pet successfully");
+                })
+            }
+
+            document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
+            // document.getElementById('follow_or_unfollow').innerText = "Following"
+            document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
+        }
+
+
+        if (follow_action.trim() == "Following") {
+            console.log(follow_action);
+            //let followingUsers = my_details.ProfileDetails.followingUsers;
+            //let followedByUsers = user_details.ProfileDetails.followedByUsers;
+            // ME
+            //remove pet from your following pet list
+            followingPet = my_details.ProfileDetails.followingPet;
+            const my_index = my_details.ProfileDetails.followingPet.indexOf(petID);
+            if (my_index > -1) {
+                followingPet.splice(my_index, 1);
+
+            }
+
+            if (my_details.ProfileDetails == undefined || (my_details.ProfileDetails.followingUsers == undefined && my_details.ProfileDetails.followedByUsers == undefined)) {
+                axios.put(url2, {
+                    "followingUsers": null,
+                    "followedByUsers": null,
+                    "followingPet": followingPet
+                },)
+                    .then(function (response) {
+                        console.log("Removed pet from my following pet successfully");
+                    })
+            }
+            else if(my_details.ProfileDetails.followingUsers == undefined){
+              followedByUsers = my_details.ProfileDetails.followedByUsers;
+              axios.put(url2, {
+                    "followingUsers": null,
+                    "followedByUsers": followedByUsers,
+                    "followingPet": followingPet
+                })
+                    .then(function (response) {
+                        console.log("Removed pet from my following pet successfully");
+                    })
+            }
+            else if(my_details.ProfileDetails.followedByUsers == undefined){
+              followingByUsers = my_details.ProfileDetails.followingUsers;
+              axios.put(url2, {
+                    "followingUsers": followingUsers,
+                    "followedByUsers": null,
+                    "followingPet": followingPet
+                })
+                    .then(function (response) {
+                        console.log("Removed pet from my following pet successfully");
+                    })
+            }
+
+            else { 
+            followingUsers = my_details.ProfileDetails.followingUsers;
+            followedByUsers = my_details.ProfileDetails.followedByUsers;
+            axios.put(url2, {
+                    "followingUsers": followingUsers,
+                    "followedByUsers": followedByUsers,
+                    "followingPet": followingPet
+            })
+                .then(function (response) {
+                    console.log("Removed pet from my following pet successfully");
+                })
+            }
+
+            document.getElementById('follow_or_unfollow').innerHTML = `Follow`;
+            document.getElementById('follow_or_unfollow').style.backgroundColor = "";
+
+        }
+
+
+    })
+}
+
+function get_user_details(petid, me) {
+        console.log('get user detail function is running');
+        tableName = "userProfile"
+        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        url = firebaseurl + tableName + ".json";
+        // cardList = document.getElementById('card-list');
+        axios.get(url)
+            .then((response) => {
+                allprofiles = response.data.data
+                me_details = allprofiles[me]
+                // followings = me_details.ProfileDetails['followingUsers']
+                // console.log(followings);
+                if (me_details.ProfileDetails == undefined || me_details.ProfileDetails.followingPet == undefined) {
+                    //Create followinguders in profiledetails with changes made to following user
+                    document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Follow`;
+                }
+                else {
+                    followings = me_details.ProfileDetails.followingPet;
+                    console.log('Your followings: ',followings);
+                    if (followings.includes(parseInt(petID))) {
+                        document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
+                        // document.getElementById('follow_or_unfollow').innerText = "Following"
+                        document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
+
+                    }
+
+                }
+
+
+            }, (error) => {
+                console.log(error);
+            });
+
+    }
+
+    function onboarding() {
+        console.log('running onboarding function')
+        // start session manager
+        myStorage = window.sessionStorage;
+        if (myStorage.userID === undefined) {
+            console.log("Not login")
+            // console.log(myStorage)
+            myStorage.redirect = 'fromLoginNoAccount'
+            window.location.href = "/screens/welcomeScreen/login.html";
+        } else {
+            console.log("Login")
+            // console.log(myStorage)
+            my_user_id = myStorage.userID
+        }
+
+        // start profile identification
+        //const queryString = window.location.search;
+        // console.log(queryString.split("?")[1].split("=")[1])
+        
+            // console.log(queryString);
+            //userid = queryString.split("?")[1].split("=")[1]
+            //console.log(typeof (userid))
+        console.log('Your user ID: ',my_user_id);
+
+        get_user_details(petID, my_user_id)
+
+        //document.getElementById('follow_or_unfollow').style.display = 'block'
+            //get_user_post_by_id(userid)
+        
+    }
 </script>
 </html>
