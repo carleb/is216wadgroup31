@@ -364,8 +364,8 @@
             pet_gender = output.gender;
             latitude = output.lastSeenLocation.latitude;
             longitude = output.lastSeenLocation.longitude;
-            // loadGoogleMaps(latitude,longitude)   //disabled to safe api calls
-            // getAddress(latitude,longitude)
+            loadGoogleMaps(latitude,longitude)   //disabled to safe api calls
+            getAddress(latitude,longitude)
             details1 = output.profileDetails.detailTitle1;
             details2 = output.profileDetails.detailTitle2;
             var detailstr = 'No extra details for this pet yet'
