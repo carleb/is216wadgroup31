@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel='stylesheet' href='../homeScreen/homepage.css'>
+
+<!-- <link rel='stylesheet' href='profile.css'> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+<body>
+
+    <!-- navbar start -->
+    <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container-fluid">
+            <div class='mx-md-2'>
+                <a href="/screens/homeScreen/homeScreen.html">
+                    <img class='hover-zoom' src='/img/petsoc.png' width=80 height=80>
+                </a>
+            </div>
+
+            <!-- modal button end -->
+            <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 m-lg-auto" style="--bs-scroll-height: 100px;">
+                  <li id="search" class="nav-item mx-4 d-inline d-sm-none mt-2 mb-3">
+                    <form class='px-2' autocomplete="off">
+                      <input class="form-control rounded1 me-2" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='mobilesearchInput' onkeyup="loadMobileSearch()" onclick="loadMobileSearchList()">
+                      <ul id="mobileSearchDisplay" style='list-style-type: none; padding: 0; margin: 0;'>
+                      </ul>
+                    </form>
+                  </li>
+                  <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+                    <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen/homeScreen.html"><img src="icons/house.svg" alt="Bootstrap"
+                        width="32" height="32">
+                      <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
+                  </li>
+                  <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+                    <a class="nav-link px-3" href="#"><img src="./icons/chat-fill.svg" alt="Bootstrap" width="32" height="32">
+                      <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
+                  </li>
+                  <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
+                    <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img src="./icons/person.svg" alt="Bootstrap" width="32" height="32">
+                      <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>
+                     <ul class="dropdown-menu">
+                     <li id="profile"><a class="dropdown-item" href="#"> Your Profile</a></li>
+                     <li id="logout" onclick=logout()><a class="dropdown-item" href="#"> Log Out </a></li>
+                     </ul>
+                 </li>
+                </ul>
+              </div>
+
+        </div>
+    </nav>
+
+    <!-- desktop only -->
+    <div class='container d-none d-sm-block'>
+      <div class='row mt-3' style='height:800px'>
+        <div class='col-4 border' style='background-color:#f5d2bc ;'>
+          <div class='row'>
+            <h1>Contacts</h1>
+            <hr>
+          </div>
+          <div id='user1' class='row' onclick='openChatWindowDesktop(this)'>
+            <h3>User #1</h3>
+            <h5>Name/Picture</h5>
+            <hr>
+          </div>
+
+        </div>
+        <div id='chatbox' class='col-7 ms-3'>
+          CLick on Contacts to view caht
+        </div>
+      </div>
+    </div>
+
+    <!-- mobile only -->
+
+    <div class='d-block d-sm-none'>
+      mobile only
+    </div>
+</body>
+
+
+<script>
+  function openChatWindowDesktop(){
+    chatBox = document.getElementById('chatbox')
+    // chatBox1 = `<div id='chatbox' class='col-7 ms-3 border animate__animated animate__bounceInRight' style='background-color:#f5d2bc ;'>
+    //       hihihi
+    //     </div>`
+    // chatBox.className  = "col-7 ms-3 border animate__animated animate__bounceInRight "
+    let classesToAdd = [ 'col-7', 'ms-3', 'border' ,'animate__animated' ,'animate__bounceInRight'];
+    chatBox.classList.remove("animate__bounceOutRight");
+    chatBox.classList.add(...classesToAdd);
+    chatBox.innerHTML=`<div style='text-align: right;' class='fw-bold me-3 mt-3' onclick='closeChatWindowDesktop()'>
+            <h4>X</h4>
+          </div>`
+    chatBox.style.backgroundColor = "#f5d2bc";
+    console.log(chatBox)
+  }
+
+  function closeChatWindowDesktop(){
+    chatBox = document.getElementById('chatbox')
+    // chatBox.innerHTML=``
+    // chatBox.classList.remove("border");
+    // chatBox.classList.remove("animate__animated");
+    chatBox.classList.remove("animate__bounceInRight");
+    chatBox.classList.add("animate__bounceOutRight");
+
+
+  }
+</script>
+</html>

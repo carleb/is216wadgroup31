@@ -44,7 +44,7 @@ function createUserProfile(inputName, inputEmail, inputAge, inputGender, inputPa
                 "age": inputAge,
                 "gender": inputGender,
                 "profilePictureUrl": '/img/male_empty.png',
-                "ProfileDetails": {
+                "profileDetails": {
                     "followingUsers": null,
                     "followedByUsers": null,
                     "followingPet": null
@@ -162,7 +162,32 @@ function login(email, password) {
 
         });
 }
+function checkPetNameLength() {
+    document.getElementById('petname-length').innerText = document.getElementById('input-name').value.length
+    if (document.getElementById('input-name').value.length > 10) {
+        document.getElementById('petname-length-div').style.color = '#ff4444'
+    }
+    else if (document.getElementById('input-name').value.length <= 10) {
+        document.getElementById('petname-length-div').style.color = 'green'
+    }
+}
+function processPetProfileCreation() {
+    document.getElementById('error-petname-div').innerText = ''
+    if (document.getElementById('input-name').value.length > 10) {
+        document.getElementById('error-petname-div').innerText += 'Pet name cannot be more than 9 characters'
+    }
+    if (document.getElementById('input-name').value.length == 0) {
+        document.getElementById('error-petname-div').innerText += 'Pet name cannot be empty'
+    }
+    else {
+        document.getElementById('addPetToDb').innerHTML = 'Adding Your Pet To Our Database...'
+        createPetProfile()
+        setTimeout(function () {
+            window.location.href = "/screens/homeScreen/homeScreen.html";
+        }, 2500)
 
+    }
+}
 
 function createPetProfile() {
     console.log('----javascript is running-----')
@@ -234,7 +259,7 @@ function updateProfilePicture() {
 
             // newPetID = response.data.data.length
             const ref = firebase.storage().ref()
-            const file = document.getElementById("file").files[0]
+            const file = document.getElementById("newProfilePic").files[0]
             const name = currentUserID + "-profilePicture".name
             const metadata = {
                 contentType: file.type
@@ -329,6 +354,26 @@ function getCurrentProfilePicture(currentUserID) {
             if (profilePictureUrl == undefined) {
                 profilePictureUrl = '/img/male_empty.png'
             }
+            if (response.data.profileDetails != undefined) {
+                if (response.data.profileDetails.followedByUsers != undefined) {
+                    document.getElementById("followers-tab").innerText = `Followers(${response.data.profileDetails.followedByUsers.length})`;
+                    document.getElementById("followersBackdropLabel").innerText = `Followers(${response.data.profileDetails.followedByUsers.length})`;
+
+
+
+                }
+
+                if (response.data.profileDetails.followingUsers != undefined) {
+                    document.getElementById("Following-tab").innerText = `Following(${response.data.profileDetails.followingUsers.length})`;
+                    document.getElementById("followingBackdropLabel").innerText = `Following(${response.data.profileDetails.followingUsers.length})`;
+
+
+
+                }
+            }
+
+
+
             document.getElementById('profilepic').src = profilePictureUrl
         })
 }
@@ -338,7 +383,6 @@ function loadCurrentAvatar(avatarID) {
     tableName = "userProfile"
     if (avatarID != ' ') {
         currentUserID = window.sessionStorage.userID
-
     } else {
         currentUserID = avatarID
     }
@@ -376,7 +420,7 @@ function getDataForSearch() {
         if (userDataFetched == true && petDataFetched == true) {
             searchDataFetched = true
             console.log("Fetched status :" + searchDataFetched)
-            console.log(searchData)
+            // console.log(searchData)
         }
         else {
             // check again
@@ -433,13 +477,16 @@ function getPetDataForSearch() {
             userData.splice(0, 1)
             // console.log(userData)
             for (data of userData) {
+                if (data == null) {
+                    continue
+                }
                 petIDno = data.petID
                 petName = data.petName
                 breed = data.breed
                 type = 'pet - ' + breed
-                unqiueID = petName + "-" + petIDno
+                uniqueID = petName + "-" + petIDno
                 picture = data.petPictureUrl
-                searchData[unqiueID] = [petIDno, petName, type, picture]
+                searchData[uniqueID] = [petIDno, petName, type, picture]
             }
             // console.log(searchData)
             petDataFetched = true

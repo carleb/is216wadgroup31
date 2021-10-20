@@ -31,9 +31,10 @@ if (myStorage.userID===undefined){
 function createNewPost(){
 
     const file = document.getElementById("file").files[0]
+    console.log(file)
     textInput = document.getElementById("post-text").value    
     if(textInput == ""){
-        alert("text field in blank")
+        alert("Please enter a caption!")
     }else{
         if(file === undefined){
         console.log("Creating Post with textonly")
@@ -45,7 +46,7 @@ function createNewPost(){
     }
     setTimeout(function() {   
         document.getElementById("post-body").innerHTML = `<div class="input-group">
-        <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
+        <button type="button" class="btn themebg hover-color2 rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
         <input type="file" class="button button-secondary m-2" style="display:none" id="file"
           accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadImageDisplay(event)">
       </div>
@@ -56,14 +57,16 @@ function createNewPost(){
       <!-- drop files end-->
 
       <!-- post text start -->
+      <label class='ms-2' for='post-text'>Caption:</label>
       <div class="input-group m-2">
         <textarea placeholder="Post Caption" id="post-text" name="text" type="textbox" class="form-control"></textarea>
       </div>
+      <label class='ms-2' for='tagsearchInput'>Tag:</label>
       <form class='input-group m-2' autocomplete="off">
-        Tag : <input placeholder="Who are you with?" id='tagsearchInput' onkeyup="loadTagSearch()" onclick="loadTagSearchList()" name="Tag" type="Tag" class="form-control ml-3">
+         <input placeholder="Who are you with?" id='tagsearchInput' onkeyup="loadTagSearch()" onclick="loadTagSearchList()" name="Tag" type="Tag" class="form-control ml-3">
         <!-- <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()"> -->
       </form>
-      <ul id="tagSearchDisplay" style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
+      <ul id="tagSearchDisplay" class='themebg rounded2' style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
       </ul>`
       }, 3000)
     
@@ -100,7 +103,12 @@ axios.get(url)
         date = date.toDateString()
         date = date.split(" ")
         newDate = date[1]+" "+date[2]+","+date[3]
-        newTime = hour+":"+seconds
+        hourstr = ""+hour+""
+        secondsstr = ""+seconds+""
+        if(hourstr.length==1){hourstr="0"+hourstr}
+        if(secondsstr.length==1){secondsstr="0"+secondsstr}
+        newTime = hourstr+":"+secondsstr+":00"
+        newTime = covert24Hrto12Hr(newTime)
         const task = ref.child("postFiles/"+name).put(file,metadata)
             task
             .then(snapshot => snapshot.ref.getDownloadURL())
@@ -167,7 +175,12 @@ axios.get(url)
         date = date.toDateString()
         date = date.split(" ")
         newDate = date[1]+" "+date[2]+","+date[3]
-        newTime = hour+":"+seconds
+        hourstr = ""+hour+""
+        secondsstr = ""+seconds+""
+        if(hourstr.length==1){hourstr="0"+hourstr}
+        if(secondsstr.length==1){secondsstr="0"+secondsstr}
+        newTime = hourstr+":"+secondsstr+":00"
+        newTime = covert24Hrto12Hr(newTime)
         myStorage = window.sessionStorage;
         if(tagNameInput!=""){
             tagNameInput = tagNameInput.split(" - ")

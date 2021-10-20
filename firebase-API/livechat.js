@@ -73,9 +73,9 @@ function sendMessage(user1, user2){
     tableName = "chat"
     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
     newChatId = user1 + user2
-    url = firebaseurl + tableName + "/data/" + newChatId + ".json"
+    chatUrl = firebaseurl + tableName + "/data/" + newChatId + ".json"
 
-    axios.get(url)
+    axios.get(chatUrl)
         .then((response) => {
             // console.log(response)
             newData = {"sender": sender, "messages": message}
@@ -90,7 +90,7 @@ function sendMessage(user1, user2){
                 messages.push(newData)
             }
 
-            axios.put(url, {
+            axios.put(chatUrl, {
                 "user1": user1,
                 "user2": user2,
                 "messages": messages
@@ -121,6 +121,8 @@ function showMessages(message, sender){
     //     })
     html = `<li>${sender}: ${message}</li>`
     document.getElementById("messages").innerHTML += html
+    document.getElementById("message").innerText = ""
+
 }
 
 // function getContacts(){

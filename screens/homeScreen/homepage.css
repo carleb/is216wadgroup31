@@ -1,5 +1,8 @@
 
-
+*{
+  font-family:monospace;
+  font-size:103%;
+}
 @media only screen and (min-width: 0px){
   *{
     margin: 0;
@@ -14,25 +17,70 @@
     overflow-x: scroll!important;
 
   }
-  
+  #nav-middle{
+    left:0px!important;
+  }
 }
 @media only screen and (min-width: 576px){
   *{
     overflow-x:visible;
   }
-  
+  #nav-middle{
+    left:0px!important;
+  }
+  #navBarIcons{
+    left: 0%!important;
+  }
+}
+
+@media only screen and (min-width: 965px){
+  #nav-middle{
+    left:50px!important;
+  }
+  #navBarIcons{
+    margin-left:auto;
+    margin-right:80px;
+  }
+
 }
 
 
 @media only screen and (min-width: 1200px){
+  *{
+    overflow-x:visible;
+  }
   #sideBar{
     overflow-y:scroll!important;
-    
   }
   #petsDiv{
     overflow-x: hidden!important; 
   }
+  #addPetDiv{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+  }
+  #addPetDiv:hover{
+    background:#f5d2bc;
+  }
+  #nearbyPet{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+  }
+  #nearbyPet:hover{
+    background:#f5d2bc;
+  }
+  .sidebar {
+    min-height:600px;
+    max-height:600px;
+  }
+ 
 }
+
+
 /* Scroll bar */
 .scrollbar::-webkit-scrollbar-track
 {
@@ -51,16 +99,20 @@
 .scrollbar::-webkit-scrollbar-thumb
 {
 	border-radius: 15px;
-	background-color:#f1a97e;
+	background-color:#f5d2bc;
 }
 ::-webkit-scrollbar-corner {
    background:transparent; 
   }
 
 body{
-  background-image: url("/img/background-min.png");
-}
+  /* background-image: url("/img/background-min.png"); */
+	background-color:#fef9f8;
 
+}
+.website-topbar{
+  background-color:#fef9f8;
+}
 .rounded1 {
   border-radius: 25px !important;
 }
@@ -68,28 +120,43 @@ body{
   border-radius: 8px !important;
 }
 
-.dropdown-menu {
-  width : px;
-  height: px;
-}
 
 .hover-color {
-  transition   : background-color .2s;
+  -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
   border-radius: 10px;
 }
 .themebg{
-  background-color: #FFC19D;
+  background-color: #ffe7d9;
+}
+.themebg2{
+  background-color:#fef9f8;
 }
 .hover-color:hover {
-  background-color: #FFC19D;
+  background:#ffe7d9;
   border-radius   : 10px;
 }
 .hover-color2{
-  background-color: #FFC19D;
+  -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    border-radius   : 10px;
 }
 .hover-color2:hover{
-  background-color:#f1a97e;
+  background:#f5d2bc;
   border-radius   : 10px;
+}
+.hover-color3{
+  -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.hover-color3:hover{
+  background:#f5d2bc;
 }
 .hover-zoom {
   transition: transform .2s
@@ -110,24 +177,17 @@ body{
   transform: scale(1.2)
 }
 
-@media only screen and (min-width: 1200px) {
-.sidebar {
-    min-height:600px;
-    max-height:600px;
-  }
-  
-
-}
 
 /* ::-webkit-input-placeholder {
   text-align: center;
 } */
 
+
 #text {
   text-align: center;
 }
 
-.fadein {
+.fadein1 {
   -webkit-animation: fadein 1.2s; /* Safari, Chrome and Opera > 12.1 */
      -moz-animation: fadein 1.2s; /* Firefox < 16 */
       -ms-animation: fadein 1.2s; /* Internet Explorer */
@@ -137,7 +197,7 @@ body{
 
 @keyframes fadein {
   from { opacity: 0; margin-top:150px}
-  to   { opacity: 1; margin-top:20px}
+  to   { opacity: 1; margin-top:0px}
 }
 
 /* Firefox < 16 */
@@ -190,7 +250,7 @@ body{
 }
 
 .contacts button{
-  background-color:#FFC19D;
+  background-color:#ffe7d9;
   border:none;
   padding-left: 20px;
   padding-right: 20px;
@@ -200,7 +260,7 @@ body{
 }
 
 .contacts li button:hover{
-  background-color:#f1a97e;
+  background-color:#ffe7d9;
 }
 
 .img_cont{
@@ -234,7 +294,7 @@ body{
 }
 
 .selectedChat{
-  background-color:#f1a97e;
+  background-color:#ffe7d9;
 }
 /* End of chat sidebar */
 
@@ -258,12 +318,13 @@ body{
   position: absolute;
   top:60px;
   transform: translate(0, 10px);
-  background-color:#f1a97e;
+  background-color:#f5d2bc;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   width: auto;
   padding-left: 20px;
   padding-right:20px;
   padding-top:10px;
+  border-radius: 10px;
 }
 .popover__content:before {
   position: absolute;
@@ -273,7 +334,7 @@ body{
   top: -8px;
   border-style: solid;
   border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #f1a97e transparent;
+  border-color: transparent transparent #f5d2bc transparent;
   transition-duration: 0.3s;
   transition-property: transform;
 }
@@ -292,6 +353,28 @@ body{
 
 .friendName {
   position: relative;
-  bottom: 40px;
+  bottom: 47px;
   left: 70px;
 }
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{   }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}	
+
+@media (min-width: 992px){
+  #nav-middle {
+    position: relative;
+    left: 30%
+  }
+}
+
+@media (max-width: 991px){
+  #nav-middle {
+    position: relative;
+    left: 0;
+  }
+}
+

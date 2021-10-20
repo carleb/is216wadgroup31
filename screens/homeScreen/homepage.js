@@ -13,7 +13,7 @@ function fill(id) {
         document.getElementById(id).querySelector('img').src = src.substr(0, lastIndex) + "-fill" + src.substr(lastIndex)
     }
 
-    var arr = ["chat", "settings", "profile", "map", "home"]
+    var arr = ["chat", "profile", "home"]
 
     arr.forEach(e => {
         if (e != id) {
@@ -120,11 +120,17 @@ function getLikesToUpdateHTML(postId){
       document.getElementById(popoverId).innerHTML += '<ul>'
       like_arr = response.data.likes.like_arr
       numLikes = like_arr.length
-      like_str = numLikes + ' Likes'
+      if(numLikes == 1){
+        like_str = numLikes + ' Like'
+      }
+      else{
+        like_str = numLikes + ' Likes'
+      }
+      
       document.getElementById(numLikesId).innerText = like_str
       let checker = false
       for(ele of like_arr){
-        document.getElementById(popoverId).innerHTML += `<li>`+ele+`</li>`
+        document.getElementById(popoverId).innerHTML += `<li class='list-unstyled'>`+ele+`</li>`
         if(ele == username){
           checker = true
         }
@@ -247,74 +253,172 @@ function handleFiles(e) {
 //     handleFiles(files); // above
 // }
 
-// function sendMessage(user1, user2){
-//   event.preventDefault() // prevent the form from redirecting to somewhere else
-//   if (document.getElementById("message1").value){
-//       var message = document.getElementById("message1").value
-//       var sender = user1
-//   }
-//   else{
-//       var message = document.getElementById("message2").value
-//       var sender = user2
-//   }
-//   tableName = "chat"
-//   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-//   newChatId = user1 + user2
-//   url = firebaseurl + tableName + "/data/" + newChatId + ".json"
-
-//   axios.get(url)
-//       .then((response) => {
-//           // console.log(response)
-//           newData = {"sender": sender, "messages": message}
-//           // console.log(response.data)
-
-//           if(response.data == undefined){
-//               console.log("newChat")
-//               messages = [newData];
-//           }
-//           else{
-//               messages = response.data.messages;
-//               messages.push(newData)
-//           }
-
-//           axios.put(url, {
-//               "user1": user1,
-//               "user2": user2,
-//               "messages": messages
-//           })
-//       })
-//   showMessages(message, sender)
-//   return false;
-
-// }
-
-// function createChat(userName, friendName){
-//   tableName = "chat"
-//   firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-//   chatId = userName + friendName
-//   url = firebaseurl + tableName + "/data/" + chatId + ".json"
-//   axios.get(url)
-//     .then((response) => {
-//       console.log(response.data)
-//     })
-
-// }
-
-// function showChat(ele){
-//   userName = window.sessionStorage.userName
-//   friendName = ele.id
-//   createChat(userName, friendName)
-// }
+// livechat js start
+function clearMessageInput(){
+  document.getElementById("message").value = ""
+}
 
 
 
-function backToContacts(){
-  console.log("--- start backToContacts ---")
-  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/"
-  tableName = "userProfile"
-  url = firebaseurl + tableName + "/data" + ".json"
-  output = null
+function showChat(ele){
+  event.preventDefault()
+  username = window.sessionStorage.userName
+  friend = ele.id
+  // console.log("username", username)
+  // console.log("friend", friend)
+  
+  document.getElementById("chat-header").innerHTML = 
+  `
+  <div class='col-4 text-start '>
+    <button class='ms-3 btn hover-color2 rounded-circle' onclick="backToContacts(this)">
+      <img src="icons/chevron-left.svg" alt="Bootstrap">
+    </button>
+  </div>
+  <div class='col-4 text-start'>
+    <p class='mt-1'> `+friend+` </p>
+  </div>
+  <div class='col-4'>
+  </div>
+  
+  `
+  
+  document.getElementById("chatSidebar").innerHTML =
+  `
+  <div id="convo" class="mx-3">
+  </div>
+  `
+  document.getElementById('chat-send-div').innerHTML = `
+  <div id="send-message" class="input-group mt-3" style='width:100%;'>
+    <input id="message" type="text" class="form-control rounded1" placeholder="enter message...">
+    <button class="btn hover-zoom ms-1" onclick="createChat(username, friend, document.getElementById('message').value); clearMessageInput();" style='border-radius:20px' type="submit"><img src='icons/symmetry-horizontal.svg' height=25 width=25></button>
+  </div>`
+  //init chat
+  createChat(username, friend, '')
+
+  //sendMsg
+  document.querySelector("#message").addEventListener("keypress", function (e) {
+    if (e.key === "Enter"){
+      createChat(username, friend, document.getElementById('message').value)
+      clearMessageInput()
+    }
+  })
+  startRefresh(username, friend)
+}
+
+var globalvar = {refresh : "", len : 0}
+
+function startRefresh(username, friend){
+  globalvar.refresh = window.setInterval(function(){
+    /// call your function here
+    console.log("refresh")
+
+    refreshChat(username, friend, len=globalvar.len)
+  }, 1000);
+}
+
+function endRefresh(){
+  clearInterval(globalvar.refresh)
+}
+
+// work in progress
+function refreshChat(username, friend, len=globalvar.len){
+  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+  if (username < friend){
+    // chatId by alphabetical order
+    chatId = username + friend
+  }
+  else {
+    chatId = friend + username
+  }
+  url = firebaseurl + "chat/data/" + chatId + ".json"
   axios.get(url)
+  .then((response) => {
+    if (response.data != undefined){
+      msgs = response.data.messages
+      // if (len != msgs.length){
+      //   diff = len-msgs.length
+      //   // console.log("diff", diff)
+      //   for (msg of msgs.slice(diff)) {
+      //     if (msg["sender"] == friend){
+      //       document.getElementById("convo").innerHTML += `<h6 class="text-start"><span class='fw-bold'>${friend}:</span> ${msg["message"]}</h6>`
+      //     }
+      //   }
+      //   globalvar.len = msgs.length
+      // }
+    }
+  })
+}
+
+function createChat(username, friend, message){
+  document.getElementById('chatSidebar').style.maxHeight = '445px'
+  document.getElementById('chatSidebar').style.height = '445px'
+  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+  if (username < friend){
+    // chatId by alphabetical order
+    chatId = username + friend
+  }
+  else {
+    chatId = friend + username
+  }
+
+  chatHTML = ""
+  chatUrl = firebaseurl + "chat/data/" + chatId + ".json"
+  axios.get(chatUrl)
+    .then((response) => {
+      data = {"sender": username, "message": message}
+      if (response.data == undefined){
+        messages = [data]
+      }
+      else {
+        messages = response.data.messages;
+        if(message !=''){
+          messages.push(data)
+        }
+      }
+      // console.log(messages)
+      console.log(messages.length)
+      
+        // console.log("message")
+        // console.log(message)
+        // console.log(data)
+      for(chatData of messages){
+        // console.log(chatData)
+        sender = chatData.sender
+        chatmessage = chatData.message
+        if(chatmessage == ''){continue}
+        chatHTML += 
+        `
+        <h6 class="text-start"><span class='fw-bold'>${sender}:</span> ${chatmessage}</h6>
+        `
+      }
+      document.getElementById("convo").innerHTML = chatHTML
+      if(message!=""){
+        axios.put(url, {
+          "messages": messages
+        })
+      }
+    })
+
+  // display messages
+  // document.getElementById("convo").innerHTML += 
+  // `
+  // <h6 class="text-start">${username}: ${message}</h6>
+  // `
+}
+// createChat(`+userName+`, `+friendName+`, ' ')
+function backToContacts(){
+  // console.log("--- start backToContacts ---")
+  document.getElementById("chat-header").innerHTML = `
+  <div class='col-12 mt-1'>Live Chat</div>`
+  if (document.getElementById("send-message") != undefined){
+    document.getElementById("send-message").innerHTML = ""
+    document.getElementById("convo").innerHTML = ""
+  }
+  username = window.sessionStorage.userName
+  firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/"
+  profileUrl = firebaseurl + "userProfile/data" + ".json"
+  output = null
+  axios.get(profileUrl)
       .then((response) => {
           response = response.data
           for (let i = 1; i < response.length; i++) {
@@ -322,27 +426,36 @@ function backToContacts(){
             // console.log(ele)
             // console.log(ele.name)
             friendName = ele.name
-            // console.log(friendName)
-            document.getElementById('chatSidebar').innerHTML += 
-            `
-            <div id="friendName${i} class='row-cols-xl-3' style='white-space:nowrap'>
-              <div class="d-flex">
-                <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
-                  <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+            if (friendName != username){
+              profilePic = ele.profilePictureUrl
+              document.getElementById('chatSidebar').style.maxHeight = '100%'
+              document.getElementById('chatSidebar').style.height = '100%'
+              // console.log(friendName)
+              document.getElementById('chatSidebar').innerHTML += 
+              `
+              <div class='hover-color2 py-2'>
+              <a id= '${friendName}' onclick="showChat(this)" href='#' class='text-decoration-none text-dark'>
+              <div id="friendName${i}" class='row' style='white-space:nowrap'>
+                <div class='col-4 text-end'>
+                <img src=${profilePic} class="rounded-circle" width=80 height=80>
                 </div>
-                <div class='ms-3 friendName text-start text-nowrap'>
-                  <span>${friendName}</span>
-                  <img id= '${friendName}' src="icons/chevron-right.svg" alt="Bootstrap" onclick="showChat(this)">
+                <div class='col-8 my-auto text-start'>
+                <span class="fs-5">${friendName}</span>
+                <img src="icons/chevron-right.svg" alt="Bootstrap" >
                 </div>
               </div>
-            </div>
-            `
+              </a>
+              </div>`
+            }
+
             }
       }).catch(error => {
         console.log(error.message) }
       )
-  console.log("--- end backToContacts ---")
+  // console.log("--- end backToContacts ---")
+  endRefresh()
 }
+// livechat js end
 
 function processComment(ele){
   // console.log('--processComment start--')
@@ -574,9 +687,12 @@ function updatTaggedPicture(petID,postID){
     // console.log(url)
     axios.get(url)
     .then((response) => {
-      petPictureUrl = response.data.petPictureUrl
-        if (petPictureUrl== undefined){
+      
+        if (response.data== null){
           petPictureUrl='/img/male_empty.png'
+        }
+        else{
+          petPictureUrl = response.data.petPictureUrl
         }
         // console.log("CHANGING POSTER PIC")
         // console.log(document.getElementById('postPicture-'+postID).innerHTML)
@@ -651,24 +767,37 @@ function populateSideBar() {
   axios.get(url)
       .then((response) => {
         all_pets_arr= []
+        let i=0
         for(let pet of response.data){
-          petID = pet.petID
-          petBreed = pet.breed
-          petName = pet.petName;
-          petImage = pet.petPictureUrl
-          petLocation = pet.lastSeenLocation
-          distanceFromPet = getDistanceFromLatLonInKm(currentLocation['latitude'], petLocation['longitude'], petLocation['latitude'], currentLocation['longitude'])
-          distanceFromPet=Math.round(distanceFromPet * 100) / 100
+          if(pet == null){
+            petID = i
+            petDeleted = true
+          }
+          else{
+            petID = pet.petID
+            petBreed = pet.breed
+            petName = pet.petName;
+            petImage = pet.petPictureUrl
+            petLocation = pet.lastSeenLocation
+            distanceFromPet = getDistanceFromLatLonInKm(currentLocation['latitude'], petLocation['longitude'], petLocation['latitude'], currentLocation['longitude'])
+            distanceFromPet=Math.round(distanceFromPet * 100) / 100
+            petDeleted = false
+          }
+          
+          i++
           // console.log(distanceFromPet)
           if(!isNaN(distanceFromPet)){
+            if(petDeleted == false){
               pet_arr = [distanceFromPet,petName, petBreed ,petImage,petID]
               all_pets_arr.push(pet_arr)
+            }  
           } 
         }
         //sort array by distance
         all_pets_arr.sort((a,b) => a[0] - b[0])
-        document.getElementById('petsDiv').innerHTML +=`
-        <div id='addPetDiv' class='mx-2 mx-xl-0 mb-xl-3 mt-4 mt-xl-0 ms-4 ms-xl-0' style='white-space:nowrap'>
+        
+        document.getElementById('petsDiv').innerHTML =`
+        <div id='addPetDiv' class='mx-2 mx-xl-0 py-xl-3 mt-4 mt-xl-0 ms-4 ms-xl-0' style='white-space:nowrap'>
           <a href="/screens/petprofile/netPetForm.html" class='justify-content-center my-auto d-xl-flex d-block text-decoration-none text-dark'>
             <div id='addPetIcon' class="img_cont2 rounded-circle ms-3 ms-xl-1">
               <img src="icons/plus-circle.svg" class="rounded-circle user_img2">
@@ -679,6 +808,7 @@ function populateSideBar() {
           </a>
         </div>`
         // console.log(all_pets_arr)
+       
         for(arr of all_pets_arr){
           
           petLocation = arr[0]
@@ -689,23 +819,35 @@ function populateSideBar() {
           petID = arr[4]
           urlLink ='/screens/petprofile/petprofile.html?petID='+petID
           document.getElementById('petsDiv').innerHTML += `
-        <div id='nearbyPet' class='row-cols-xl-3' style='white-space:nowrap'>
-          <a href='`+urlLink+`' style='text-decoration:none;color:black'>
-            <div class='d-xl-flex d-block'>
-              <span class='d-xl-none ms-3 fw-bold'>`+petName+`</span>
-              <div class="img_cont ms-3 ms-xl-0 mb-xl-0 rounded-circle shadow">
-                <img src="`+petImage+`" class="rounded-circle user_img">
+          <div id='nearbyPet' class='mx-xl-2 rounded2'>
+          <a href='`+urlLink+`' class='text-decoration-none text-dark'>
+            <div class=' row d-none d-xl-flex' style='white-space:nowrap'>       
+              <div class='col-xl-4 my-auto'>
+                <div class="img_cont mx-auto rounded-circle shadow d-flex">
+                  <img src="`+petImage+`" class="rounded-circle user_img">
+                </div>
               </div>
-              <span class='d-xl-none ms-2 ms-xl-0' style='font-size: 15px;'>`+petLocation+`</span>
-              <div class='ms-3 text-start my-auto'>
-                <p class='d-xl-flex d-none mt-2 fw-bold'>`+petName+`</p>
-                <p class='d-xl-flex d-none mt-2'>`+petBreed+`</p>
+              <div class='col-xl-4 text-center'>
+                  <p class='fw-bold mt-3'>`+petName+`</p>
+                  <p>`+petBreed+`</p>
+                </div>
+              <div class='col-xl-4 text-center'>
+                <p style='margin-top:35px'>`+petLocation+`</p>
               </div>
-              <div class='ms-3 my-auto'>
-                <p class='d-xl-flex d-none mt-2'>`+petLocation+`</p>
-              </div>
-            </div>   
+            </div>
           </a>
+        
+          <div class='mx-xl-auto d-flex d-xl-none overflow-visible mb-4' style='white-space:nowrap '>
+            <a href='`+urlLink+`' class='text-decoration-none text-dark d-flex overflow-visible ms-3'>
+              <div class='text-center overflow-visible'>
+                <span class='fw-bold'>`+petName+`</span>
+                <div class="img_cont mx-auto rounded-circle shadow d-flex">
+                  <img src="`+petImage+`" class="rounded-circle user_img">
+                </div>
+                <span class=''>`+petLocation+`</span>
+              </div>
+            </a>
+          </div> 
         </div>
           `
            
@@ -728,7 +870,7 @@ function loadWebSearch(){
   // console.log(filter)
   ul = document.getElementById("webSearchDisplay");
   li = ul.getElementsByTagName("li");
-  if(filter ==''){
+  if(filter == ''){
     // console.log("empty")
     ul.style.display='none'
   }else{
@@ -748,7 +890,7 @@ function loadWebSearch(){
 function loadWebSearchList(){
   // console.log("load")
   display = document.getElementById('webSearchDisplay')
-  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
   // console.log(searchData)
   newHTML = ``
   for(searchdataID in searchData){
@@ -764,9 +906,9 @@ function loadWebSearchList(){
      }else{
        urlLink ='/screens/petprofile/petprofile.html?petID='+id
      }
-     display_text =  nameDisplay +" - "+type
+     display_text = `<span class='fw-bold'>`+ nameDisplay + `</span>` +" - "+type
 
-     liHtml = `<li `+styling+`><a href="`+urlLink+`" style='text-decoration: none'>`+display_text+`</a></li>`
+     liHtml = `<li class='rounded2 hover-color2 p-3 themebg font-monospace'><a href="`+urlLink+`" class='text-decoration-none text-dark' style='white-space:nowrap;'>`+display_text+`</a></li>`
      newHTML = newHTML + liHtml
   }
   display.innerHTML=newHTML
@@ -798,7 +940,7 @@ function loadMobileSearch(){
 function loadMobileSearchList(){
   console.log("Searchin mobile list")
   display = document.getElementById('mobileSearchDisplay')
-  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
   // console.log(searchData)
   newHTML = ``
   for(searchdataID in searchData){
@@ -814,9 +956,9 @@ function loadMobileSearchList(){
      }else{
        urlLink ='/screens/petprofile/petprofile.html?petID='+id
      }
-     display_text =  nameDisplay +" - "+type
+     display_text = `<span class='fw-bold'>` + nameDisplay+'</span>'  +" - "+type
 
-     liHtml = `<li `+styling+`><a href="`+urlLink+`" style='text-decoration: none'>`+display_text+`</a></li>`
+     liHtml = `<li class='rounded2 hover-color2 p-2 themebg font-monospace text-center'><a href="`+urlLink+`" class='text-decoration-none text-dark' style='white-space:nowrap;'>`+display_text+`</a></li>`
      newHTML = newHTML + liHtml
   }
   display.innerHTML=newHTML
@@ -849,7 +991,7 @@ function loadTagSearch(){
 function loadTagSearchList(){
   console.log("load tag list")
   display = document.getElementById('tagSearchDisplay')
-  styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
+  // styling = `style='border: 1px solid #ddd;margin-top: -1px;background-color: #f6f6f6;padding: 12px;text-decoration: none;font-size: 18px;color: black;display: none' onMouseOver="this.style.color='#eee'" onMouseOut="this.style.color='#f6f6f6'"`
   // console.log(searchData)
   newHTML = ``
   for(searchdataID in searchData){
@@ -864,8 +1006,9 @@ function loadTagSearchList(){
      if (type!='user'){
       display_text =  nameDisplay +" - "+type
       display_text = display_text.split(" - ")
+      display_text_html = `<span class='fw-bold'>`+display_text[0]+ `</span>` + " - "+display_text[2] + " - Pet ID : "+id
       display_text = display_text[0] + " - "+display_text[2] + " - Pet ID : "+id
-      liHtml = `<li `+styling+` onclick='replaceTagSearch("`+display_text+`")'><a href="#" style='text-decoration: none'>`+display_text+`</a></li>`
+      liHtml = `<li class='rounded2 hover-color2 p-3 themebg font-monospace text-start' onclick='replaceTagSearch("`+display_text+`")'><a href="#" class='text-decoration-none text-dark'>`+display_text_html+`</a></li>`
       newHTML = newHTML + liHtml
      }
      
@@ -876,4 +1019,8 @@ function loadTagSearchList(){
 function replaceTagSearch(input){
   document.getElementById('tagsearchInput').value = input
   document.getElementById("tagSearchDisplay").style.display='none'
+}
+
+function getUserFollowing(){
+  
 }
