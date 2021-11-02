@@ -150,6 +150,9 @@ function getLikesToUpdateHTML(postId){
   }, (error) => { console.log(error); });
 
 }
+
+profileHTML = `<a class="dropdown-item  hover-color3" href="/screens/userProfile/user_profile.html?userid=` + window.sessionStorage.userID + `">My Profile</a></li>`
+document.getElementById("profile").innerHTML = profileHTML
 // change post icon from pencil-square to pencil-fill
 //GOT BUG keep causing an error
 function fillPost(id){
@@ -216,14 +219,14 @@ function typeWriter() {
   }
 }
 
-// post- choose files
-var fileElement = document.getElementById("file")
-fileElement.addEventListener("change", handleFiles, false);
-function handleFiles(e) {
-    var fileList = this.files; /* now you can work with the file list */
-    if (fileList == "undefined")
-    console.log(fileList)
-}
+// // post- choose files
+// var fileElement = document.getElementById("file")
+// fileElement.addEventListener("change", handleFiles, false);
+// function handleFiles(e) {
+//     var fileList = this.files; /* now you can work with the file list */
+//     if (fileList == "undefined")
+//     console.log(fileList)
+// }
 
 // post- drag and drop files
 // let dropbox;
@@ -258,14 +261,10 @@ function clearMessageInput(){
   document.getElementById("message").value = ""
 }
 
-
-
 function showChat(ele){
   event.preventDefault()
   username = window.sessionStorage.userName
   friend = ele.id
-  // console.log("username", username)
-  // console.log("friend", friend)
   
   document.getElementById("chat-header").innerHTML = 
   `
@@ -375,20 +374,15 @@ function createChat(username, friend, message){
           messages.push(data)
         }
       }
-      // console.log(messages)
       console.log(messages.length)
       
-        // console.log("message")
-        // console.log(message)
-        // console.log(data)
       for(chatData of messages){
-        // console.log(chatData)
         sender = chatData.sender
         chatmessage = chatData.message
         if(chatmessage == ''){continue}
         chatHTML += 
         `
-        <h6 class="text-start"><span class='fw-bold'>${sender}:</span> ${chatmessage}</h6>
+        <h6 style='overflow-wrap:break-word;' class="text-start"><span class='fw-bold'>${sender}:</span> ${chatmessage}</h6>
         `
       }
       document.getElementById("convo").innerHTML = chatHTML
@@ -399,13 +393,8 @@ function createChat(username, friend, message){
       }
     })
 
-  // display messages
-  // document.getElementById("convo").innerHTML += 
-  // `
-  // <h6 class="text-start">${username}: ${message}</h6>
-  // `
 }
-// createChat(`+userName+`, `+friendName+`, ' ')
+
 function backToContacts(){
   // console.log("--- start backToContacts ---")
   document.getElementById("chat-header").innerHTML = `
@@ -423,14 +412,11 @@ function backToContacts(){
           response = response.data
           for (let i = 1; i < response.length; i++) {
             const ele = response[i];
-            // console.log(ele)
-            // console.log(ele.name)
             friendName = ele.name
             if (friendName != username){
               profilePic = ele.profilePictureUrl
               document.getElementById('chatSidebar').style.maxHeight = '100%'
               document.getElementById('chatSidebar').style.height = '100%'
-              // console.log(friendName)
               document.getElementById('chatSidebar').innerHTML += 
               `
               <div class='hover-color2 py-2'>
@@ -1024,3 +1010,29 @@ function replaceTagSearch(input){
 function getUserFollowing(){
   
 }
+
+function getShareURL(postID){
+    Event.clipboardData.setData("text/plain", "dhsadh ashdjk lasld");
+    console.log(Event.clipboardData.getData("text"))
+
+}
+
+function copy(postID){
+  console.log("added TO clip board")
+  text = "https://is216wadgroup31.vercel.app/screens/sharedPost/post.html?postID="+postID
+  console.log(text)
+  var inp =document.createElement('input');
+  document.body.appendChild(inp)
+  inp.value =text
+  inp.select();
+  document.execCommand('copy',false);
+  inp.remove();
+
+  document.getElementById('sharableLink-'+postID).style.display='block'
+  document.getElementById('sharableLink-'+postID).classList.add("animate__animated");
+  document.getElementById('sharableLink-'+postID).classList.add("animate__bounceIn");
+  setTimeout(function() { 
+    document.getElementById('sharableLink-'+postID).style.display='none'
+  }, 4000);
+}
+

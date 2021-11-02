@@ -198,7 +198,7 @@ function createPetProfile() {
         .then((response) => {
             newPetID = response.data.data.length
             const ref = firebase.storage().ref()
-            const file = document.getElementById("file").files[0]
+            const file = document.getElementById("petFile").files[0]
             const name = newPetID + "-" + file.name
             const metadata = {
                 contentType: file.type

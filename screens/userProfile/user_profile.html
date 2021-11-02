@@ -75,7 +75,7 @@
                                 class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
                     </li>
                     <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link px-3" href="/screens/homeScreen/liveChats.html"><img src="./icons/chat.svg"
+                        <a class="nav-link px-3" href="/screens/homeScreen/livechat.html"><img src="./icons/chat.svg"
                                 alt="Bootstrap" width="32" height="32">
                             <span
                                 class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
@@ -393,6 +393,8 @@
     function followinglist() {
         const queryString = window.location.search;
         let the_user = parseInt(queryString.split("?")[1].split("=")[1])
+        my_user_id = myStorage.userID
+
         tableName = "userProfile"
         firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
         url = firebaseurl + tableName + ".json";
@@ -412,7 +414,24 @@
                         image = user.profilePictureUrl;
                         let row_id = `${following}things`;
 
-                        to_be_insert += `<div class="row mb-2" id=${row_id}>
+                        if (the_user != my_user_id) {
+                            to_be_insert += `<div class="row mb-2" id=${row_id}>
+                        <div class="col-6" style='white-space:nowrap'>
+                            <img id = "profile_pic_small" style='object-fit:cover;' class='mx-1 rounded-circle shadow-1-strong' width='40' height='40'
+                                src=${image}>
+                            ${name}
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            <button id=${following} style='width:70%;'
+                                class='mt-auto mx-auto btn border border-dark overflow-hidden' onclick="stopfollowing(this)"
+                                type="button" disabled>
+                                <h6 class='overflow-visible my-auto'>Following</h6>
+                            </button>
+                        </div>
+                    </div>`
+                        }
+                        else {
+                            to_be_insert += `<div class="row mb-2" id=${row_id}>
                         <div class="col-6" style='white-space:nowrap'>
                             <img id = "profile_pic_small" style='object-fit:cover;' class='mx-1 rounded-circle shadow-1-strong' width='40' height='40'
                                 src=${image}>
@@ -426,6 +445,9 @@
                             </button>
                         </div>
                     </div>`
+                        }
+
+
 
                     }
                     document.getElementById("followingbody").innerHTML = to_be_insert;
@@ -507,6 +529,19 @@
                         }
 
                     }
+
+                    // getCurrentProfilePicture(my_user_id)
+                    document.getElementById("followingBackdropLabel").innerText = `Following(${followingUsers.length})`;
+
+                    if (followingUsers.length == 0) {
+                        document.getElementById("Following-tab").innerText = `Following`;
+
+                    }
+                    else {
+                        document.getElementById("Following-tab").innerText = `Following(${followingUsers.length})`;
+                    }
+
+
 
                     following_user_details = allprofiles[user_to_be_remove_id]
                     followedByUsers = following_user_details.profileDetails.followedByUsers
@@ -634,6 +669,18 @@
 
                     }
 
+                    document.getElementById("followingBackdropLabel").innerText = `Following(${followingUsers.length})`;
+
+                    if (followingUsers.length == 0) {
+                        document.getElementById("Following-tab").innerText = `Following`;
+
+                    }
+                    else {
+                        document.getElementById("Following-tab").innerText = `Following(${followingUsers.length})`;
+                    }
+
+
+
                     // THE_USER
 
                     if (user_details.profileDetails == undefined || user_details.profileDetails.followedByUsers == undefined) {
@@ -711,6 +758,10 @@
                 var i = user.parentNode.parentNode.id;
                 document.getElementById(i).remove();
             }
+
+
+
+
         });
 
     }
@@ -718,6 +769,8 @@
     function followerlist() {
         const queryString = window.location.search;
         let the_user = parseInt(queryString.split("?")[1].split("=")[1])
+        my_user_id = myStorage.userID
+
         tableName = "userProfile"
         firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
         url = firebaseurl + tableName + ".json";
@@ -737,7 +790,24 @@
                         image = user.profilePictureUrl;
                         let row_id = `${follower}things`;
 
-                        to_be_insert += `<div class="row mb-2" id=${row_id}>
+                        if (my_user_id != the_user) {
+                            to_be_insert += `<div class="row mb-2" id=${row_id}>
+                        <div class="col-6" style='white-space:nowrap'>
+                            <img id = "profile_pic_small" style='object-fit:cover;' class='mx-1 rounded-circle shadow-1-strong' width='40' height='40'
+                                src=${image}>
+                            ${name}
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            <button id=${follower} style='width:70%;'
+                                class='mt-auto mx-auto btn border border-dark' onclick="unfollow(this)"
+                                type="button" disabled>
+                                <h6 class='my-auto overflow-visible'>Remove</h6>
+                            </button>
+                        </div>
+                    </div>`
+                        }
+                        else {
+                            to_be_insert += `<div class="row mb-2" id=${row_id}>
                         <div class="col-6" style='white-space:nowrap'>
                             <img id = "profile_pic_small" style='object-fit:cover;' class='mx-1 rounded-circle shadow-1-strong' width='40' height='40'
                                 src=${image}>
@@ -751,6 +821,8 @@
                             </button>
                         </div>
                     </div>`
+                        }
+
 
                     }
                     document.getElementById("followerbody").innerHTML = to_be_insert;
@@ -763,6 +835,7 @@
             })
 
     }
+
 
     function unfollow(event) {
         // remove me from user following list
@@ -829,6 +902,17 @@
                     }
 
                 }
+
+                document.getElementById("followersBackdropLabel").innerText = `Followers(${followedByUsers.length})`;
+
+                if (followedByUsers.length == 0) {
+                    document.getElementById("followers-tab").innerText = `Followers`;
+
+                }
+                else {
+                    document.getElementById("followers-tab").innerText = `Followers(${followedByUsers.length})`;
+                }
+
 
 
 
@@ -1054,6 +1138,12 @@
                     document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
                     // document.getElementById('follow_or_unfollow').innerText = "Following"
                     document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
+
+
+                    document.getElementById("followers-tab").innerText = `Followers(${user_details.profileDetails.followedByUsers.length})`;
+
+
+
                 }
 
 
@@ -1164,6 +1254,9 @@
 
                     document.getElementById('follow_or_unfollow').innerHTML = `Follow`;
                     document.getElementById('follow_or_unfollow').style.backgroundColor = "";
+
+                    document.getElementById("followers-tab").innerText = `Followers(${user_details.profileDetails.followedByUsers.length})`;
+
 
                 }
 
