@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel='stylesheet' href='/css/homepage.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body id='newpetform'>
+ 
+    <!-- navbar start -->
+    <nav class="shadow-sm navbar navbar-expand-lg navbar-light sticky-top website-topbar">
+      <div class="container-fluid">
+        <div class='mx-md-2 overflow-visible'>
+          <a href="/screens/homeScreen.html">
+            <img style="position: relative; left: 30%" class='hover-zoom' src='/images/petsoc.png' width=80 height=80>
+          </a>
+        </div>
+        <div id="nav-middle" class="d-flex flex-row" style='left:0px'>
+          <form class='mx-lg-auto' autocomplete="off">
+            <input style='margin-top:11px;' class="form-control rounded1 me-2 d-md-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()">
+              <ul class='rounded2 themebg position-fixed mt-2 shadow' id="webSearchDisplay" style='list-style-type: none; padding: 0; margin: 0; border:0;display:none;'>
+              </ul>
+          </form>
+  
+          <!-- modal button start -->
+          <button  id="post" class='btn ms-lg-3 d-flex hover-color' data-bs-toggle="modal"
+            data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
+              src='/images/icons/pencil-square.svg'><span style='white-space:nowrap' class=" font-monospace ms-1 float-start mt-2"
+              id='newpost'>New Post</span>
+            </button>
+        </div>
+        <!-- modal button end -->
+  
+        <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul id='navBarIcons' class="navbar-nav" style="--bs-scroll-height: 100px; position: relative;">
+            <li id="search" class="nav-item mx-4 d-inline d-md-none mt-2 mb-3">
+              <form class='px-2' autocomplete="off">
+                <input class="form-control rounded1 me-2" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='mobilesearchInput' onkeyup="loadMobileSearch()" onclick="loadMobileSearchList()">       
+               
+                <ul id="mobileSearchDisplay" class='rounded2 themebg mt-2 shadow' style='list-style-type: none; padding: 0; margin: 0;display:none;'>
+                </ul>
+              </form>
+            </li>
+            
+            <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+              <a class="nav-link active px-3" aria-current="page" href="#"><img src="/images/icons/house-fill.svg" alt="Bootstrap"
+                  width="32" height="32">
+                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
+            </li>
+            <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+              <a class="nav-link px-3" href="#"><img src="/images/icons/chat.svg" alt="Bootstrap" width="32" height="32">
+                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
+            </li>
+            <!-- <li id="profile" class="nav-item mx-3 hover-color d-lg-none" onclick=fill(this.id)>
+              <a class="nav-link px-3" href="#"><img src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
+                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>
+            </li>          
+  
+            <li id="logout" class="nav-item mx-3 hover-color d-lg-none" onclick=logout()>
+              <a class="nav-link px-3" href="#"><img src="/images/icons/box-arrow-right.svg" alt="Bootstrap" width="32" height="32">
+                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Log Out</span></a>
+            </li> -->
+            <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
+              <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
+                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>
+               <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
+               <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2" href="#">Your Profile</a></li>
+               <li id="logout" onclick=logout()><a class="dropdown-item hover-color3" href="#"> Log Out </a></li>
+               </ul>
+           </li>
+  
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- navbar end -->
+
+ <!-- modal start -->
+ <div class="modal fade " id="createPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="exampleModalLabel">Create A New Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id='post-body'>
+  
+        <!-- form start -->
+          <!-- drop files start-->
+          <div class="input-group">
+            <button type="button" class="btn themebg hover-color2 rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
+            <input type="file" class="button button-secondary m-2" style="display:none" id="file"
+              accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadImageDisplay(event)">
+          </div>
+          <div class='ml-3'>
+             <img id="output" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>  
+          </div>
+
+          <!-- drop files end-->
+  
+          <!-- post text start -->
+          <label class='ms-2' for='post-text'>Caption:</label>
+          <div class="input-group m-2">
+            <textarea placeholder="Post Caption" id="post-text" name="text" type="textbox" class="form-control"></textarea>
+          </div>
+          <label class='ms-2' for='tagsearchInput'>Tag:</label>
+          <form class='input-group m-2' autocomplete="off">
+             <input placeholder="Who are you with?" id='tagsearchInput' onkeyup="loadTagSearch()" onclick="loadTagSearchList()" name="Tag" type="Tag" class="form-control ml-3">
+            <!-- <input class="form-control rounded1 me-2 d-sm-inline d-none" type="search" placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'onkeyup="loadWebSearch()" onclick="loadWebSearchList()"> -->
+          </form>
+          <ul id="tagSearchDisplay" class='themebg rounded2' style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
+          </ul>
+          <!-- <div class="input-group m-2">
+          </div> -->
+  
+          <!-- post text end -->
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createPost()">Post</button>
+      </div>
+      <!-- form end -->
+  
+    </div>
+  </div>
+</div>
+<!-- modal end -->
+
+
+
+  <!-- Pet Form Start -->
+  <div class='container-fluid fadein'>
+    <div class='row' >
+      <div class='col mt-2' style='text-align: center;color:chocolate;display: none;' id='location-check'>
+        Please enable your location services and refresh the page to have the best experience on PetSociety :)
+      </div>
+    </div>
+    <div class='row mx-1'>
+        <div class='col-xl-3 col-md-12 col-sm-12 col-xs-12 mt-sm-0 mt-xl-0 ms-sm-0'> 
+        </div>
+      <!-- sidebar end -->
+
+      <!-- body content start -->
+      <div class="col-xl-6 col-md-12 col-sm-12 col-xs-12 body-text ms-sm-0 mb-5" id='card-list'>
+        <div style="max-width:800px;" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-2 mt-xl-4 mt-sm-3 mt-3 mx-auto">
+            <!-- Who shared the post -->
+            <div class="font-monospace fs-6 text-center my-3 fw-bold">Thanks for catalogging a new pet and helping this community grow</div>
+            <div class="font-monospace fs-6 text-center my-3">However, please check that this pet has not been already logged by the community and ensure that your location is enabled for us to locate the pet's whereabouts</div>
+            <div id='isLocationOn' class="font-monospace fs-6 text-center my-3" style='color:chocolate'>Checking location status...</div>
+            <div id='petFormInputs' style='display:none;'>
+                <div id='error-petname-div' style='color:#ff4444'></div>
+                <input onkeyup='checkPetNameLength()' id='input-name' class="form-control rounded mw-50" placeholder="Give the pet a name :)"  required>
+                <div class='mb-3' id='petname-length-div' style='color:green'><span id='petname-length'>0</span>/10</div>
+                <div id='breedDropDown'>
+                  {{getCats}}
+                  {{getDogs}}
+                  <input v-on:keyup='showResults()' v-model="search" type='text' id='input-breed' class="form-control rounded mw-50" placeholder="Breed" required>
+                  <!-- Result div -->
+                  <ul class="nav nav-pills mb-2 mt-2" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link btn-sm active rounded2" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Filter Cat Breeds</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link btn-sm rounded2" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Filter Dog Breeds</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <!-- Show cats start -->
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                      <div class='row' id='petFilteredBreeds'> 
+                        <div id='petFilteredBreed' class='col-sm-4 col-12 text-center hover-color2' v-for='breed in filteredList' v-on:click='updateSearchInput(breed)' v-bind:style="{display: displayResults}">
+                          <a href=# class='text-decoration-none text-dark fw-bold'style='white-space:nowrap'>
+                            {{breed}}
+                          </a> 
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Show cats end -->
+                    <!-- Show dogs start -->
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                      <div class='row' id='petFilteredBreeds'> 
+                        <div id='petFilteredBreed' class='col-sm-6 col-12 text-center hover-color2' v-for='breed in filteredListDog' v-on:click='updateSearchInput(breed)' v-bind:style="{display: displayResults}">
+                          <a href=# class='text-decoration-none text-dark fw-bold'style='white-space:nowrap'>
+                            {{breed}}
+                          </a> 
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Show dogs end -->
+                  </div>
+                  <!-- Result div End-->
+                  <button type="button" class="btn btn-secondary rounded2 mt-4 mb-3" data-bs-toggle="modal" data-bs-target="#catImages">
+                    View pictures of pet breeds
+                  </button>
+                  <!-- Pet images modal start -->
+                    <div class="modal fade" id="catImages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <div class="modal-content themebg2 p-3 rounded2">
+                          <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body scrollbar">
+                            <nav>
+                              <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Cat breeds</button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Dog Breeds</button>
+                              </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <!-- Cat tab start -->
+                                <div id='catImages'>
+                                  <div class='row themebg p-3 rounded2 shadow'>
+                                    <h2 class='mb-3 fw-bold text-center'>Common cat breeds found in Singapore</h2>
+                                    <div data-bs-dismiss="modal" v-on:click='updateSearchInput(image1.petBreed)' v-for='image1 in commonSGImages' class='col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 text-center hover-color2 p-3'>
+                                      <a class='text-decoration-none text-dark'>
+                                        <p style='white-space:nowrap;'>{{image1.petBreed}}</p>
+                                        <img :src='image1.petImage.url' class='my-auto rounded-circle' height=200 width= 200 style='object-fit:cover; align-content: center;'>
+                                      </a>
+                                    </div>  
+                                      
+                                  </div>
+                                  <div class='row mt-5 themebg p-3 rounded2 shadow'>
+                                    <div class='col-12 mb-3'>
+                                      <h2 class='mb-3 text-start mt-2 fw-bold text-center'>Other breeds</h2>
+                                      <input v-model='searchImages' style="max-width: 400px;" type='text' id='input-breed' class="form-control rounded2 mx-auto" placeholder="Search">
+                                    </div>
+                                    <div data-bs-dismiss="modal" v-on:click='updateSearchInput(image.petBreed)' v-for='image in filteredImagesCat' class='col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 text-center hover-color2 p-3'>
+                                      <a  class='text-decoration-none text-dark'>
+                                        <p style='white-space:nowrap;'>{{image.petBreed}}</p>
+                                        <img :src='image.petImage.url' class='my-auto rounded-circle' height=200 width= 200 style='object-fit:cover; align-content: center;'>
+                                      </a>
+                                    </div>  
+                                  </div>
+                                </div>
+                                <!-- Cat tab end -->
+                              </div>
+                              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                 <!-- Dog tab start -->
+                                 <div id='dogImages'>
+                                  <div class='row themebg p-3 rounded2 shadow'>
+                                    <h2 class='mb-3 fw-bold text-center'>Common dog breeds found in Singapore</h2>
+                                    <div data-bs-dismiss="modal" v-on:click='updateSearchInput(image1.petBreed)' v-for='image1 in commonSGDogImages' class='col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 text-center hover-color2 p-3'>
+                                      <a class='text-decoration-none text-dark'>
+                                        <p style='white-space:nowrap;'>{{image1.petBreed}}</p>
+                                        <img :src='image1.petImage.url' class='my-auto rounded-circle' height=200 width= 200 style='object-fit:cover; align-content: center;'>
+                                      </a>
+                                    </div>  
+                                  </div>
+                                  <div class='row themebg p-3 rounded2 shadow mt-5'>
+                                    <div class='col-12 mb-3'>
+                                      <h2 class='mb-3 text-start mt-2 fw-bold text-center'>Other breeds</h2>
+                                      <input v-model='searchImages' style="max-width: 400px;" type='text' id='input-breed' class="form-control rounded2 mx-auto" placeholder="Search">
+                                    </div>
+                                    <div data-bs-dismiss="modal" v-on:click='updateSearchInput(image.petBreed)' v-for='image in filteredImagesDog' class='col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 text-center hover-color2 p-3'>
+                                      <a class='text-decoration-none text-dark'>
+                                        <p style='white-space:nowrap;'>{{image.petBreed}}</p>
+                                        <img :src='image.petImage.url' class='my-auto rounded-circle' height=200 width= 200 style='object-fit:cover; align-content: center;'>
+                                      </a>
+                                    </div>  
+                                  </div>
+                                </div>
+                                <!-- Dog tab end -->
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Pet images modal end -->
+              </div>
+                <input id='input-gender' class="form-control rounded mw-50 mb-5" placeholder="Gender"  required>
+                <div class="input-group d-block">
+                    <button type="button" class="btn btn-secondary rounded2 mb-1"> <label id='uploadPetImageLabel' for="petFile">Upload an Image</label></button> 
+                    <input type="file" class="button button-secondary m-2" style="display:none" id="petFile"
+                      accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadPetImageDisplay(event)">
+                      <div class='ml-3'>
+                        <img id="petImgOutput" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>  
+                     </div>
+                </div>
+                <button class='btn btn-primary rounded2 my-3' onclick="processPetProfileCreation()">Register Pet</button>
+                <span id='addPetToDb' class='text-success ms-1'></span>
+            </div>
+            <div>
+            </div>
+          </div>
+      </div>
+      <!-- Chat sidebar -->
+      <div class='col-md-3 mt-3 d-xl-inline d-none' id='chatSidebar'>
+    </div>
+  </div>
+  </div>
+  
+
+
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
+<script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
+<!-- firebase api -->
+<script src='/scripts/firebase/createPost.js'></script>
+<script src='/scripts/firebase/connector.js'></script>
+<!-- vuejs -->
+<script src="https://unpkg.com/vue@next"></script>
+<script src='/scripts/homepage.js'></script>
+<script>
+  // test()
+
+  // get user location
+  currentLocation = "no location"
+  
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    currentLocation = { latitude: latitude, longitude: longitude }
+  }
+
+  function error() {
+    console.log(currentLocation)
+  }
+
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+  // console.log(currentLocation)
+  
+  function createPost() {
+    const file = document.getElementById("file").files[0]
+    createNewPost()
+  }
+
+  // cardList = document.getElementById('card-list')
+
+  
+// cardList.innerHTML = newCardHTML+newCardHTML
+
+  myStorage = window.sessionStorage;
+  if (myStorage.userID===undefined){
+        console.log("Not login")
+        // console.log(myStorage)
+        myStorage.redirect = 'fromLoginNoAccount'
+        window.location.href = "/screens/login.html"; 
+    }else{
+        console.log("Login")
+        // console.log(myStorage)
+        user_id = myStorage.userID
+        // console.log(user_id)
+    }
+
+
+  function checkIfUserOnLocation() {         //  create a loop function
+    setTimeout(function() {   
+      console.log(currentLocation)
+      if(currentLocation == "no location"){
+        // console.log("SDASDSAasdsadsadas")
+        document.getElementById('isLocationOn').innerText='Please enable your location and refresh this page'
+
+      }else{
+        // console.log("SDASDSA")
+        document.getElementById('isLocationOn').innerText='User location detected thank you'
+        document.getElementById('petFormInputs').style.display='block'
+      }
+    }, 2000)
+
+    setTimeout(function() {   
+      console.log(currentLocation)
+      if(currentLocation == "no location"){
+        document.getElementById('isLocationOn').innerText='Please enable your location and refresh this page'
+
+      }else{
+        document.getElementById('isLocationOn').innerText='User location detected thank you'
+        document.getElementById('petFormInputs').style.display='block'
+      }
+    }, 5000)
+  }
+  checkIfUserOnLocation()
+
+  const queryString = window.location.search;
+
+  function loadImageDisplay(event){
+  var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+  document.getElementById('uploadImageLabel').innerText = 'Change image'
+    }   
+
+  function loadPetImageDisplay(event){
+    var image = document.getElementById('petImgOutput');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    document.getElementById('uploadPetImageLabel').innerText = 'Change image'
+  }   
+  console.log(queryString);
+
+  function updateBreedInput(){
+    document.getElementById('input-breed').value = document.getElementById('petFilteredBreed').children[0].innerText
+    document.getElementById('petFilteredBreeds').style.display='none'
+  }
+  function displayFilteredList(){
+    document.getElementById('petFilteredBreeds').style.display='flex'
+  }
+  //Vue.js
+  const breedFilterer = Vue.createApp({
+    data(){
+        return{
+          dogs:null,
+          cats: null,
+          log: console.log,
+          dogBreeds:[],
+          breeds: [],
+          search:'',
+          searchImages:'',
+          displayResults: 'flex',
+          images: [],
+          commonSGImages:[],
+          commonSGCats:['Singapura', 'Maine Coon', 'Munchkin', 'British Shorthair', 'Burmese','Ragdoll'],
+          dogImages:[],
+          commonSGDogImages:[],
+          commonSGDogs:['Labrador Retriever','Australian Kelpie','Pharaoh Hound','Chinook'],
+        }   
+    },
+    mounted () {
+    axios
+      .get('https://api.thecatapi.com/v1/breeds')
+      .then(response => (this.cats = response.data))
+      .catch(error => {
+            console.log( 'There was an error in retrieving cats using API ' )
+        })
+    axios
+      .get('https://api.thedogapi.com/v1/breeds')
+      .then(response => (this.dogs = response.data))
+      .catch(error => {
+            console.log( 'There was an error in retrieving dogs from API ' )
+        })
+  },
+  methods:{
+    updateSearchInput(breed){
+      this.search = breed
+      this.displayResults = 'none'
+    },
+    showResults(){
+        this.displayResults = 'flex'
+      },
+  },
+    computed:{
+      getCats(){
+        for(i in this.cats){
+          if(this.cats[i].image != null){
+            if(this.cats[i].image.url != null){
+              obj = {petBreed:this.cats[i].name, petImage:this.cats[i].image}
+              if(this.commonSGCats.includes(this.cats[i].name)){
+                this.commonSGImages.push(obj)
+              }
+              else{
+                this.images.push(obj)
+              }
+            }   
+          }
+          this.breeds.push(this.cats[i].name)
+        }
+      }, 
+      getDogs(){
+        for(i in this.dogs){
+          if(this.dogs[i].image != null){
+            if(this.dogs[i].image.url != null){
+              obj = {petBreed:this.dogs[i].name, petImage:this.dogs[i].image}
+              if(this.commonSGDogs.includes(this.dogs[i].name)){
+                this.commonSGDogImages.push(obj)
+              }
+              else{
+                this.dogImages.push(obj)
+              }
+            }   
+          }
+          this.dogBreeds.push(this.dogs[i].name)
+        }
+      }, 
+    filteredList() {
+      if(this.search == ''){
+        return ''
+      }
+      return this.breeds.filter(breed => {
+        breed = breed.toLowerCase()
+        searchInput = this.search.toLowerCase()
+        length = searchInput.length
+        return searchInput.includes(breed.slice(0,length))
+      })
+  },
+  filteredListDog() {
+      if(this.search == ''){
+        return ''
+      }
+      return this.dogBreeds.filter(breed => {
+        breed = breed.toLowerCase()
+        searchInput = this.search.toLowerCase()
+        length = searchInput.length
+        return searchInput.includes(breed.slice(0,length))
+        // return breed.includes(searchInput)
+      })
+  },
+  filteredImagesDog(){
+    if(this.searchImages == ''){
+      return this.dogImages
+    }
+    return this.dogImages.filter(image =>{
+      breed = image.petBreed.toLowerCase()
+      searchInput = this.searchImages.toLowerCase()
+      return breed.includes(searchInput)
+    })
+  },
+  filteredImagesCat(){
+    if(this.searchImages == ''){
+      return this.images
+    }
+    return this.images.filter(image =>{
+      breed = image.petBreed.toLowerCase()
+      searchInput = this.searchImages.toLowerCase()
+      return breed.includes(searchInput)
+    })
+  },
+    }
+})
+breedFilterer.mount('#breedDropDown')
+
+</script>
+
+</html>
