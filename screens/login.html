@@ -14,7 +14,7 @@
 
 <style>
     body {
-        /* background-color:#fef9f8; */
+
         background-image: url("/images/background-min.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -53,12 +53,11 @@
         <div id='another' class='row py-5 shadow p-3 mb-5 rounded'>
             <div id="welcome" class='col text-center my-auto'>
                 <!-- <h1 style="font-family:'Klavika'">Pet Society!</h1> -->
-                <img style='width:50%;' src='/images/petsoc.png'>
+                <img id="fix3" src='/images/petsoc.png'>
                 <p>Connect with animal lovers and explore community animals today.</p>
             </div>
 
-            <div class='col text-center container-fluid rounded mx-5 pb-1 col-md-4 shadow p-3 mb-5 bg-white '
-                style='background-color: rgba(255,255,255,0.75); color:#ef9273'>
+            <div class='heyhey col text-center container-fluid rounded mx-5 pb-1 col-md-4 shadow p-3 mb-5 bg-white '>
                 <div class='mx-4 my-3'>
 
                     <form name="login-form" class="needs-validation" novalidate>
@@ -90,35 +89,33 @@
 
                         <div id='loginrow' class='row justify-content-center mt-2'>
                             <div class="input-group">
-                                <button id='loginbutton' type="submit" class="btn text-light btn-block"
-                                    style='background-color: #ef9273'>Log in</button>
-                                
+                                <button id='loginbutton' type="submit" class="btn text-light btn-block">Log in</button>
+
                             </div>
                         </div>
                         or
-                        <div id='googleLoginRow' class='row justify-content-center' >
-                            <div id="firebaseui-auth-container" data-width="500" data-height="200" data-longtitle="true"></div>
+                        <div id='googleLoginRow' class='row justify-content-center'>
+                            <div id="firebaseui-auth-container" data-width="500" data-height="200"
+                                data-longtitle="true"></div>
                             <div id="loader">Loading...</div>
                         </div>
 
                         <div id='forgottenpasswordrow' class='row justify-content-center'>
-                            <div id='forgotpw' class="col mx-0 pb-3"
-                                style='border-bottom: 1px solid rgba(0, 0, 0, 0.1)'>
-                                <a style='color:#ef9273;text-decoration: none;font-size: small;'
-                                    href="https://www.google.com">Forgotten password?</a>
+                            <div id='forgotpw' class="col mx-0 pb-3">
+                                <a id='fix1' href="https://www.google.com">Forgotten password?</a>
                             </div>
                         </div>
 
                         <div class='row justify-content-center'>
-                            <div id='failedlogin' style='color:red; display: none;'>
+                            <div id='failedlogin'>
 
                             </div>
                         </div>
 
-                        <div id='createbuttonrow' class='row justify-content-center mt-3 mx-auto' style=" width:180px">
+                        <div id='createbuttonrow' class='row justify-content-center mt-3 mx-auto'>
                             <div class="input-group" id='createbutton'>
                                 <button onclick='createNewAccount()' type="button"
-                                    class="btn text-light btn-block fw-bold" style='background-color: #52ab98;'>Create
+                                    class="keke btn text-light btn-block fw-bold">Create
                                     New Account</button>
                             </div>
                         </div>
