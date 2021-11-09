@@ -60,8 +60,11 @@ border-radius   : 10px;
     border-color: #fddac5 !important;
     border-width: 3px;
     color: white !important; */
-    background-color: #7A6563 !important;
-    border-color: #7A6563 !important;
+    /* background-color: #7A6563 !important;
+    border-color: #7A6563 !important; */
+
+    background-color: #925D3C !important;
+    border-color: #925D3C !important;
     color: white;
 }
 
@@ -69,14 +72,19 @@ border-radius   : 10px;
     /* background-color: #fddac5 !important; */
     /* border-color: #fddac5 !important; */
     color: white !important;
-    background-color: #E47382 !important;
-    border-color: #E47382 !important;
+    /* background-color: #E47382 !important;
+    border-color: #E47382 !important; */
+    background-color: #D98550 !important;
+    border-color: #D98550 !important;
+
 }
 
 #location-msg {
     font-size: 1.5em;
     font-weight: bold;
-    color: white;
+    /* color: white; */
+    color: #7A6563;
+
 }
 
 @media only screen and (min-width: 576px){

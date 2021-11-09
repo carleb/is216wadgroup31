@@ -360,10 +360,37 @@ function createChat(username, friend, message) {
         sender = chatData.sender
         chatmessage = chatData.message
         if (chatmessage == '') { continue }
-        chatHTML +=
-          `
-        <h6 style='overflow-wrap:break-word;' class="text-start"><span class='fw-bold'>${sender}:</span> ${chatmessage}</h6>
-        `
+        // chatHTML +=
+        //   `
+        // <h6 style='overflow-wrap:break-word;' class="text-start"><span class='fw-bold'>${sender}:</span> ${chatmessage}</h6>
+        // `
+        if (sender == username) {
+          chatHTML +=
+            `
+              <div class='row my-1'>
+                <div class='col-6'></div>
+                <div class='col-6'>
+                  <div style='background-color:#915d3c;color:white;font-size: 6px;' class='py-1 rounded2'>
+                      <h6 style='overflow-wrap:break-word;overflow:hidden;'>`+ chatmessage + `</h6>
+                  </div>
+                </div>
+              </div>
+              `
+        }
+        else {
+          chatHTML +=
+            `
+            <div class='row my-1'>
+            <div class='col-6'>
+              <div style='background-color:#d98550;color:white;font-size: 6px;' class='py-1 rounded2'>
+                  <h6 style='overflow-wrap:break-word;overflow:hidden;'>`+ chatmessage + `</h6>
+              </div>
+            </div>
+            <div class='col-6'>
+            </div>
+            </div>
+            `
+        }
       }
       document.getElementById("convo").innerHTML = chatHTML
       if (message != "") {
