@@ -13,7 +13,7 @@ report-uri https://6189e6b457efdeabc05d1158.endpoint.csper.io/;
 script-src 'report-sample' 'self' https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js;
 style-src 'report-sample' 'self' https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css https://fonts.googleapis.com https://stackpath.bootstrapcdn.com https://www.gstatic.com;
 worker-src 'none';
-style-src 'self' 'sha256-eQVORhjny5bZw7SnSrUDnI4H0GV+DIG7n7UMrohWnps=';
+style-src 'self' 'sha256-eQVORhjny5bZw7SnSrUDnI4H0GV+DIG7n7UMrohWnps=' 'sha256-o8w/COZUxxk1YqNUesAyJl/MqdlJowzATI/JvM+1xFk=';
 
 
 
