@@ -1,3 +1,15 @@
 <?php
 include_once "index.html";
-header("script-src 'self' 'sha256-eQVORhjny5bZw7SnSrUDnI4H0GV+DIG7n7UMrohWnps='");
+header("Content-Security-Policy: base-uri 'self';
+connect-src 'self' https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app;
+default-src 'self';
+font-src 'self' https://fonts.gstatic.com;
+frame-src 'self';
+img-src 'self' https://www.gstatic.com;
+manifest-src 'self';
+media-src 'self';
+object-src 'none';
+report-uri https://6189f96b9faf992d41f26676.endpoint.csper.io/;
+script-src 'report-sample' 'self' https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js;
+style-src 'report-sample' 'self' https://fonts.googleapis.com https://stackpath.bootstrapcdn.com https://www.gstatic.com;
+worker-src 'none';");
