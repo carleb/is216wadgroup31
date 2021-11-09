@@ -1,0 +1,26 @@
+body {
+    background-image   : url("/images/background-min.png");
+    background-size    : cover;
+    background-repeat  : no-repeat;
+    background-position: center center;
+    background-color   : #ccc;
+
+}
+
+a {
+    color          : rgb(92, 79, 86);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ef9273;
+}
+
+#welcome {
+    color: #ef9273;
+}
+
+#another {
+    background-color: #fef9f8;
+    margin-top      : 5%;
+}
