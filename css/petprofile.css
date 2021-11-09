@@ -19,4 +19,95 @@ background-color: #ffe7d9;
 background-color: #ffe7d9;
 border-radius   : 10px;
 }
+@media only screen and (min-width: 0px){
+   #about-tab, #posts-tab, #photos-tab, #followers-tab{
+       font-size:14px;
+   }
+   .fsResponsive{
+    font-size:small;
+   }
+   .heightResponsive{
+    height:140px;
+}
+}
+@media only screen and (min-width: 576px){
+    #about-tab, #posts-tab, #photos-tab, #followers-tab{
+        font-size:17px;
+        
+    }
+    .fsResponsive{
+        font-size:large;
+       }
+    .heightResponsive{
+        height:200px;
+    }
+}
+@media only screen and (min-width: 968px){
+    .heightResponsive{
+        height:300px;
+    }
+}
+/* 
+.btn-outline-primary, .btn-outline-primary:active, .btn-outline-primary:visited {
+    background-color: #fef9f8 !important;
+    color: #fddac5 !important;
+    border-color: #fddac5 !important;
+    border-width: 3px;
+} */
 
+.btn-outline-primary {
+    /* background-color: #fddfce !important;
+    border-color: #fddac5 !important;
+    border-width: 3px;
+    color: white !important; */
+    background-color: #7A6563 !important;
+    border-color: #7A6563 !important;
+    color: white;
+}
+
+.btn-outline-primary:visited, .btn-outline-primary:hover, .btn-outline-primary:active {
+    /* background-color: #fddac5 !important; */
+    /* border-color: #fddac5 !important; */
+    color: white !important;
+    background-color: #E47382 !important;
+    border-color: #E47382 !important;
+}
+
+@media only screen and (min-width: 375px){
+    #location {
+        position: relative;
+        top: 50%;
+        left: 22%
+    }
+
+    #locationbox {
+        height: 500px;
+    }
+
+    #location-msg {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    #about {
+        height: 300px
+    }
+}
+
+@media only screen and (max-width: 375px){
+    #location {
+        position: relative;
+        top: 40%;
+        left: 5%
+    }
+
+    #location-msg {
+        font-size: 1.5em;
+        font-weight: bold;
+        
+    }
+
+    #locationbox {
+        height: 250px;
+    }
+}

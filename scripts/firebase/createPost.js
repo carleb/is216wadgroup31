@@ -1,5 +1,5 @@
 // check if user in login
-function test(){
+function test() {
     console.log("imported sucessfully")
 }
 
@@ -17,10 +17,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 myStorage = window.sessionStorage;
-if (myStorage.userID===undefined){
+if (myStorage.userID === undefined) {
     console.log("Not login")
     // console.log(myStorage)
-}else{
+} else {
     console.log("Login")
     // console.log(myStorage)
     user_id = myStorage.userID
@@ -28,23 +28,23 @@ if (myStorage.userID===undefined){
 }
 
 
-function createNewPost(){
+function createNewPost() {
 
     const file = document.getElementById("file").files[0]
     console.log(file)
-    textInput = document.getElementById("post-text").value    
-    if(textInput == ""){
+    textInput = document.getElementById("post-text").value
+    if (textInput == "") {
         alert("Please enter a caption!")
-    }else{
-        if(file === undefined){
-        console.log("Creating Post with textonly")
-        createNewPostTextOnly()
-    }else{
-        console.log("Creating Post with text and picture")
-        createNewPostWithPhoto()
+    } else {
+        if (file === undefined) {
+            console.log("Creating Post with textonly")
+            createNewPostTextOnly()
+        } else {
+            console.log("Creating Post with text and picture")
+            createNewPostWithPhoto()
+        }
     }
-    }
-    setTimeout(function() {   
+    setTimeout(function () {
         document.getElementById("post-body").innerHTML = `<div class="input-group">
         <button type="button" class="btn themebg hover-color2 rounded2 mb-1"> <label id='uploadImageLabel' for="file">Upload an Image</label></button> 
         <input type="file" class="button button-secondary m-2" style="display:none" id="file"
@@ -68,173 +68,173 @@ function createNewPost(){
       </form>
       <ul id="tagSearchDisplay" class='themebg rounded2' style='position:fixed;z-index: 100;list-style-type: none; padding: 0; margin: 0;'>
       </ul>`
-      }, 3000)
-    
+    }, 3000)
+
 }
 
 function createNewPostWithPhoto() {
-tableName = "post"
-firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    tableName = "post"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
-url = firebaseurl + tableName + ".json"
-axios.get(url)
-    .then((response) => {
-        console.log(response)
-        if(response.data == null){
-            newPostID = 0
-        }
-        else{
-            newPostID = response.data.data.length
-        }
-        console.log(newPostID)
-        const ref= firebase.storage().ref()
-        const file = document.getElementById("file").files[0]
-        const name = newPostID + "-"+file.name
-        const metadata = {
-            contentType:file.type
-        }
-        
-        textInput = document.getElementById("post-text").value
-        tagNameInput = document.getElementById("tagsearchInput").value
+    url = firebaseurl + tableName + ".json"
+    axios.get(url)
+        .then((response) => {
+            console.log(response)
+            if (response.data == null) {
+                newPostID = 0
+            }
+            else {
+                newPostID = response.data.data.length
+            }
+            console.log(newPostID)
+            const ref = firebase.storage().ref()
+            const file = document.getElementById("file").files[0]
+            const name = newPostID + "-" + file.name
+            const metadata = {
+                contentType: file.type
+            }
 
-        // need to add function to get tag name ID after tagName
-        date = new Date();
-        const [hour,seconds] = [date.getHours(), date.getMinutes()];
-        date = date.toDateString()
-        date = date.split(" ")
-        newDate = date[1]+" "+date[2]+","+date[3]
-        hourstr = ""+hour+""
-        secondsstr = ""+seconds+""
-        if(hourstr.length==1){hourstr="0"+hourstr}
-        if(secondsstr.length==1){secondsstr="0"+secondsstr}
-        newTime = hourstr+":"+secondsstr+":00"
-        newTime = covert24Hrto12Hr(newTime)
-        const task = ref.child("postFiles/"+name).put(file,metadata)
+            textInput = document.getElementById("post-text").value
+            tagNameInput = document.getElementById("tagsearchInput").value
+
+            // need to add function to get tag name ID after tagName
+            date = new Date();
+            const [hour, seconds] = [date.getHours(), date.getMinutes()];
+            date = date.toDateString()
+            date = date.split(" ")
+            newDate = date[1] + " " + date[2] + "," + date[3]
+            hourstr = "" + hour + ""
+            secondsstr = "" + seconds + ""
+            if (hourstr.length == 1) { hourstr = "0" + hourstr }
+            if (secondsstr.length == 1) { secondsstr = "0" + secondsstr }
+            newTime = hourstr + ":" + secondsstr + ":00"
+            newTime = covert24Hrto12Hr(newTime)
+            const task = ref.child("postFiles/" + name).put(file, metadata)
             task
-            .then(snapshot => snapshot.ref.getDownloadURL())
-            .then(url =>{
-            console.log(url)
-            photoURL = url
-            myStorage = window.sessionStorage;
+                .then(snapshot => snapshot.ref.getDownloadURL())
+                .then(url => {
+                    console.log(url)
+                    photoURL = url
+                    myStorage = window.sessionStorage;
+                    url = firebaseurl + tableName + "/data/" + newPostID + ".json"
+                    if (tagNameInput != "") {
+                        tagNameInput = tagNameInput.split(" - ")
+                        taggedPetName = tagNameInput[0]
+                        taggedPetID = tagNameInput[2]
+                        taggedPetID = taggedPetID.split(" : ")
+                        taggedPetID = taggedPetID[1]
+                    } else {
+                        taggedPetID = null
+                        taggedPetName = null
+                    }
+                    axios.put(url, {
+                        "postID": newPostID,
+                        "postType": "photo",
+                        "photoUrl": [photoURL],
+                        "postText": textInput,
+                        "postedBy": user_id,
+                        "postedOn": newDate,
+                        "postedOnTime": newTime,
+                        "postedAt": currentLocation,
+                        "nameOfPoseter": myStorage.userName,
+                        "nameOfTagged": taggedPetName,
+                        "tagged": taggedPetID,
+                        "comments": null,
+                        "like": null,
+                        "shareableURL": "string"
+                    }).then((response) => {
+                        console.log(response);
+                        if (tagNameInput != "") {
+                            updatePetLocation(taggedPetID, currentLocation);
+                        }
+                        getAllPost();
+
+                    });
+                })
+        }, (error) => {
+            console.log(error);
+            output = error
+
+        });
+}
+
+function createNewPostTextOnly() {
+    tableName = "post"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+    textInput = document.getElementById("post-text").value
+    tagNameInput = document.getElementById("tagsearchInput").value
+
+    url = firebaseurl + tableName + ".json"
+    axios.get(url)
+        .then((response) => {
+            newPostID = response.data.data.length
+            console.log(newPostID)
             url = firebaseurl + tableName + "/data/" + newPostID + ".json"
-            if(tagNameInput!=""){
+            date = new Date();
+            const [hour, seconds] = [date.getHours(), date.getMinutes()];
+            date = date.toDateString()
+            date = date.split(" ")
+            newDate = date[1] + " " + date[2] + "," + date[3]
+            hourstr = "" + hour + ""
+            secondsstr = "" + seconds + ""
+            if (hourstr.length == 1) { hourstr = "0" + hourstr }
+            if (secondsstr.length == 1) { secondsstr = "0" + secondsstr }
+            newTime = hourstr + ":" + secondsstr + ":00"
+            newTime = covert24Hrto12Hr(newTime)
+            myStorage = window.sessionStorage;
+            if (tagNameInput != "") {
                 tagNameInput = tagNameInput.split(" - ")
-                taggedPetName =  tagNameInput[0]
+                taggedPetName = tagNameInput[0]
                 taggedPetID = tagNameInput[2]
                 taggedPetID = taggedPetID.split(" : ")
                 taggedPetID = taggedPetID[1]
-            }else{
-                taggedPetID=null
-                taggedPetName=null
+            } else {
+                taggedPetID = null
+                taggedPetName = null
             }
             axios.put(url, {
-                "postID":newPostID,
-                "postType":"photo",
-                "photoUrl": [photoURL],
-                "postText":textInput,
+                "postID": newPostID,
+                "postType": "text",
+                "postText": textInput,
                 "postedBy": user_id,
                 "postedOn": newDate,
                 "postedOnTime": newTime,
                 "postedAt": currentLocation,
-                "nameOfPoseter":myStorage.userName,
-                "nameOfTagged":taggedPetName,
-                "tagged" : taggedPetID,
-                "comments":null,
+                "nameOfPoseter": myStorage.userName,
+                "nameOfTagged": taggedPetName,
+                "tagged": taggedPetID,
+                "comments": null,
                 "like": null,
-                "shareableURL":"string"
+                "shareableURL": "string"
             }).then((response) => {
                 console.log(response);
-                if(tagNameInput!=""){
-                    updatePetLocation(taggedPetID,currentLocation);
+                if (tagNameInput != "") {
+                    updatePetLocation(taggedPetID, currentLocation);
                 }
                 getAllPost();
 
-        });
-        })
-    }, (error) => {
-        console.log(error);
-        output = error
 
-    });
-}
-
-function createNewPostTextOnly() {
-tableName = "post"
-firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-textInput = document.getElementById("post-text").value
-tagNameInput = document.getElementById("tagsearchInput").value
-
-url = firebaseurl + tableName + ".json"
-axios.get(url)
-    .then((response) => {
-        newPostID = response.data.data.length
-        console.log(newPostID)
-        url = firebaseurl + tableName + "/data/" + newPostID + ".json"
-        date = new Date();
-        const [hour,seconds] = [date.getHours(), date.getMinutes()];
-        date = date.toDateString()
-        date = date.split(" ")
-        newDate = date[1]+" "+date[2]+","+date[3]
-        hourstr = ""+hour+""
-        secondsstr = ""+seconds+""
-        if(hourstr.length==1){hourstr="0"+hourstr}
-        if(secondsstr.length==1){secondsstr="0"+secondsstr}
-        newTime = hourstr+":"+secondsstr+":00"
-        newTime = covert24Hrto12Hr(newTime)
-        myStorage = window.sessionStorage;
-        if(tagNameInput!=""){
-            tagNameInput = tagNameInput.split(" - ")
-            taggedPetName =  tagNameInput[0]
-            taggedPetID = tagNameInput[2]
-            taggedPetID = taggedPetID.split(" : ")
-            taggedPetID = taggedPetID[1]
-        }else{
-            taggedPetID=null
-            taggedPetName=null
-        }
-        axios.put(url, {
-            "postID":newPostID,
-            "postType":"text",
-            "postText":textInput,
-            "postedBy": user_id,
-            "postedOn": newDate,
-            "postedOnTime": newTime,
-            "postedAt": currentLocation,
-            "nameOfPoseter":myStorage.userName,
-            "nameOfTagged":taggedPetName,
-            "tagged" : taggedPetID,
-            "comments":null,
-            "like": null,
-            "shareableURL":"string"
-        }).then((response) => {
-            console.log(response);
-            if(tagNameInput!=""){
-                updatePetLocation(taggedPetID,currentLocation);
-            }
-            getAllPost();
-
-
-        });
-    }, (error) => {
-        console.log(error);
-        output = error
-
-    });
-}
-
-function getAllPost(){
-tableName = "post"
-firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-
-url = firebaseurl + tableName + ".json"
-axios.get(url)
-    .then((response) => {
-        allPostData = response.data.data
-        console.log(allPostData)
+            });
         }, (error) => {
-        console.log(error);
-        output = error
-        
-    });
+            console.log(error);
+            output = error
+
+        });
+}
+
+function getAllPost() {
+    tableName = "post"
+    firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
+
+    url = firebaseurl + tableName + ".json"
+    axios.get(url)
+        .then((response) => {
+            allPostData = response.data.data
+            console.log(allPostData)
+        }, (error) => {
+            console.log(error);
+            output = error
+
+        });
 }
 

@@ -13,7 +13,8 @@
 
 </head>
 
-<body style="background-color: #fef9f8; font-family:monospace;" onload='typeWriter()'>
+<body style="background-color: #fef9f8; font-family:monospace;">
+  <!-- onload='typeWriter()' -->
 
 
   <!-- navbar start -->
@@ -25,15 +26,9 @@
         </a>
       </div>
       <div id="nav-middle" class="d-flex flex-row" style='left:0px'>
-        <input type="search" class="form-control rounded1 mx-4" id="search-input"
-          placeholder="Search for Users">
-        <ul class='rounded2 themebg position-fixed mt-2 shadow' id="search-display"
-          style='list-style-type: none; padding: 0; margin: 0; border:0;'>
-        </ul>
+
       </div>
-      <script>
-      // document.getElementById('search-input').addEventListener('input', liveChatSearchDesktop)
-      </script>
+
       <!-- modal button end -->
 
       <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
@@ -55,7 +50,11 @@
               </ul>
             </form>
           </li>
-
+          <li id="petsgallery" class="nav-item mx-3 hover-color">
+            <a class="nav-link active px-3" href="/screens/allPets.html"><img src="/images/icons/animals.png"
+                alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets Gallery</span></a>
+          </li>
           <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
             <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen.html"><img
                 src="/images/icons/house.svg" alt="Bootstrap" width="32" height="32">
@@ -64,7 +63,8 @@
 
           <!-- right now it navigates to the one for mobile -->
           <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-            <a class="nav-link px-3" href="#"><img src="/images/icons/chat-fill.svg" alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3" href="#"><img src="/images/icons/chat-fill.svg" alt="Bootstrap" width="32"
+                height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span></a>
           </li>
           <!-- <li id="profile" class="nav-item mx-3 hover-color d-lg-none" onclick=fill(this.id)>
@@ -77,8 +77,8 @@
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Log Out</span></a>
           </li> -->
           <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
-            <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img src="/images/icons/person.svg"
-                alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
+                src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Profile</span></a>
             <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
               <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2" href="#">Your Profile</a></li>
@@ -93,12 +93,25 @@
   <!-- navbar end -->
 
   <!-- Desktop View -->
+
   <div class='container d-none d-sm-block'>
     <div class='row mt-3'>
       <div class='col-4 themebg rounded2 shadow'>
         <div class='row shadow-sm'>
           <h3 class='text-center my-3'>Contacts</h3>
+          <form autocomplete="off">
+            <div class="d-flex justify-content-center">
+              <input type="search" class="form-control rounded1 mx-4 mb-4" id="search-input"
+                onkeyup="liveChatSearchDesktop()" placeholder="Search for Users">
+              <ul class='rounded2 themebg position-fixed mt-2 shadow' id="search-display"
+                style='list-style-type: none; padding: 0; margin: 0; border:0;'>
+              </ul>
+            </div>
+          </form>
+
+
         </div>
+
         <div id='userContactsList' class='scrollbar py-3'
           style='height:750px; max-height:750px; overflow-y:scroll; overflow-x:hidden;'>
           loading...
@@ -118,6 +131,14 @@
 
     </div>
 
+    <div class="d-flex justify-content-center" id="searchBar">
+      <input type="search" class="form-control rounded1 m-4" id="search-input-mobile" onkeyup="liveChatSearchMobile()"
+        placeholder="Search for Users">
+      <ul class='rounded2 themebg position-fixed mt-2 shadow' id="search-display-mobile"
+        style='list-style-type: none; padding: 0; margin: 0; border:0;'>
+      </ul>
+    </div>
+
     <div id='chat-main'>
 
     </div>
@@ -134,9 +155,9 @@
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
+<script src="/scripts/homepage.js"></script>
 <script src="/scripts/livechatMobile.js"></script>
 <script src="/scripts/livechatDesktop.js"></script>
-<script src="/scripts/homepage.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- <script src='/scripts/firebase/createPost.js'></script> -->
 <!-- <script src='/scripts/firebase/connector.js'></script> -->

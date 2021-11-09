@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Society This is newer</title>
+  <title>Pet Society</title>
 </head>
 <!-- CSS only -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -39,8 +39,9 @@
 
         <!-- modal button start -->
         <button id="post" class='btn ms-lg-3 d-flex hover-color' data-bs-toggle="modal" data-bs-target="#createPost"
-          onclick="fillPost(this.id)"><img class='float-start' width=40 height=40 src='/images/icons/pencil-square.svg'><span
-            style='white-space:nowrap' class="fs-5 ms-1 float-start mt-2" id='newpost'></span>
+          onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
+            src='/images/icons/pencil-square.svg'><span style='white-space:nowrap' class="fs-5 ms-1 float-start mt-2"
+            id='newpost'></span>
         </button>
       </div>
       <!-- modal button end -->
@@ -65,21 +66,28 @@
             </form>
           </li>
 
+          <li id="petsgallery" class="nav-item mx-3 hover-color">
+            <a class="nav-link active px-3" href="/screens/allPets.html"><img src="/images/icons/animals.png"
+                alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets Gallery</span></a>
+          </li>
+
           <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-            <a class="nav-link active px-3" aria-current="page" href="#"><img src="/images/icons/house-fill.svg" alt="Bootstrap"
-                width="32" height="32">
+            <a class="nav-link active px-3" aria-current="page" href="#"><img src="/images/icons/house-fill.svg"
+                alt="Bootstrap" width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Home</span></a>
           </li>
 
           <!-- right now it navigates to the one for mobile -->
           <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-            <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg"
-                alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg" alt="Bootstrap"
+                width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span></a>
           </li>
+          
           <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
-            <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img src="/images/icons/person.svg"
-                alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
+                src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Profile</span></a>
             <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
               <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2" href="#">Your Profile</a></li>
@@ -152,7 +160,7 @@
   <div class='container-fluid px-xl-3 px-xxl-5 px-lg-3 px-sm-3 px-0 fadein mt-2'>
     <div class='row'>
       <!-- sidebar start -->
-      <div class='col-xl-3 col-md-12 col-sm-12 col-xs-12 mt-3 mt-xl-4 ms-sm-0 '>
+      <div class='col-xl-3 col-md-12 col-sm-12 col-xs-12 my-3 mt-xl-4 ms-sm-0 '>
         <div id='sideBar' style="max-width:800px;"
           class="scrollbar stick shadow rounded2 themebg mx-auto sidebar pt-2 pt-sm-3 animate__animated animate__bounceInLeft">
           <div class='text-center  fs-5 fw-bold'>
@@ -317,31 +325,31 @@
           posterURL = "/screens/user_profile.html?userid=" + postedByID
           //check if tagged is human or pet
           if (nameOfTagged == undefined) {
-            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
+            titleHtml = `<h5 class='overflow-hidden'><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
             profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
                           <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                            src='/scripts/images/sample.png'>
+                            src='/images/male_empty.png'>
                         </a>
                       </div>`
           } else {
             taggedURL = "/screens/petprofile.html?petID=" + taggedPetID
-            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
+            titleHtml = `<h5 class='overflow-hidden'><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
                       class='fw-bold text-decoration-none text-dark' id='whichAnimal' href='`+ taggedURL + `'>` + nameOfTagged + `</a></h5>`
             profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
                           <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                          src='/scripts/images/sample.png'>
+                          src='/images/male_empty.png'>
                         </a>
                         <a id='animal' class='col-6'>
                           <img id="postTagPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-                            src='https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/postFiles%2F16-Picture1.png?alt=media&token=5b932851-98a7-433f-b889-336e8198fe4b'>
+                            src='/images/male_empty.png'>
                         </a>
                       </div>`
           }
           if (type == "photo") {
             firstPhotoUrl = postData.photoUrl[0]
-            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg  rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto animate__animated animate__bounceIn">
+            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg overflow-hidden rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-0 mx-auto animate__animated animate__bounceIn">
                   <!-- Who shared the post -->
                   <div>
                   `+ titleHtml + ` 
@@ -366,14 +374,14 @@
                   <!-- Image -->
                   <img class="card-img-top rounded2 shadow hover-zoom-img" style='max-height:500px; object-fit:cover' src="`+ firstPhotoUrl + `" alt="Card image cap">
                   <!-- Image end -->
-                  <div class="card-body">
+                  <div class="card-body overflow-visible">
                     <!-- caption -->
                     <p class="card-text" id='caption'>`+ postText + `</p>
                     <!-- caption end-->
                     <!-- number of likes -->
                     <div class='popover__wrapper overflow-visible'>
-                      <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
-                      <div class="popover__content overflow-visible">
+                      <a class='text-decoration-none text-dark fw-bold' href="javascript:void(0)" id='numLikes-`+ postId + `'></a>
+                      <div class="popover__content" >
                         <p class="popover__message" id=popLikes-`+ postId + `></p>
                       </div>
                     </div>
@@ -393,14 +401,14 @@
                             class=" ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
                       </div>
                       <div class='col-4'>
-                        <a id="share" onclick='copy("`+postId+`")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                        <a id="share" onclick='copy("`+ postId + `")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
                             src='/images/icons/share.svg' ><span  style='white-space:nowrap'
                             class=" ms-2 float-start mt-1 d-none d-sm-inline">Share</span></a>
                       </div> 
                       </ul>
                     </div>
                     <hr class='d-none d-sm-flex'>
-                    <div id='sharableLink-`+postId+`' class='fw-bold' style='text-align:center;display:none'>
+                    <div id='sharableLink-`+ postId + `' class='fw-bold' style='text-align:center;display:none'>
                       Shareable link copied to clipboard
                     </div>   
                         <div id="commentList-`+ postId + `">
@@ -413,7 +421,7 @@
                   <!-- Comment field -->
                   <div class="card-footer py-sm-3 py-0 border-0 themebg">
                     <div class="d-flex ">
-                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="images/sample.png" alt="avatar" width="40"
+                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="/images/male_empty.png" alt="avatar" width="40"
                         height="40" />
                       <div class=" w-100">
                         <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1 mt-1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
@@ -431,7 +439,7 @@
 
           }
           else if (type == "text") {
-            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg  rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto animate__animated animate__bounceIn">
+            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg overflow-hidden rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-0 mx-auto animate__animated animate__bounceIn">
                   <!-- Who shared the post -->
                   <div>
                     `+ titleHtml + ` 
@@ -455,15 +463,15 @@
                   <hr class='mx-3'>
                   <!-- Profile Images, Time, Location Div End-->
                  
-                  <div class="card-body overflow-hidden">
+                  <div class="card-body overflow-visible">
                     <!-- caption -->
                     <p class="card-text" id='caption'>`+ postText + `</p>
                     <!-- caption end-->
                   
                     <!-- number of likes end-->
                     <div class='popover__wrapper overflow-visible'>
-                      <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
-                      <div class="popover__content overflow-visible">
+                      <a class='text-decoration-none text-dark fw-bold' href="javascript:void(0)" id='numLikes-`+ postId + `'></a>
+                      <div class="popover__content">
                         <p class="popover__message" id=popLikes-`+ postId + `></p>
                       </div>
                     </div>
@@ -483,14 +491,14 @@
                             class=" ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
                       </div>
                       <div class='col-4' >
-                        <a id="share" onclick='copy("`+postId+`")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
+                        <a id="share" onclick='copy("`+ postId + `")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
                             src='/images/icons/share.svg'><span style='white-space:nowrap'
                             class="ms-2 float-start mt-1 d-none d-sm-inline">Share</span></a>
                       </div> 
                       </ul>
                     </div>
                     <hr class='d-none d-sm-flex'>   
-                    <div id='sharableLink-`+postId+`' class='fw-bold' style='text-align:center;display:none'>
+                    <div id='sharableLink-`+ postId + `' class='fw-bold' style='text-align:center;display:none'>
                       Shareable link copied to clipboard
                     </div>   
                         <div id="commentList-`+ postId + `">
@@ -503,7 +511,7 @@
                   <!-- Comment field -->
                   <div class="card-footer py-sm-3 py-0 border-0 themebg">
                     <div class="d-flex ">
-                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="images/sample.png" alt="avatar" width="40"
+                      <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="/images/male_empty.png" alt="avatar" width="40"
                         height="40" />
                       <div class=" w-100">
                         <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1 mt-1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
@@ -526,7 +534,11 @@
           // if got changes reload
         } else {
           console.log("change detected reloading posts")
-          cardList.innerHTML = postFeedHTML
+          if (postFeedHTML == '') {
+            cardList.innerHTML = "<div style='text-align:center' class='mt-5'> Hi there, seems that your feed is empty!<br> Follow users or pets to see their posts on your feed</div>"
+          } else {
+            cardList.innerHTML = postFeedHTML
+          }
           oldData = allPostData
           for (update of allPostIdPictureToUpdate) {
             postID = update[0]
@@ -611,8 +623,6 @@
           if (currentfollowingPet == undefined) { currentfollowingPet = [] }
           if (currentfollowingUser == undefined) {
             currentfollowingUser = []
-            document.getElementById('location-check').innerText = 'Follow users or pets to see their posts, find more pets/users from the nearby Menu'
-            document.getElementById('location-check').style.display = 'block'
           }
 
         }
@@ -625,7 +635,6 @@
         loadCurrentAvatar()
       })
   }
-
   getUserFollowing()
 </script>
 

@@ -93,15 +93,6 @@
 							</div>
 						</div>
 
-						<div id='genderandage' class='row'>
-							<div class="input-group mb-3 has-validation">
-								<input type="text" id='input-age' class="col form-control" name="Age" placeholder="Age"
-									required="required">
-								<input type="text" id='input-gender' class="col form-control" name="Gender"
-									placeholder="Gender" required="required">
-							</div>
-						</div>
-
 						<div id='registerrow' class='justify-content-center mt-2 row'>
 							<div class="input-group mb-3">
 								<button onclick="doRegister(event)" type="submit"
@@ -111,6 +102,9 @@
 						</div>
 						<div id="error_code" style="display: none;color:red;text-align: center;">
 							Password entered do not match
+						</div>
+						<div id="email_code" style="display: none;color:red;text-align: center;">
+							Email Taken
 						</div>
 
 
@@ -127,36 +121,46 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="/scripts/firebase/connector.js"></script>
-
+	<script src='/scripts/hash.js'></script>
 	<script>
 		// event.preventDefault()
 		function doRegister(e) {
 			e.preventDefault()
+			document.getElementById('nameWarningMsg').innerText = ''
+			document.getElementById('emailWarningMsg').innerText = ''
+			document.getElementById('passwordWarningMsg').innerText = ''
+
 			inputName = document.getElementById('input-name').value
 			inputEmail = document.getElementById('input-email').value
 			inputPassword = document.getElementById('input-password').value
 			inputPasswordConfirm = document.getElementById('input-confirm-password').value
-			inputAge = document.getElementById('input-age').value
-			inputGender = document.getElementById('input-gender').value
+			inputAge = "0"
+			inputGender = "0"
 
 			anyError = false
-			if(inputName == ''){
+			if (inputName == '') {
 				document.getElementById('nameWarningMsg').innerText = 'Name cannot be blank'
 				anyError = true
 			}
-			if(inputEmail == ''){
+			if (inputEmail == '') {
 				document.getElementById('emailWarningMsg').innerText = 'Email cannot be blank'
 				anyError = true
 			}
-			if(inputPassword == ''){
+			else if (!validateEmail(inputEmail)) {
+				document.getElementById('emailWarningMsg').innerText = 'Invalid Email Address'
+				anyError = true
+			}
+
+			if (inputPassword == '') {
 				document.getElementById('passwordWarningMsg').innerText = 'Password cannot be blank'
 				anyError = true
 			}
+
 			console.log(anyError)
 			console.log(anyError)
 			if (inputPassword == inputPasswordConfirm) {
 				let final_password = inputPassword;
-				if(anyError == false){
+				if (anyError == false) {
 					createUserProfile(inputName, inputEmail, inputAge, inputGender, final_password);
 				}
 			}
@@ -165,6 +169,11 @@
 				document.getElementById("error_code").style.display = "block";
 			}
 
+		}
+
+		function validateEmail(email) {
+			const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(String(email).toLowerCase());
 		}
 	</script>
 

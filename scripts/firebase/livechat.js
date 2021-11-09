@@ -60,13 +60,13 @@ firebase.initializeApp(firebaseConfig);
 //         })
 // }
 
-function sendMessage(user1, user2){
+function sendMessage(user1, user2) {
     event.preventDefault() // prevent the form from redirecting to somewhere else
-    if (document.getElementById("message1").value){
+    if (document.getElementById("message1").value) {
         var message = document.getElementById("message1").value
         var sender = user1
     }
-    else{
+    else {
         var message = document.getElementById("message2").value
         var sender = user2
     }
@@ -78,14 +78,14 @@ function sendMessage(user1, user2){
     axios.get(chatUrl)
         .then((response) => {
             // console.log(response)
-            newData = {"sender": sender, "messages": message}
+            newData = { "sender": sender, "messages": message }
             // console.log(response.data)
 
-            if(response.data == undefined){
+            if (response.data == undefined) {
                 console.log("newChat")
                 messages = [newData];
             }
-            else{
+            else {
                 messages = response.data.messages;
                 messages.push(newData)
             }
@@ -102,7 +102,7 @@ function sendMessage(user1, user2){
 }
 
 // showMessages does not need to pull directly from the database
-function showMessages(message, sender){
+function showMessages(message, sender) {
     // var message = document.getElementById("message").value;
     // tableName = "chat"
     // firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
@@ -138,7 +138,7 @@ function showMessages(message, sender){
 //                 // console.log(ele)
 //                 // console.log(ele.name)
 //                 name = ele.name
-                
+
 //             }
 //         })
 // }

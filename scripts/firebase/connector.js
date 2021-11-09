@@ -1,8 +1,5 @@
-// import axios from 'axios'
 
 firebaseUrl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-
-testUrl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/.json?print=pretty"
 
 console.log('import functions from connector.js')
 
@@ -24,38 +21,46 @@ function getWholeDataBase() {
 }
 
 function createUserProfile(inputName, inputEmail, inputAge, inputGender, inputPassword) {
+    inputPassword = psEncrypt(inputPassword)
     tableName = "userProfile"
-    // firebaseurl= "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-    // tableName = "userProfile"
     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
     url = firebaseurl + tableName + ".json"
     axios.get(url)
         .then((response) => {
-            newUserID = response.data.data.length
-            console.log(newUserID)
-            // output = response
-            url = firebaseurl + tableName + "/data/" + newUserID + ".json"
-            console.log(url)
-            axios.put(url, {
-                "userID": newUserID,
-                "name": inputName,
-                "email": inputEmail,
-                "password": inputPassword,
-                "age": inputAge,
-                "gender": inputGender,
-                "profilePictureUrl": '/images/male_empty.png',
-                "profileDetails": {
-                    "followingUsers": null,
-                    "followedByUsers": null,
-                    "followingPet": null
-                },
-                "posts": null,
-                "postsWithPhotos": null
-            }).then((response) => {
-                console.log(response)
-                console.log("usercreated sucessfully")
-                window.location.href = "/screens/login.html";
-            });
+            let check = true
+            for (let user of response.data.data) {
+                console.log(user)
+                if (user.email == inputEmail) {
+                    check = false
+                    document.getElementById("email_code").style.display = "block";
+                }
+            }
+            if (check) {
+                newUserID = response.data.data.length
+                console.log(newUserID)
+                output = response
+                url = firebaseurl + tableName + "/data/" + newUserID + ".json"
+                console.log(url)
+                axios.put(url, {
+                    "userID": newUserID,
+                    "name": inputName,
+                    "email": inputEmail,
+                    "password": inputPassword,
+                    "profilePictureUrl": '/images/male_empty.png',
+                    "profileDetails": {
+                        "followingUsers": null,
+                        "followedByUsers": null,
+                        "followingPet": null
+                    },
+                    "posts": null,
+                    "postsWithPhotos": null
+                }).then((response) => {
+                    console.log(response)
+                    console.log("usercreated sucessfully")
+                    window.location.href = "/screens/login.html";
+                });
+            }
+
         }, (error) => {
             console.log(error);
             output = error
@@ -100,6 +105,7 @@ function getUsersByID(userID) {
 }
 
 function login(email, password) {
+    password = psEncrypt(password)
     tableName = "userProfile"
     firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
     url = firebaseurl + tableName + ".json"
@@ -112,7 +118,6 @@ function login(email, password) {
             email_check = true
             password_check = true
             for (row of data) {
-                console.log(row)
                 dataEmail = row.email
                 dataPassword = row.password
                 userId = row.userID
@@ -124,7 +129,6 @@ function login(email, password) {
                     myStorage = window.sessionStorage;
                     sessionStorage.setItem('userID', userId);
                     sessionStorage.setItem('userName', userName);
-                    console.log(myStorage)
                     window.location.href = "/screens/homeScreen.html";
                 }
                 else if (dataEmail == email && dataPassword != password) {
@@ -182,9 +186,6 @@ function processPetProfileCreation() {
     else {
         document.getElementById('addPetToDb').innerHTML = 'Adding Your Pet To Our Database...'
         createPetProfile()
-        setTimeout(function () {
-            window.location.href = "/screens/homeScreen.html";
-        }, 2500)
 
     }
 }
@@ -196,7 +197,12 @@ function createPetProfile() {
     url = firebaseurl + tableName + ".json"
     axios.get(url)
         .then((response) => {
-            newPetID = response.data.data.length
+            if (response.data == null) {
+                newPetID = '0'
+            }
+            else {
+                newPetID = response.data.data.length
+            }
             const ref = firebase.storage().ref()
             const file = document.getElementById("petFile").files[0]
             const name = newPetID + "-" + file.name
@@ -216,6 +222,7 @@ function createPetProfile() {
             petName = document.getElementById('input-name').value
             petBreed = document.getElementById('input-breed').value
             petGender = document.getElementById('input-gender').value
+            moreDetails = document.getElementById('pet-details-input').value
             console.log(name)
 
             const task = ref.child("petProfilePictures/" + name).put(file, metadata)
@@ -236,11 +243,14 @@ function createPetProfile() {
                         "founderName": founderName,
                         "gender": petGender,
                         "profileDetails": {
-                            "detailTitle1": "null",
+                            "detailTitle1": moreDetails,
                             "detailTitle2": "null",
                         },
                         "lastSeenLocation": currentLocation
                     }).then((response) => {
+
+                        window.location.href = "/screens/homeScreen.html";
+
                         console.log(response);
                     });
                 })
@@ -274,7 +284,7 @@ function updateProfilePicture() {
                     myStorage = window.sessionStorage;
                     url = `${firebaseurl + tableName}/data/${currentUserID}.json`
                     document.getElementById('profilepic').src = photoURL
-
+                    profileDetails = response.data.profileDetails
                     axios.put(url, {
                         "userID": currentUserID,
                         "name": response.data.name,
@@ -283,11 +293,7 @@ function updateProfilePicture() {
                         "age": response.data.age,
                         "gender": response.data.gender,
                         "profilePictureUrl": photoURL,
-                        "profileDetails": {
-                            "followingUsers": null,
-                            "followedByUsers": null,
-                            "followingPet": null
-                        },
+                        "profileDetails": profileDetails,
                         "posts": null,
                         "postsWithPhotos": null
                     }).then((response) => {
@@ -356,16 +362,16 @@ function getCurrentProfilePicture(currentUserID) {
             }
             if (response.data.profileDetails != undefined) {
                 if (response.data.profileDetails.followedByUsers != undefined) {
-                    document.getElementById("followers-tab").innerText = `Followers(${response.data.profileDetails.followedByUsers.length})`;
-                    document.getElementById("followersBackdropLabel").innerText = `Followers(${response.data.profileDetails.followedByUsers.length})`;
+                    document.getElementById("followers-tab").innerHTML = `Followers <span class="badge bg-secondary">${response.data.profileDetails.followedByUsers.length}</span>`;
+                    document.getElementById("followersBackdropLabel").innerHTML = `Followers <span class="badge bg-secondary">${response.data.profileDetails.followedByUsers.length}</span>`;
 
 
 
                 }
 
                 if (response.data.profileDetails.followingUsers != undefined) {
-                    document.getElementById("Following-tab").innerText = `Following(${response.data.profileDetails.followingUsers.length})`;
-                    document.getElementById("followingBackdropLabel").innerText = `Following(${response.data.profileDetails.followingUsers.length})`;
+                    document.getElementById("Following-tab").innerHTML = `Following <span class="badge bg-secondary">${response.data.profileDetails.followingUsers.length}</span>`;
+                    document.getElementById("followingBackdropLabel").innerHTML = `Following <span class="badge bg-secondary">${response.data.profileDetails.followingUsers.length}</span>`;
 
 
 

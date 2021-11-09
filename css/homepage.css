@@ -1,7 +1,7 @@
 
 *{
-  font-family:monospace;
-  font-size:103%;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* font-size:10%; */
 }
 @media only screen and (min-width: 0px){
   *{
@@ -9,6 +9,7 @@
     overflow-x:hidden;
     padding: 0;
   }
+
   #addPetDiv, #nearbyPet{
     overflow:visible;
   }
@@ -20,6 +21,9 @@
   #nav-middle{
     left:0px!important;
   }
+  .heightResponsive{
+    height:140px;
+}
 }
 @media only screen and (min-width: 576px){
   *{
@@ -31,6 +35,9 @@
   #navBarIcons{
     left: 0%!important;
   }
+  .heightResponsive{
+    height:200px;
+}
 }
 
 @media only screen and (min-width: 965px){
@@ -41,6 +48,9 @@
     margin-left:auto;
     margin-right:80px;
   }
+  .heightResponsive{
+    height:300px;
+}
 
 }
 
@@ -182,7 +192,10 @@ body{
   text-align: center;
 } */
 
-
+.btn-brown{
+  background-color: #7A6563;
+  color: white;
+}
 #text {
   text-align: center;
 }
@@ -316,7 +329,8 @@ body{
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  top:60px;
+  top:-40px;
+  left:60px;
   transform: translate(0, 10px);
   background-color:#f5d2bc;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -330,11 +344,7 @@ body{
   position: absolute;
   z-index: -1;
   content: "";
-  right: calc(75% - 10px);
   top: -8px;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #f5d2bc transparent;
   transition-duration: 0.3s;
   transition-property: transform;
 }
@@ -378,3 +388,27 @@ body{
   }
 }
 
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.form-control:focus{
+  outline: none;
+  box-shadow: none;
+}
+.pill-secondary-color button{
+  color:#999999 !important;
+}
+.pill-secondary-color .active {
+    background-color:#f5d2bc !important;
+    color:black !important;
+}
+
+.themebtn{
+  background-color:#f5d2bc !important;
+  border:none;
+  color:black !important;
+}
+.themebtn:hover{
+  background-color:#f8cbaf!important;
+}

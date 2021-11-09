@@ -47,8 +47,8 @@
 
           <!-- right now it navigates to the one for mobile -->
           <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-            <a class="nav-link px-3" href="/screens/livechat.html"><img
-                src="/images/icons/chat.svg" alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg" alt="Bootstrap"
+                width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span></a>
           </li>
           <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
@@ -78,8 +78,8 @@
       <!-- modal button end -->
 
 
-      <button onclick="window.location.href='/screens/login.html'" type='button'
-        style='background-color:#d69a74;' class='btn p-2 fs-3 align-self-end'>Log In / Sign Up</button>
+      <button onclick="window.location.href='/screens/login.html'" type='button' style='background-color:#d69a74;'
+        class='btn p-2 fs-3 align-self-end'>Log In / Sign Up</button>
 
 
     </div>
@@ -247,7 +247,7 @@
       profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
                           <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                            src='/scripts/images/sample.png'>
+                            src='/images/sample.png'>
                         </a>
                       </div>`
     } else {
@@ -257,7 +257,7 @@
       profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                         <a id='postee' class='col-6'>
                           <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                          src='/scripts/images/sample.png'>
+                          src='/images/sample.png'>
                         </a>
                         <a id='animal' class='col-6'>
                           <img id="postTagPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
@@ -322,7 +322,7 @@
                                 </div>
                             </div>`
     }
-    
+
     document.getElementById('card-list').innerHTML = newCardHTML
     updatePosterPicture(postedByID, postId)
     if (taggedPetID != undefined) {

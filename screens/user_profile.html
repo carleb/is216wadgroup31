@@ -66,11 +66,15 @@
                             </ul>
                         </form>
                     </li>
-
+                    <li id="petsgallery" class="nav-item mx-3 hover-color">
+                        <a class="nav-link active px-3" href="/screens/allPets.html"><img
+                                src="/images/icons/animals.png" alt="Bootstrap" width="32" height="32">
+                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets
+                                Gallery</span></a>
+                    </li>
                     <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link active px-3" aria-current="page"
-                            href="/screens/homeScreen.html"><img src="/images/icons/house.svg" alt="Bootstrap"
-                                width="32" height="32">
+                        <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen.html"><img
+                                src="/images/icons/house.svg" alt="Bootstrap" width="32" height="32">
                             <span
                                 class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
                     </li>
@@ -172,8 +176,8 @@
 
         <div id='imagebox' class=" col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 mx-auto pt-4 text-center">
             <img class="card-img-top shadow-lg " id="profilepic"
-                style="border-radius: 10%; max-height:400px; object-fit: cover; width: 70%;" src="/images/male_empty.png"
-                alt="Card image cap">
+                style="border-radius: 10%; max-height:400px; object-fit: cover; width: 70%;"
+                src="/images/male_empty.png" alt="Card image cap">
 
             <div class="card-body">
                 <h2 id="profilename" class='card-title overflow-visible'></h2>
@@ -186,7 +190,7 @@
 
 
                 <label id='follow_or_unfollow' for="followbutton"
-                    class="custom-file-upload rounded mx-auto btn-primary mt-3" style='display:none;width: 40%;'>
+                    class="custom-file-upload rounded mx-auto btn-brown mt-3" style='display:none;width: 40%;'>
                     Follow
                 </label>
 
@@ -211,22 +215,22 @@
             <li class="nav-item overflow-visible" role="presentation">
                 <button class="lead nav-link text-muted active" id="posts-tab" data-bs-toggle="tab"
                     data-bs-target="#posts" type="button" role="tab" aria-controls="posts" onclick="onboarding()"
-                    aria-selected="true" style='font-size:17px'>Posts</button>
+                    aria-selected="true">Posts</button>
             </li>
             <li class="nav-item overflow-visible" role="presentation">
                 <button class="lead nav-link text-muted" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos"
-                    type="button" role="tab" aria-controls="photos" onclick="gallery()" aria-selected="false"
-                    style='font-size:17px'>Photos</button>
+                    type="button" role="tab" aria-controls="photos" onclick="gallery()"
+                    aria-selected="false">Photos</button>
             </li>
             <li class="nav-item overflow-visible" role="presentation">
                 <button class="lead nav-link text-muted" id="followers-tab" data-bs-toggle="modal"
                     data-bs-target="#followerBackdrop" type="button" role="tab" aria-controls="followers"
-                    aria-selected="false" onclick="followerlist()" style='font-size:17px'>Followers</button>
+                    aria-selected="false" onclick="followerlist()">Followers</button>
             </li>
             <li class="nav-item overflow-visible" role="presentation">
                 <button class="lead nav-link text-muted" id="Following-tab" data-bs-toggle="modal"
                     data-bs-target="#followingBackdrop" type="button" role="tab" aria-controls="following"
-                    aria-selected="false" onclick="followinglist()" style='font-size:17px'>Following</button>
+                    aria-selected="false" onclick="followinglist()">Following</button>
             </li>
         </ul>
     </div>
@@ -319,7 +323,6 @@
 
 </body>
 <!-- JavaScript Bundle with Popper -->
-<script src="../homeScreen/homepage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
@@ -369,7 +372,7 @@
                 }
                 document.getElementById('card-list').innerHTML = "";
 
-                document.getElementById('photocount').innerHTML = `<h1>${photocount} Photos</h1>`;
+                document.getElementById('photocount').innerHTML = `<h1 class='overflow-hidden'>${photocount} Photos</h1>`;
                 document.getElementById('photogallery').innerHTML = gallery_string;
                 // for (let post of allposts) {
                 //     console.log(post.postID)
@@ -533,14 +536,14 @@
                     }
 
                     // getCurrentProfilePicture(my_user_id)
-                    document.getElementById("followingBackdropLabel").innerText = `Following(${followingUsers.length})`;
+                    document.getElementById("followingBackdropLabel").innerHTML = `Following <span class="badge bg-secondary">${followingUsers.length}</span>`;
 
                     if (followingUsers.length == 0) {
                         document.getElementById("Following-tab").innerText = `Following`;
 
                     }
                     else {
-                        document.getElementById("Following-tab").innerText = `Following(${followingUsers.length})`;
+                        document.getElementById("Following-tab").innerHTML = `Following <span class="badge bg-secondary">${followingUsers.length}</span>`;
                     }
 
 
@@ -671,14 +674,14 @@
 
                     }
 
-                    document.getElementById("followingBackdropLabel").innerText = `Following(${followingUsers.length})`;
+                    document.getElementById("followingBackdropLabel").innerHTML = `Following <span class="badge bg-secondary">${followingUsers.length}</span>`;
 
                     if (followingUsers.length == 0) {
                         document.getElementById("Following-tab").innerText = `Following`;
 
                     }
                     else {
-                        document.getElementById("Following-tab").innerText = `Following(${followingUsers.length})`;
+                        document.getElementById("Following-tab").innerHTML = `Following <span class="badge bg-secondary">${followingUsers.length}</span>`;
                     }
 
 
@@ -908,14 +911,14 @@
 
                 }
 
-                document.getElementById("followersBackdropLabel").innerText = `Followers(${followedByUsers.length})`;
+                document.getElementById("followersBackdropLabel").innerHTML = `Followers <span class="badge bg-secondary">${followedByUsers.length}</span>`;
 
                 if (followedByUsers.length == 0) {
                     document.getElementById("followers-tab").innerText = `Followers`;
 
                 }
                 else {
-                    document.getElementById("followers-tab").innerText = `Followers(${followedByUsers.length})`;
+                    document.getElementById("followers-tab").innerHTML = `Followers <span class="badge bg-secondary">${followedByUsers.length}</span>`;
                 }
 
 
@@ -1144,10 +1147,7 @@
                     // document.getElementById('follow_or_unfollow').innerText = "Following"
                     document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
 
-
-                    document.getElementById("followers-tab").innerText = `Followers(${user_details.profileDetails.followedByUsers.length})`;
-
-
+                    document.getElementById("followers-tab").innerHTML = `Followers <span class="badge bg-secondary">${user_details.profileDetails.followedByUsers.length}</span>`;
 
                 }
 
@@ -1260,7 +1260,14 @@
                     document.getElementById('follow_or_unfollow').innerHTML = `Follow`;
                     document.getElementById('follow_or_unfollow').style.backgroundColor = "";
 
-                    document.getElementById("followers-tab").innerText = `Followers(${user_details.profileDetails.followedByUsers.length})`;
+
+                    if (user_details.profileDetails.followedByUsers != undefined && user_details.profileDetails.followedByUsers.length != 0) {
+                        document.getElementById("followers-tab").innerHTML = `Followers <span class="badge bg-secondary">${user_details.profileDetails.followedByUsers.length}</span>`;
+                    }
+                    else {
+                        document.getElementById("followers-tab").innerText = `Followers`;
+                    }
+
 
 
                 }
@@ -1268,6 +1275,20 @@
 
             })
     }
+
+
+
+    // function refreshChat() {
+    //     console.log("refresh")
+    //     intervalId = window.setInterval(function () {
+    //         /// call your function here
+    //         onboarding()
+    //     }, 600);
+    // }
+    // refreshChat()
+
+
+
 
     function loadNewProfilePictureDisplay(event) {
         var image = document.getElementById('outputProfilePic');
@@ -1324,7 +1345,7 @@
                 allPostData.reverse()
                 for (postData of allPostData) {
                     if (postData.postedBy == userid) {
-                        userPicture = '/scripts/images/sample.png'
+                        userPicture = '/images/sample.png'
 
                         console.log(postData)
                         type = postData.postType
@@ -1350,31 +1371,31 @@
 
                         //check if tagged is human or pet
                         if (nameOfTagged == undefined) {
-                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
+                            titleHtml = `<h5 class='overflow-hidden'><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
                             profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                                         <a id='postee' class='col-6'>
                                         <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                                            src='/scripts/images/sample.png'>
+                                            src='/images/male_empty.png'>
                                         </a>
                                     </div>`
                         } else {
                             taggedURL = "/screens/petprofile.html?petID=" + taggedPetID
-                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
+                            titleHtml = `<h5 class='overflow-hidden'><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
                                     class='fw-bold text-decoration-none text-dark' id='whichAnimal' href='`+ taggedURL + `'>` + nameOfTagged + `</a></h5>`
                             profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
                                         <a id='postee' class='col-6'>
                                         <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                                        src='/scripts/images/sample.png'>
+                                        src='/images/male_empty.png'>
                                         </a>
                                         <a id='animal' class='col-6'>
                                         <img id="postTagPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-                                            src='https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/postFiles%2F16-Picture1.png?alt=media&token=5b932851-98a7-433f-b889-336e8198fe4b'>
+                                            src='/images/male_empty.png'>
                                         </a>
                                     </div>`
                         }
                         if (type == "photo") {
                             firstPhotoUrl = postData.photoUrl[0]
-                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
+                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace overflow-hidden rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
                         <!-- Who shared the post -->
                         <div>
                         `+ titleHtml + ` 
@@ -1399,12 +1420,12 @@
                         <!-- Image -->
                         <img class="card-img-top rounded2 shadow hover-zoom-img" style='max-height:500px; object-fit:cover' src="`+ firstPhotoUrl + `" alt="Card image cap">
                         <!-- Image end -->
-                        <div class="card-body">
+                        <div class="card-body overflow-visible">
                             <!-- caption -->
                             <p class="card-text" id='caption'>`+ postText + `</p>
                             <!-- caption end-->
                             <!-- number of likes -->
-                            <div class='popover__wrapper'>
+                            <div class='popover__wrapper overflow-visible'>
                             <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
                             <div class="popover__content">
                                 <p class="popover__message" id="popLikes-`+ postId + `"></p>
@@ -1463,7 +1484,7 @@
                             // console.log(postFeedHTML)
 
                         } else if (type == "text") {
-                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
+                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace overflow-hidden rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto">
                         <!-- Who shared the post -->
                         <div>
                             `+ titleHtml + ` 
@@ -1485,13 +1506,13 @@
                             <!-- time, location end -->
                         </div>
                         <!-- Profile Images, Time, Location Div End-->
-                        <div class="card-body">
+                        <div class="card-body overflow-visible">
                             <!-- caption -->
                             <p class="card-text" id='caption'>`+ postText + `</p>
                             <!-- caption end-->
                         
                             <!-- number of likes end-->
-                            <div class='popover__wrapper'>
+                            <div class='popover__wrapper overflow-visible'>
                             <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
                             <div class="popover__content">
                                 <p class="popover__message" id="popLikes-`+ postId + `"></p>
@@ -1691,7 +1712,10 @@
         }
 
 
+
     }
+
+
 
 
 </script>

@@ -73,7 +73,23 @@ div.desc {
     float  : left;
     width  : 33.33%;
 }
-
+@media only screen and (min-width: 0px){
+    #Following-tab, #posts-tab, #photos-tab, #followers-tab{
+        font-size:13px;
+    }
+    .fsResponsive{
+     font-size:medium;
+    }
+ }
+ @media only screen and (min-width: 576px){
+     #Following-tab, #posts-tab, #photos-tab, #followers-tab{
+         font-size:17px;
+         
+     }
+     .fsResponsive{
+         font-size:large;
+        }
+ }
 @media only screen and (max-width: 700px) {
     .responsive {
         width : 49.99999%;

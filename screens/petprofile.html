@@ -3,23 +3,21 @@
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel='stylesheet' href="/css/petprofile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/homepage.css">
-    <!--masonry js-->
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
-        async></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Profile</title>
 </head>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel='stylesheet' href="/css/petprofile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/homepage.css">
+
+
+
 
 <body id='petroot' onload='onboarding(),typeWriter()' class='font-monospace'>
 
@@ -46,7 +44,7 @@
                 <button id="post" class='btn ms-lg-3 d-flex hover-color' data-bs-toggle="modal"
                     data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
                         src='/images/icons/pencil-square.svg'><span style='white-space:nowrap'
-                        class=" font-monospace ms-1 float-start mt-2" id='newpost'></span>
+                        class="fs-5 ms-1 float-start mt-2" id='newpost'></span>
                 </button>
             </div>
             <!-- modal button end -->
@@ -70,26 +68,29 @@
                             </ul>
                         </form>
                     </li>
+                    <li id="petsgallery" class="nav-item mx-3 hover-color">
+                        <a class="nav-link active px-3" href="/screens/allPets.html"><img
+                                src="/images/icons/animals.png" alt="Bootstrap" width="32" height="32">
+                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets
+                                Gallery</span></a>
+                    </li>
 
                     <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link active px-3" aria-current="page"
-                            href="/screens/homeScreen.html"><img src="/images/icons/house.svg" alt="Bootstrap"
-                                width="32" height="32">
-                            <span
-                                class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
+                        <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen.html"><img
+                                src="/images/icons/house.svg" alt="Bootstrap" width="32" height="32">
+                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Home</span></a>
                     </li>
+
+                    <!-- right now it navigates to the one for mobile -->
                     <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
                         <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg"
                                 alt="Bootstrap" width="32" height="32">
-                            <span
-                                class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
+                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span></a>
                     </li>
-
                     <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
-                        <a class="nav-link px-3  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
+                        <a class="nav-link px-3 dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
                                 src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
-                            <span
-                                class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Profile</span></a>
+                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Profile</span></a>
                         <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
                             <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2" href="#">Your
                                     Profile</a></li>
@@ -104,7 +105,38 @@
     </nav>
     <!-- navbar end -->
 
-    <!-- modal start -->
+    <!-- Feeder Image Model -->
+    <div class="modal fade " id="viewFeederDetails" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="feederName">Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id='post-body'>
+
+                    <!-- form start -->
+                    <!-- drop files start-->
+                    <div>
+                        <img id='feederIMG' class="card-img-top rounded2 shadow hover-zoom-img"
+                            style='max-height:500px; object-fit:cover' alt="Card image cap">
+                    </div>
+                    <div id='feederTime' class='m-3'>
+                        Feed At :
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-brown" data-bs-dismiss="modal">Close</button>
+                </div>
+                <!-- form end -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Feeder Image End -->
+    <!-- Post Model -->
     <div class="modal fade " id="createPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -167,13 +199,13 @@
 
         <div id='imagebox' class=" text-center">
             <img id='petimg' class="card-img-top rounded1 shadow-sm"
-                style=" border-radius:10%;max-height:400px; max-width:400px; object-fit:cover" src="..."
+                style=" border-radius:10%;max-height:400px; max-width:400px; object-fit:cover" src='#'
                 alt="Card image cap">
             <div class="card-body">
                 <div id='livedetails' class='card rounded2 border border-0 my-auto text-center mx-auto'
                     style=" border-radius:10%;max-height:400px; max-width:400px;">
                     <div class="card-body">
-                        <h5 id='petName' class='card-title fw-bold' style='font-size: larger;'>
+                        <h5 id='petName' class='card-title fw-bold' style='font-size: larger;overflow:hidden;'>
                             Loading Pet Name...
                         </h5>
                         <p class='fw-bold mb-0' style='font-size: large;'>
@@ -182,17 +214,20 @@
                         <p id='lastseenaddress' class='mb-0'>
                             Loading Address...
                         </p>
-                        <p id='lastseentime' class='fw-bold mb-0' style='font-size: medium;'>
-                            Loading Last Seen Time...
+                        <p id='lastseentime' class='mb-0' style='font-size: small;'>
+                           
                         </p>
                         <p id='lastseentimemsg' class="card-text" style="font-size: small;">
                             To update his last seen, add a new post!
                         </p>
+                        <p style="font-size: large;" class='fw-bold mb-0' id='recommendedFeeding'>Loading last fed...
+                        </p>
+
                     </div>
                 </div>
 
                 <button id='follow_or_unfollow' type="button"
-                    class="custom-file-upload rounded mx-auto btn-primary p-2 mt-2" style='border:0;'
+                    class="custom-file-upload rounded mx-auto px-5 py-1 btn-brown mt-3" style='border:0;'
                     onclick="followandunfollow()">Follow </button>
             </div>
         </div>
@@ -207,23 +242,22 @@
             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" style='background-color:#ffe7d9'>
                 <li class="nav-item overflow-hidden" role="presentation">
                     <button class="lead nav-link text-muted active" id="about-tab" data-bs-toggle="tab"
-                        data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true"
-                        style='font-size:17px;'>About</button>
+                        data-bs-target="#about" type="button" role="tab" aria-controls="about"
+                        aria-selected="true">About</button>
                 </li>
                 <li class="nav-item overflow-hidden" role="presentation">
                     <button class="lead nav-link text-muted" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts"
-                        type="button" role="tab" aria-controls="posts" aria-selected="false"
-                        style='font-size:17px;'>Posts</button>
+                        type="button" role="tab" aria-controls="posts" aria-selected="false">Posts</button>
                 </li>
                 <li class="nav-item overflow-hidden" role="presentation">
                     <button class="lead nav-link text-muted" id="photos-tab" data-bs-toggle="tab"
-                        data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="false"
-                        style='font-size:17px;'>Photos</button>
+                        onclick='processLoadImages()' data-bs-target="#photos" type="button" role="tab"
+                        aria-controls="photos" aria-selected="false">Photos</button>
                 </li>
                 <li class="nav-item overflow-hidden" role="presentation">
                     <button class="lead nav-link text-muted" id="followers-tab" data-bs-toggle="tab"
                         data-bs-target="#followers" type="button" role="tab" aria-controls="followers"
-                        aria-selected="false" style='font-size:17px;'>Followers</button>
+                        aria-selected="false">Followers</button>
                 </li>
             </ul>
             <!-- navigation tabs END-->
@@ -234,37 +268,63 @@
                 <!-- about tab content START-->
                 <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                     <!-- top box of about content START-->
-                    <div class='row' style='height: 300px;'>
+                    <div class='row' id="about">
                         <div id='aboutdetails' class="card col-md themebg2 ms-3">
-                            <div class="card-body">
-                                <p id='founded'></p>
-                                <p id='founder'></p>
-                                <p id='breed'></p>
-                                <p id='gender'></p>
-                                <h5>MORE DETAILS</h5>
-                                <p id='moredetails'>No extra details for this pet yet</p>
+                            <div class="card-body my-5">
+                                <p class="fs-5" id='founded'></p>
+                                <p class="fs-5" id='founder'></p>
+                                <p class="fs-5" id='breed'></p>
+                                <p class="fs-5" id='gender'></p>
+                                <p class="fs-5" id='details' class='overflow-hidden'></p>
                             </div>
                         </div>
 
-                        <div id='feederdetails' class="card col-md themebg2">
+                        <div id='feederdetails' class="card col-md themebg2 py-5">
                             <div class="card-body">
-                                <h5 class="card-title">Feeder Information:</h5>
-                                <p id='feederinfo' class="card-text">
-                                    <li></li>
-                                </p>
-                                <p id='availdays ' class="card-text"> Looking for feeders for: </p>
+                                <div id='lastFed'>
 
-                                <button id='feederapply' type="button" class="btn btn-outline-secondary">Apply to be a
-                                    feeder</button>
+                                </div>
+                                <div id='feederinfo' class="card-text mb-4">
+                                    <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
+                                    <!-- <b>No Past Feeders, be the first!</b> -->
+                                </div>
+
+                                <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
+                                    type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
+
+
                             </div>
                         </div>
                     </div>
                     <!-- top box of about content END-->
+                    <!-- Feeder Modal -->
+                    <div class="modal fade" id="feederForm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content p-4">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">Proof of Feeding</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id='feederFormBody'>
 
+                                </div>
+                                <div class="modal-footer">
+                                    <p id='feederInfoComplete'></p>
+                                    <button type="button" class="btn btn-brown"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button onClick='feedingProof(this)' type="button" class="btn btn-primary">Mark as
+                                        Fed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal END -->
                     <!-- bottom of about content(location api) START-->
                     <div class='row'>
                         <div id='locationbox' class='container-fluid'
-                            style='height: 500px; width:100%; background-color: rgb(165, 165, 165);'>
+                            style='width:100%; background-color: #FCDFCE'>
                         </div>
                     </div>
                     <!-- bottom of about content(location api) END -->
@@ -276,15 +336,17 @@
                 <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
                     <div id='followercount' class='my-3 text-center'>
                     </div>
-                    <div id='followerslist' class="row my-3 mx-3">
+                    <div id='followerslist' class="row mx-3">
                     </div>
                 </div>
                 <!-- followers tab content END-->
 
                 <!-- posts tab content START-->
                 <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                    <div id='postcount' class='my-3 text-center'>
-
+                    <div id='postcount'>
+                        <div class='my-3 text-center'>
+                            No posts
+                        </div>
                     </div>
                     <div id='post-list'>
 
@@ -308,14 +370,14 @@
     </div>
     <!-- bottom box END-->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js'></script>
 <script src='https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js'></script>
 <!-- vuejs -->
@@ -324,115 +386,18 @@
 <script src='/scripts/homepage.js'></script>
 <script src='/scripts/firebase/createPost.js'></script>
 
+<script src='/scripts/petprofile.js'></script>
+<!--masonry js-->
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+    async></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
 <script>
-    profileHTML = `<a class="dropdown-item  hover-color3" href="/screens/user_profile.html?userid=` + window.sessionStorage.userID + `">My Profile</a></li>`
-    document.getElementById("profile").innerHTML = profileHTML
     function createPost() {
         const file = document.getElementById("file").files[0]
         createNewPost()
     }
-    //get petID from url
-    console.log(window.location.href)
-    var url_string = window.location.href; //window.location.href
-    var url = new URL(url_string);
-    var petID = parseInt(url.searchParams.get("petID"));
-    //get petID from url
-    console.log("Pet loaded ", petID);
-    getPetByID(petID);
-    //run getpetID
-
-    function loadGoogleMaps(petLati, petLong) {
-        //getting Userlocation from session
-        console.log(currentLocation)
-        userLati = currentLocation.latitude
-        userLong = currentLocation.longitude
-        if (currentLocation != 'no location') {
-            locationHTML = `<iframe width="100%" height="100%" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCJAU__BCNUmAKMUZCGIko6cbRPgodlkRU&origin=` + userLati + `,` + userLong + `&destination=` + petLati + `,` + petLong + `&mode=walking&maptype=roadmap&zoom=15"></iframe>`
-        } else {
-            locationHTML = `<div>
-                        Please turn on your location and refresh this page to get directions to this pet
-                      </div>`
-        }
-        document.getElementById('locationbox').innerHTML = locationHTML
-    }
-
-    function getAddress(lati, long) {
-        url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lati + "%2C" + long + "&lang=en-US&apikey=1f5cJ82OkUvyuWK4_er_fJRfdH6YMfTxx5KdPmZ1Pyw"
-        axios.get(url)
-            .then((response) => {
-                console.log(response)
-                address = response.data.items[0].title
-                document.getElementById("lastseenaddress").innerText = address
-            })
-    }
-
-    function getPetByID(petID) {
-        // userID= toString(userID)
-        tableName = "petProfile"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        url = firebaseurl + tableName + "/data/" + petID + ".json"
-        output = null
-        console.log(url)
-        axios.get(url)
-            .then((response) => {
-                output = response.data
-                console.log(output)
-                petName = output.petName;
-                console.log("pet page for: ", petName);
-                // document.getElementById('profilename').innerText = user_name;
-                document.title = "Pet Page - " + petName
-                petPictureUrl = output.petPictureUrl;
-                breed = output.breed;
-                foundedDate = output.foundedDate;
-                founder = output.founderName;
-                pet_gender = output.gender;
-                latitude = output.lastSeenLocation.latitude;
-                longitude = output.lastSeenLocation.longitude;
-                // loadGoogleMaps(latitude,longitude)   //disabled to safe api calls
-                // getAddress(latitude,longitude)
-                details1 = output.profileDetails.detailTitle1;
-                details2 = output.profileDetails.detailTitle2;
-                var detailstr = 'No extra details for this pet yet'
-                if (details1 != null) {
-                    detailstr = `<li>${details1}</li>`;
-                }
-                if (details1 != null) {
-                    detailstr += `<li>${details2}</li>`;
-                }
-                document.getElementById('moredetails').innerHTML = detailstr;
-                document.getElementById('founded').innerHTML = '<b>Founded on: </b>' + foundedDate;
-                document.getElementById('founder').innerHTML = '<b>Founder: </b>' + founder;
-                document.getElementById('petName').innerText = petName;
-                document.getElementById('gender').innerHTML = '<b>Gender: </b>' + pet_gender;
-                document.getElementById('petimg').src = petPictureUrl;
-                document.getElementById('breed').innerHTML = '<b> Breed: </b>' + breed;
-                //document.getElementById('lastseenaddress').innerText=lastSeenLocation;
-                document.getElementById('feederapply').innerHTML = `<b>Apply to be a feeder for ${petName}</b>`;
-
-            },
-                (error) => {
-                    console.log(error);
-                    output = error
-
-                });
-    }
-
-    //reverse latitude and longtitude to address
-    function getReverseGeocodingData(lat, lng) {
-        var latlng = new google.maps.LatLng(lat, lng);
-        // This is making the Geocode request
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-            if (status !== google.maps.GeocoderStatus.OK) {
-                alert(status);
-            }
-            // This is checking to see if the Geoeode Status is OK before proceeding
-            if (status == google.maps.GeocoderStatus.OK) {
-                console.log(results);
-                var address = (results[0].formatted_address);
-            }
-        });
-    }
+    currentLocation = "no location"
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
@@ -449,642 +414,17 @@
         navigator.geolocation.getCurrentPosition(success, error);
     }
 
-    allPostIdPictureToUpdate = []
-    allPostId = []
-    oldData = ""
-    allPostData = ""
-
-    currentLocation = "no location";
-    oldData = "";
-    allPostData = "";
-    newcomment = true;
-    allPostIdPictureToUpdate = []
-    allPostId = []
-    oldData = ""
-    allPostData = ""
-
-    function get_pet_post_by_id(petid) {
-        console.log('retrieving posts.....')
-        allPostId = []
-        // allPostIdPictureToUpdate = []
-        var postcount = 0;
-        allDateTimeOfPost = []
-        tableName = "post"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        postFeedHTML = ""
-        url = firebaseurl + tableName + ".json"
-        cardList = document.getElementById('card-list')
-        if (!navigator.geolocation) {
-            console.log('Geolocation is not supported by your browser');
-        } else {
-            navigator.geolocation.getCurrentPosition(success, error);
-        }
-
-        axios.get(url)
-            .then((response) => {
-                allPostData = response.data.data
-                // console.log(response.data.data)
-                allPostData.reverse()
-                for (postData of allPostData) {
-                    if (postData.tagged == petID) {
-                        postcount += 1
-                        userPicture = '/scripts/images/sample.png'
-                        console.log(postData)
-                        type = postData.postType
-                        postText = postData.postText
-                        postedByID = postData.postedBy
-                        postedOn = postData.postedOn
-                        postedOnTime = postData.postedOnTime
-                        dateTimeText = postedOn + " " + postedOnTime
-                        allDateTimeOfPost.push(dateTimeText)
-                        // document.getElementById('lastseentime').innerText = dateTimeText
-                        document.getElementById('lastseentimemsg').style.display = 'none'
-                        postedAtLocation = postData.postedAt
-                        nameOfPoseter = postData.nameOfPoseter
-                        nameOfTagged = postData.nameOfTagged
-                        taggedPetID = postData.tagged
-                        distanceFromPost = getDistanceFromLatLonInKm(currentLocation['latitude'], postedAtLocation['longitude'], postedAtLocation['latitude'], currentLocation['longitude'])
-                        distanceFromPost = Math.round(distanceFromPost * 100) / 100
-                        if (distanceFromPost == 0) {
-                            distanceFromPost = "Nearby < 0.1km"
-                        } else if (isNaN(distanceFromPost)) { distanceFromPost = "No location" }
-                        else {
-                            distanceFromPost = distanceFromPost + "km away"
-                        }
-                        postId = postData.postID
-                        postComments(postId)
-                        allPostIdPictureToUpdate.push([postId, postedByID, taggedPetID])
-                        posterURL = "/screens/user_profile.html?userid=" + postedByID
-
-                        //check if tagged is human or pet
-                        if (nameOfTagged == undefined) {
-                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post</h5>`
-                            profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
-                                    <a id='postee' class='col-6'>
-                                    <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                                        src='/scripts/images/sample.png'>
-                                    </a>
-                                </div>`
-                        } else {
-                            taggedURL = "/screens/petprofile.html?petID=" + taggedPetID
-                            titleHtml = `<h5><a class='fw-bold text-decoration-none text-dark' href='` + posterURL + `' id='whichPerson'>` + nameOfPoseter + `</a>'s post with <a
-                                class='fw-bold text-decoration-none text-dark' id='whichAnimal' href='`+ taggedURL + `'>` + nameOfTagged + `</a></h5>`
-                            profilePictureHTML = `<div class='row' id='profilePicturesOfPost'>
-                                    <a id='postee' class='col-6'>
-                                    <img id="postPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong ' width='70' height='70'
-                                    src='/scripts/images/sample.png'>
-                                    </a>
-                                    <a id='animal' class='col-6'>
-                                    <img id="postTagPicture-`+ postId + `" style='object-fit:cover;' class='rounded-circle shadow-1-strong' width='70' height='70'
-                                        src='https://firebasestorage.googleapis.com/v0/b/wadgroup31-e83d0.appspot.com/o/postFiles%2F16-Picture1.png?alt=media&token=5b932851-98a7-433f-b889-336e8198fe4b'>
-                                    </a>
-                                </div>`
-                        }
-                        if (type == "photo") {
-                            firstPhotoUrl = postData.photoUrl[0]
-                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto mb-4">
-                    <!-- Who shared the post -->
-                    <div>
-                    `+ titleHtml + ` 
-                    </div>
-                    <hr>
-                    <!-- Who shared the post end -->
-                    <!-- Profile Images, Time, Location Div -->
-                    <div class='row mb-3'>
-                        <!-- profile images -->
-                        <div class='col-6 col-sm-3'>
-                            `+ profilePictureHTML + `
-                        </div>
-                        <!-- profile images end -->
-                        <!-- time, location -->
-                        <div class='col-6 col-sm-9 text-end'>
-                        <span class='d-block'><b>`+ postedOn + `</b></span>
-                        <span class='d-block mt-3'>`+ distanceFromPost + `</span>
-                        </div>
-                        <!-- time, location end -->
-                    </div>
-                    <!-- Profile Images, Time, Location Div End-->
-                    <!-- Image -->
-                    <img class="card-img-top rounded2 shadow hover-zoom-img" style='max-height:500px; object-fit:cover' src="`+ firstPhotoUrl + `" alt="Card image cap">
-                    <!-- Image end -->
-                    <div class="card-body">
-                        <!-- caption -->
-                        <p class="card-text" id='caption'>`+ postText + `</p>
-                        <!-- caption end-->
-                        <!-- number of likes -->
-                        <div class='popover__wrapper'>
-                        <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
-                        <div class="popover__content">
-                            <p class="popover__message" id="popLikes-`+ postId + `"></p>
-                        </div>
-                        </div>
-                        <hr '>
-                        <!-- number of likes end-->
-                        <!-- like, comment, share -->
-                        <div class='row d-flex mt-2'>
-                        <div class='col-4'>
-                            <a id="heart-`+ postId + `" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
-                            class='float-start' width=32 height=32 src='/images/icons/heart.svg'><span id="like-`+ postId + `"
-                                style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Like</span></a>
-                        </div>
-                        <div class='col-4'>
-                            <a id='commentButton-`+ postId + `' onClick='focusInput(this)' style='width:200px' class='btn'>
-                            <img class='float-start' width=32 height=32
-                                src='/images/icons/chat-left.svg'><span style='white-space:nowrap'
-                                class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
-                        </div>
-                        <div class='col-4'>
-                            <a id="share" onclick='copy("`+postId+`")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
-                                src='/images/icons/share.svg'><span  style='white-space:nowrap'
-                                class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Share</span></a>
-                        </div> 
-                        </ul>
-                        </div>
-                        <hr class='d-none d-sm-flex'>   
-                        <div id='sharableLink-`+postId+`' class='fw-bold' style='text-align:center;display:none'>
-                        Shareable link copied to clipboard
-                        </div>   
-                            <div id="commentList-`+ postId + `">
-                            </div> 
-                        
-                        
-                        <!-- like, comment, share end-->
-                    </div>
-                    <!-- body end -->
-                    <!-- Comment field -->
-                    <div class="card-footer py-sm-3 py-0 border-0 themebg">
-                        <div class="d-flex ">
-                        <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="`+ userPicture + `" alt="avatar" width="40"
-                            height="40" />
-                        <div class=" w-100">
-                            <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
-                        </div>      
-                        <button id=post-`+ postId + `  onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='/images/icons/symmetry-horizontal.svg' width=25></button>
-                        </div>
-                    </div>
-                    </div>`
-                            postFeedHTML = postFeedHTML + newCardHTML
-                            getLikesToUpdateHTML(postId)
-                            if (newcomment == true) {
-                                postComments(postId)
-                            }
-                            // console.log(postFeedHTML)
-
-                        } else if (type == "text") {
-                            newCardHTML = `<div style="max-width:800px;" id="postid-` + postId + `" class="card shadow border border-0 themebg font-monospace rounded2 py-3 px-md-5 px-sm-4 px-3 mt-xl-4 mt-sm-3 mt-3 mx-auto mb-4">
-                    <!-- Who shared the post -->
-                    <div>
-                        `+ titleHtml + ` 
-                    </div>
-                    <hr>
-                    <!-- Who shared the post end -->
-                    <!-- Profile Images, Time, Location Div -->
-                    <div class='row mb-3'>
-                        <!-- profile images -->
-                        <div class='col-6 col-sm-3'>
-                            `+ profilePictureHTML + `
-                        </div>
-                        <!-- profile images end -->
-                        <!-- time, location -->
-                        <div class='col-6 col-sm-9 text-end'>
-                        <span class='d-block'><b>`+ postedOn + `</b></span>
-                        <span class='d-block mt-3'>`+ distanceFromPost + `</span>
-                        </div>
-                        <!-- time, location end -->
-                    </div>
-                    <!-- Profile Images, Time, Location Div End-->
-                    <div class="card-body">
-                        <!-- caption -->
-                        <p class="card-text" id='caption'>`+ postText + `</p>
-                        <!-- caption end-->
-                    
-                        <!-- number of likes end-->
-                        <div class='popover__wrapper'>
-                        <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
-                        <div class="popover__content">
-                            <p class="popover__message" id="popLikes-`+ postId + `"></p>
-                        </div>
-                        </div>
-                        <hr>
-                        <!-- number of likes end-->
-                        <!-- like, comment, share -->
-                        <div class='row d-flex mt-2'>
-                        <div class='col-4'>
-                            <a id="heart-`+ postId + `" onclick=fillHeart(this.id) style='width:200px' class='btn'><img 
-                            class='float-start' width=32 height=32 src='/images/icons/heart.svg'><span id="like-`+ postId + `"
-                                style='white-space:nowrap' class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Like</span></a>
-                        </div>
-                        <div class='col-4'>
-                            <a id='commentButton-`+ postId + `' onClick='focusInput(this)' style='width:200px' class='btn'>
-                            <img class='float-start' width=32 height=32
-                                src='/images/icons/chat-left.svg'><span style='white-space:nowrap'
-                                class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Comment</span></a>
-                        </div>
-                        <div class='col-4'>
-                            <a id="share" onclick='copy("`+postId+`")' style='width:200px' class='btn'><img class='float-start' width=32 height=32
-                                src='/images/icons/share.svg'><span  style='white-space:nowrap'
-                                class="font-monospace ms-2 float-start mt-1 d-none d-sm-inline">Share</span></a>
-                        </div> 
-                        </ul>
-                        </div>
-                        <hr class='d-none d-sm-flex'>   
-                        <div id='sharableLink-`+postId+`' class='fw-bold' style='text-align:center;display:none'>
-                        Shareable link copied to clipboard
-                        </div>   
-                            <div id="commentList-`+ postId + `">
-                            </div> 
-                            
-                            
-                            <!-- like, comment, share end-->
-                        </div>
-                        <!-- body end -->
-                        <!-- Comment field -->
-                        <div class="card-footer py-sm-3 py-0 border-0 themebg">
-                            <div class="d-flex ">
-                            <img class="rounded-circle shadow-1-strong me-3 d-sm-flex d-none your-avatar" src="`+ userPicture + `" alt="avatar" width="40"
-                                height="40" />
-                            <div class=" w-100">
-                                <input type='text' onkeypress='onEnter(this, event)' class="form-control rounded1" id="commentField-`+ postId + `" rows="1" placeholder="Add Comment...">
-                            </div>      
-                            <button id=post-`+ postId + ` onClick='processComment(this)' type="button" class="hover-zoom btn ms-2"><img src='/images/icons/symmetry-horizontal.svg' width=25></button>
-                            </div>
-                        </div>
-                        </div>`
-                            postFeedHTML = postFeedHTML + newCardHTML
-                            //   console.log(postFeedHTML)
-
-                        }
-                        getLikesToUpdateHTML(postId)
-                        if (newcomment == true) {
-                            postComments(postId)
-                        }
-
-                    }
-                    // console.log(postFeedHTML)
-
-                }
-
-                document.getElementById('post-list').innerHTML = postFeedHTML
-                document.getElementById('postcount').innerHTML = `<h1>${postcount} Posts</h1>`
-                newcomment = false
-                if (allPostData.length == oldData.length) {
-                    console.log('no changes')
-                } else {
-                    console.log("change detected reloading posts")
-                    document.getElementById('post-list').innerHTML = postFeedHTML
-                    oldData = allPostData
-                    console.log(allPostIdPictureToUpdate)
-                    allDateTimeOfPost.push(dateTimeText)
-                    document.getElementById('lastseentime').innerText = allDateTimeOfPost[0]
-                    for (update of allPostIdPictureToUpdate) {
-                        postID = update[0]
-                        posterID = update[1]
-                        taggedID = update[2]
-                        updatePosterPicture(posterID, postID)
-                        if (taggedID != undefined) {
-                            updatTaggedPicture(taggedID, postID)
-                        }
-                    }
-                }
-            }, (error) => {
-                console.log(error);
-                output = error
-
-            });
+    myStorage = window.sessionStorage;
+    if (myStorage.userID === undefined) {
+        console.log("Not login")
+        // console.log(myStorage)
+    } else {
+        console.log("Login")
+        // console.log(myStorage)
+        user_id = myStorage.userID
+        // console.log(user_id)
     }
-
-    function showpetfollowing() {
-
-        var htmlstr = ``;
-        var followercount = 0;
-        console.log('get following list function is running');
-        tableName = "userProfile"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        url = firebaseurl + tableName + ".json";
-        // cardList = document.getElementById('card-list');
-        axios.get(url)
-            .then((response) => {
-                allprofiles = response.data.data;
-                console.log("all profiles here: ", allprofiles);
-                console.log("num profiles: ", allprofiles.length);
-                for (var i = 1; i < allprofiles.length; i++) {
-                    console.log('innerloop running')
-                    profile = allprofiles[i]
-                    console.log(allprofiles[i].name)
-                    if (profile.profileDetails == undefined || profile.profileDetails.followingPet == undefined) {
-                        //Create followinguders in profiledetails with changes made to following user
-                        console.log('user not following any pet')
-                    }
-                    else if (profile.profileDetails.followingPet.includes(petID)) {
-                        followercount += 1
-                        user_name = profile.name;
-                        var user_img = 'img/blank-background.jpeg';
-                        console.log(user_name, " is following.")
-                        if (profile.profilePictureUrl != undefined) {
-                            user_img = profile.profilePictureUrl;
-                        }
-                        htmlstr += `<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2">
-                        <div class="card">
-                          <img src="${user_img}" class="card-img-top" alt="profileimage" style='width:100%;height:300px; object-fit:cover;'>
-                          <div class="card-body">
-                            <h5 class="card-title">${user_name}</h5>
-                          </div>
-                        </div>
-                      </div>`}
-                }
-
-                document.getElementById('followercount').innerHTML = `<h1>${followercount} Followers</h1>`;
-                document.getElementById('followerslist').innerHTML = htmlstr;
-
-
-
-            }, (error) => {
-                console.log(error);
-            });
-
-    }
-
-    function showpetphotos(petID) {
-        var pg = document.getElementById("photogallery");
-        var msnry = new Masonry(pg, {
-            // options
-            percentPosition: true
-        });
-        var htmlstr = ``;
-        var photocount = 0;
-        console.log('show pet photos function is running');
-        tableName = "post"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        url = firebaseurl + tableName + ".json";
-        axios.get(url)
-            .then((response) => {
-                allPostData = response.data.data
-                //console.log(response.data.data)
-                allPostData.reverse()
-                for (postData of allPostData) {
-                    console.log('single post data: ', postData)
-                    console.log('tag: ', postData.tagged == petID)
-                    console.log('phototrue: ', postData.type == "photo")
-                    if (postData.tagged == petID && postData.postType == "photo") {
-                        photocount += 1
-                        console.log(postData)
-                        firstPhotoUrl = postData.photoUrl[0]
-                        var coldiv = document.createElement("div");
-                        coldiv.setAttribute("class", "col-sm-6 col-lg-4 mb-4");
-                        var cardiv = document.createElement("div");
-                        cardiv.setAttribute("class", "card")
-                        const cardimage = document.createElement('img');
-                        cardimage.src = firstPhotoUrl;
-                        cardimage.setAttribute("class", "card-img");
-                        cardiv.appendChild(cardimage);
-                        coldiv.appendChild(cardiv);
-                        pg.appendChild(coldiv);
-                        msnry.appended(coldiv);
-
-                    }
-                }
-
-                document.getElementById('photocount').innerHTML = `<h1>${photocount} Photos</h1>`;
-                //document.getElementById('photogallery').innerHTML = htmlstr;
-
-
-
-            }, (error) => {
-                console.log(error);
-            });
-
-    }
-    function followandunfollow() {
-
-        let follow_action = document.getElementById('follow_or_unfollow').innerText;
-
-
-        let my_user_id = parseInt(myStorage.userID);
-
-        console.log('current UserID: ', my_user_id);
-
-        tableName = "userProfile"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        url = firebaseurl + tableName + ".json";
-        axios.get(url)
-            .then((response) => {
-                allprofiles = response.data.data;
-                my_details = allprofiles[my_user_id];
-                //user_details = allprofiles[the_user]
-
-                console.log('my details ', my_details.profileDetails);
-                //console.log(user_details.ProfileDetails)
-                let url2 = firebaseurl + tableName + "/data/" + my_user_id + '/profileDetails/' + ".json";
-
-                //followedByUsers = my_details.ProfileDetails.followedByUsers;
-
-                if (follow_action == "Follow") {
-                    let followingPet = [];
-                    //let followedByUsers = [];
-                    // ME
-
-                    if (my_details.profileDetails == undefined || my_details.profileDetails.followingPet == undefined) {
-                        //Create followingPet in profiledetails with changes made to following pet
-                        followingPet = [petID];
-                    }
-                    else {
-                        //add user into your following user list
-                        my_details.profileDetails.followingPet.push(petID);
-                        followingPet = my_details.profileDetails.followingPet
-                    }
-
-                    if (my_details.profileDetails == undefined || (my_details.profileDetails.followingUsers == undefined && my_details.profileDetails.followedByUsers == undefined)) {
-                        axios.put(url2, {
-                            "followingUsers": null,
-                            "followedByUsers": null,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Updated my followingpet successfully");
-                            })
-                    }
-                    else if (my_details.profileDetails.followingUsers == undefined) {
-                        followedByUsers = my_details.profileDetails.followedByUsers;
-                        axios.put(url2, {
-                            "followingUsers": null,
-                            "followedByUsers": followedByUsers,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Updated my followingpet successfully");
-                            })
-                    }
-                    else if (my_details.profileDetails.followedByUsers == undefined) {
-                        followingByUsers = my_details.profileDetails.followingUsers;
-                        axios.put(url2, {
-                            "followingUsers": followingByUsers,
-                            "followedByUsers": null,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Updated my followingpet successfully");
-                            })
-                    }
-
-                    else {
-                        followingUsers = my_details.profileDetails.followingUsers;
-                        followedByUsers = my_details.profileDetails.followedByUsers;
-                        axios.put(url2, {
-                            "followingUsers": followingUsers,
-                            "followedByUsers": followedByUsers,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Updated my following pet successfully");
-                            })
-                    }
-
-                    document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
-                    // document.getElementById('follow_or_unfollow').innerText = "Following"
-                    document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
-                    // document.getElementById('follow_or_unfollow').style.border = "0";
-                    document.getElementById('follow_or_unfollow').style.color = "white";
-                }
-
-
-                if (follow_action.trim() == "Following") {
-                    console.log(follow_action);
-                    //let followingUsers = my_details.ProfileDetails.followingUsers;
-                    //let followedByUsers = user_details.ProfileDetails.followedByUsers;
-                    // ME
-                    //remove pet from your following pet list
-                    followingPet = my_details.profileDetails.followingPet;
-                    const my_index = my_details.profileDetails.followingPet.indexOf(petID);
-                    if (my_index > -1) {
-                        followingPet.splice(my_index, 1);
-
-                    }
-
-                    if (my_details.profileDetails == undefined || (my_details.profileDetails.followingUsers == undefined && my_details.profileDetails.followedByUsers == undefined)) {
-                        axios.put(url2, {
-                            "followingUsers": null,
-                            "followedByUsers": null,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Removed pet from my following pet successfully");
-                            })
-                    }
-                    else if (my_details.profileDetails.followingUsers == undefined) {
-                        followedByUsers = my_details.profileDetails.followedByUsers;
-                        axios.put(url2, {
-                            "followingUsers": null,
-                            "followedByUsers": followedByUsers,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Removed pet from my following pet successfully");
-                            })
-                    }
-                    else if (my_details.profileDetails.followedByUsers == undefined) {
-                        followingByUsers = my_details.profileDetails.followingUsers;
-                        axios.put(url2, {
-                            "followingUsers": followingByUsers,
-                            "followedByUsers": null,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Removed pet from my following pet successfully");
-                            })
-                    }
-
-                    else {
-                        followingUsers = my_details.profileDetails.followingUsers;
-                        followedByUsers = my_details.profileDetails.followedByUsers;
-                        axios.put(url2, {
-                            "followingUsers": followingUsers,
-                            "followedByUsers": followedByUsers,
-                            "followingPet": followingPet
-                        })
-                            .then(function (response) {
-                                console.log("Removed pet from my following pet successfully");
-                            })
-                    }
-
-                    document.getElementById('follow_or_unfollow').innerHTML = `Follow`;
-                    document.getElementById('follow_or_unfollow').style.backgroundColor = "";
-
-                }
-
-
-            })
-    }
-
-    function get_user_details(petid, me) {
-        console.log('get user detail function is running');
-        tableName = "userProfile"
-        firebaseurl = "https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app/";
-        url = firebaseurl + tableName + ".json";
-        // cardList = document.getElementById('card-list');
-        axios.get(url)
-            .then((response) => {
-                allprofiles = response.data.data
-                me_details = allprofiles[me]
-                // followings = me_details.ProfileDetails['followingUsers']
-                // console.log(followings);
-                if (me_details.profileDetails == undefined || me_details.profileDetails.followingPet == undefined) {
-                    //Create followinguders in profiledetails with changes made to following user
-                    document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Follow`;
-                }
-                else {
-                    followings = me_details.profileDetails.followingPet;
-                    console.log('Your followings: ', followings);
-                    if (followings.includes(parseInt(petID))) {
-                        document.getElementById('follow_or_unfollow').innerHTML = `<i class="fa fa-user"></i> Following`;
-                        // document.getElementById('follow_or_unfollow').innerText = "Following"
-                        document.getElementById('follow_or_unfollow').style.backgroundColor = "#E37383";
-                        document.getElementById('follow_or_unfollow').style.color = "white";
-
-                    }
-
-                }
-
-
-            }, (error) => {
-                console.log(error);
-            });
-
-    }
-
-    function onboarding() {
-        console.log('running onboarding function')
-        // start session manager
-        myStorage = window.sessionStorage;
-        if (myStorage.userID === undefined) {
-            console.log("Not login")
-            // console.log(myStorage)
-            myStorage.redirect = 'fromLoginNoAccount'
-            window.location.href = "/screens/login.html";
-        } else {
-            console.log("Login")
-            // console.log(myStorage)
-            my_user_id = myStorage.userID
-        }
-
-        // start profile identification
-        //const queryString = window.location.search;
-        // console.log(queryString.split("?")[1].split("=")[1])
-
-        // console.log(queryString);
-        //userid = queryString.split("?")[1].split("=")[1]
-        //console.log(typeof (userid))
-        console.log('Your user ID: ', my_user_id);
-
-        get_user_details(petID, my_user_id);
-
-        showpetfollowing();
-        get_pet_post_by_id(petID);
-        showpetphotos(petID)
-        //document.getElementById('follow_or_unfollow').style.display = 'block'
-        //get_user_post_by_id(userid)
-    }
-
-
+    console.log(myStorage)
 </script>
 
 </html>

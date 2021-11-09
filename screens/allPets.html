@@ -8,13 +8,16 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/homepage.css">
   <title>Pets Gallery</title>
 </head>
-<script src='/scripts/allPets.js'></script>
+<style>
+  .petcard {
+    background-color: rgb(255, 223, 212);
+  }
+</style>
 
-<body id='petroot' onload='onboarding(),typeWriter()' class='font-monospace'>
+<body id='petroot' onload='onboarding(),typeWriter()'>
 
   <!-- navbar start -->
   <nav class="shadow-sm navbar navbar-expand-lg navbar-light sticky-top website-topbar">
@@ -62,6 +65,11 @@
               </ul>
             </form>
           </li>
+          <li id="petsgallery" class="nav-item mx-3 hover-color">
+            <a class="nav-link active px-3" href="/screens/allPets.html"><img src="/images/icons/animals-fill.png"
+                alt="Bootstrap" width="32" height="32">
+              <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets Gallery</span></a>
+          </li>
 
           <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
             <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen.html"><img
@@ -69,8 +77,8 @@
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Home</span></a>
           </li>
           <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-            <a class="nav-link px-3" href="/screens/livechat.html"><img
-                src="/images/icons/chat.svg" alt="Bootstrap" width="32" height="32">
+            <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg" alt="Bootstrap"
+                width="32" height="32">
               <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark font-monospace'>Chat</span></a>
           </li>
           <!-- <li id="profile" class="nav-item mx-3 hover-color d-lg-none" onclick=fill(this.id)>
@@ -154,10 +162,76 @@
   </div>
   <!-- modal end -->
   <div id='app'>
-    <div id='cardgallery' class=''>
+    <div class='container-fluid text-center py-5'> Showing {{petnumber}} Results</div>
+    <div class='container-fluid px-5' id='cardgallery'>
+      <div class='row'>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" v-for='pet in petlist'>
+          <div class="card my-3 mx-3 petcard">
+            <img :src="pet.petImage" class="card-img-top heightResponsive" alt="petimage"
+              style='width:100%; object-fit:cover;'>
+            <div class="card-body">
+              <h5 class="card-title overflow-hidden">{{pet.petName}}</h5>
+              <a :href="pet.petID" class="stretched-link"></a>
+            </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container-fluid d-flex justify-content-center my-5'>
+      <div id='pagenav'>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="First group" v-for="n in numpages">
+            <a class="btn btn-outline-secondary mx-1" :href=`/screens/allPets.html?page=${n}` role="button"
+              v-if='n != thispage'>{{n}}</a>
+            <a class='btn btn-secondary mx-1' :href=`/screens/allPets.html?page=${n}` role='button' v-else>{{n}}</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script src='/scripts/allPets.js'></script>
+<script src="/scripts/homepage.js"></script>
+<script src='/scripts/firebase/connector.js'></script>
+<script src='/scripts/firebase/createPost.js'></script>
+<script>
+  currentLocation = "no location"
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    currentLocation = { latitude: latitude, longitude: longitude }
+  }
+
+  function error() {
+    console.log(currentLocation)
+  }
+
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser');
+  } else {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+  function createPost() {
+    const file = document.getElementById("file").files[0]
+    createNewPost()
+  }
+  myStorage = window.sessionStorage;
+  if (myStorage.userID === undefined) {
+    console.log("Not login")
+    // console.log(myStorage)
+  } else {
+    console.log("Login")
+    // console.log(myStorage)
+    user_id = myStorage.userID
+    // console.log(user_id)
+  }
+</script>
 
 </html>
