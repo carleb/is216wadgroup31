@@ -176,23 +176,23 @@ function backToContacts() {
           html +=
             `
                 <div class='py-2 hold' id='${id}'>
-                <a id= '${friendName}' onclick="showChat(this)" href='#' class='text-decoration-none text-dark'>
+                <a id='${friendName}' onclick="showChat(this)" href='#' class='text-decoration-none text-dark'>
                 <div id="friendName${i}" class='row' style='white-space:nowrap'>
                   <div class='col-4 text-end'>
                   <img src=${profilePic} class="rounded-circle" width=80 height=80>
                   </div>
                   <div class='col-8 my-auto text-start'>
                   <span class="fs-5">${friendName}</span>
-                  <img src="/images/icons/chevron-right.svg" alt="Bootstrap" >
+                  <img src="/images/icons/chevron-right.svg" alt="Bootstrap">
                   </div>
                 </div>
                 </a>
-                <hr>
+                </hr>
                 </div>
                 `
         }
       }
-      html = html.slice(0, -21) // slice off the  last hr
+      html = html.slice(0, -23) // slice off the  last hr
       document.getElementById('chat-main').innerHTML = html
 
       document.getElementById('chat-main').style.maxHeight = '800px'
