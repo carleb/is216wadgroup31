@@ -171,10 +171,35 @@
           </div>
 
           <div id='petsDiv' class='scrollbar text-center mt-1 mt-xl-3 d-flex d-xl-block'>
-
-
+            <div id='addPetDiv' class='mx-2 mx-xl-0 py-xl-3 mt-4 mt-xl-0 ms-4 ms-xl-0' style='white-space:nowrap'>
+              <a href="/screens/newPetForm.html" class='justify-content-center my-auto d-xl-flex d-block text-decoration-none text-dark'>
+                <div id='addPetIcon' class="img_cont2 rounded-circle ms-3 ms-xl-1">
+                  <img src="/images/icons/plus-circle.svg" class="rounded-circle user_img2">
+                </div>
+                <div class=' fw-bold  ms-xl-2'>
+                  Add Pet
+                </div>
+              </a>
+            </div>
+            <div id='nearbyPet' class='mx-xl-2 rounded2'>
+              <a href='#' class='text-decoration-none text-dark'>
+                <div class=' row d-none d-xl-flex' style='white-space:nowrap'>       
+                  <div class='col-xl-4 my-auto'>    
+                  </div>
+                  <div class='col-xl-4 text-center'>
+                      <p class='fw-bold mt-3'>Loading Pets...</p>                   
+                    </div>
+                  <div class='col-xl-4 text-center'>             
+                  </div>
+                </div>
+              </a>  
+              <div class='mx-xl-auto d-flex d-xl-none overflow-visible mb-4' style='height:118px; '>
+                  <div class=' overflow-visible my-auto'>
+                    <span class='fw-bold ms-5'>Loading Pets...</span>
+                  </div>       
+              </div> 
+            </div>
           </div>
-
         </div>
       </div>
 
@@ -262,8 +287,8 @@
 
   // update profile ID
 
-
-
+  
+  
 
   // cardList.innerHTML = newCardHTML+newCardHTML
   allPostId = []
@@ -573,7 +598,7 @@
   }
   // getAllPost()
   // loadCurrentAvatar()
-  populateSideBar()
+  
   var i = 1;                  //  set your counter to 1
   function myLoop() {         //  create a loop function
     setTimeout(function () {   //  call a 3s setTimeout when the loop is called
@@ -638,6 +663,11 @@
         loadCurrentAvatar()
       })
   }
+  
+  
+  setTimeout(function(){
+    populateSideBar()
+  },500)
   getUserFollowing()
 </script>
 

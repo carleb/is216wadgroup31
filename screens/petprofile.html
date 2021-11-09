@@ -206,7 +206,7 @@
     <div class="row">
         <div id="topbox" class="px-3 col-12">
 
-            <div id='imagebox' class=" text-center">
+            <div id='imagebox' class=" text-center mt-3">
                 <img id='petimg' class="card-img-top rounded1 shadow-sm"
                     style=" border-radius:10%;max-height:400px; max-width:400px; object-fit:cover" src='#'
                     alt="Card image cap">
@@ -214,30 +214,48 @@
                     <div id='livedetails' class='card rounded2 border border-0 my-auto text-center mx-auto'
                         style=" border-radius:10%;max-height:400px; max-width:400px;">
                         <div class="card-body">
-                            <h3 id='petName'>
+                            <p id='petName' class='overflow-hidden fs-1'>
                                 Loading Pet Name...
-                            </h3>
+                            </p>
                             <!-- <p class='fw-bold mb-0' style='font-size: large;'>
                                 Last Seen:
                             </p> -->
-                            <p id='lastseenaddress' class="mb-1">
-                                <b>Last Seen @ </b>Loading Address...
-                            </p>
-                            <p id='lastseentime' class='mb-0'>
+                            <div class="d-none d-sm-block">
+                                <p id='lastseenaddress' class="mb-1 fs-4">
+                                    <b>Last Seen @ </b>Loading Address...
+                                </p>
+                                <p id='lastseentime' class='mb-0 fs-4'>
 
-                            </p>
-                            <p id='lastseentimemsg'>
-                                To update his last seen, add a new post!
-                            </p>
-                            <p class='mb-0' id='recommendedFeeding'>
-                                Loading last fed...
-                            </p>
+                                </p>
+                                <p id='lastseentimemsg' class='fs-4'>
+                                    To update his last seen, add a new post!
+                                </p>
+                                <p class='mb-0 fs-4' id='recommendedFeeding'>
+                                    Loading last fed...
+                                </p>
+                            </div>
+
+                            <!-- mobile view -->
+                            <div class='d-block d-sm-none' >
+                                <p id='lastseenaddress' class="mb-1 fs-6">
+                                    <b>Last Seen @ </b>Loading Address...
+                                </p>
+                                <p id='lastseentime' class='mb-0 fs-6'>
+
+                                </p>
+                                <p id='lastseentimemsg' class='fs-6'>
+                                    To update his last seen, add a new post!
+                                </p>
+                                <p class='mb-0 fs-6' id='recommendedFeeding1'>
+                                    Loading last fed...
+                                </p>
+                            </div>
 
                         </div>
                     </div>
 
                     <button id='follow_or_unfollow' type="button"
-                        class="custom-file-upload rounded mx-auto px-5 py-1 btn-brown my-2" style='border:0;'
+                        class="custom-file-upload rounded mx-auto px-5 py-2 btn-brown my-1 fs-5" style='border:0;'
                         onclick="followandunfollow()">Follow </button>
                 </div>
             </div>
@@ -283,57 +301,38 @@
                         <div class='row'>
                             <div id='aboutdetails' class="card themebg2 col-6">
                                 <div class="card-body my-5">
-                                    <p class="fs-5" id='founded'></p>
-                                    <p class="fs-5" id='founder'></p>
-                                    <p class="fs-5" id='breed'></p>
-                                    <p class="fs-5" id='gender'></p>
-                                    <p class="fs-5" id='details' class='overflow-hidden'></p>
+                                    <p class="fs-4" id='founded'></p>
+                                    <p class="fs-4" id='founder'></p>
+                                    <p class="fs-4" id='breed'></p>
+                                    <p class="fs-4" id='gender'></p>
+                                    <p class="fs-4" id='details' class='overflow-hidden'></p>
                                 </div>
                             </div>
 
                             <div id='feederdetails' class="card themebg2 py-5 col-6">
                                 <div class="card-body mx-5">
-                                    <div id='lastFed'>
+                                    <!-- <div id='lastFed'>
 
-                                    </div>
-                                    <div id='feederinfo' class="card-text mb-4">
+                                    </div> -->
+                                    <div class="card-text mb-4">
                                         <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
                                         <!-- <b>No Past Feeders, be the first!</b> -->
+                                        <span id="feeder-header"></span>
+                                        <ol id='feederinfo'>
+
+                                        </ol>
                                     </div>
 
-                                    <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
-                                        type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
-
+                                    <div id="move-left">
+                                        <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
+                                        type="button" class="btn btn-lg btn-outline-primary px-4">Mark Pet as Fed</button>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
                         <!-- top box of about content END-->
-                        <!-- Feeder Modal -->
-                        <div class="modal fade col-6" id="feederForm" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content p-4">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title" id="exampleModalLabel">Proof of Feeding</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body" id='feederFormBody'>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <p id='feederInfoComplete'></p>
-                                        <button type="button" class="btn btn-brown"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button onClick='feedingProof(this)' type="button" class="btn btn-primary">Mark
-                                            as
-                                            Fed</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal END -->
 
                         <!-- bottom of about content(location api) START-->
                         <div class="row">
@@ -344,41 +343,72 @@
                         </div>
                         <!-- bottom of about content(location api) END -->
 
-
                     </div>
+
+                                            <!-- Feeder Modal -->
+                                            <div class="modal fade col-6" id="feederForm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content p-4">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="exampleModalLabel">Proof of Feeding</h3>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" id='feederFormBody'>
+                
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <p id='feederInfoComplete'></p>
+                                                        <button type="button" class="btn themebg hover-color2 rounded2 mb-1 btn-color"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button onClick='feedingProof(this)' type="button" class="btn themebg hover-color2 rounded2 mb-1 btn-color" >Mark
+                                                            as
+                                                            Fed</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal END -->
+
                     <!-- mobile view -->
                     <div class='d-block d-sm-none'>
                         <div class="col-12">
-                            <div id='aboutdetails1' class="card themebg2">
-                                <div class="card-body my-5">
-                                    <p class="fs-5" id='founded1'></p>
-                                    <p class="fs-5" id='founder1'></p>
-                                    <p class="fs-5" id='breed1'></p>
-                                    <p class="fs-5" id='gender1'></p>
-                                    <p class="fs-5" id='details1' class='overflow-hidden'></p>
+                            <div id='aboutdetails1' class="card themebg2 pb-0 mb-0">
+                                <div class="card-body mb-0 pb-0">
+                                    <p id='founded1'></p>
+                                    <p id='founder1'></p>
+                                    <p id='breed1'></p>
+                                    <p id='gender1'></p>
+                                    <p id='details1' class='overflow-hidden'></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div id='feederdetails1' class="card themebg2">
                                 <div class="card-body text-center">
-                                    <div id='lastFed1'>
+                                    <!-- <div id='lastFed1'>
 
-                                    </div>
-                                    <div id='feederinfo1' class="card-text mb-4">
-                                        <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
-                                        <!-- <b>No Past Feeders, be the first!</b> -->
-                                    </div>
+                                    </div> -->
+                                    <div id="feeder-header1" style="position: relative; left: 5%;"></div>
+                                    <!-- <div id='feederinfo1' class="card-text mb-4">
+                                        <h5 class="card-title overflow-hidden">Past Feeders:</h5>
+                                        <b>No Past Feeders, be the first!</b>
+                                    </div> -->
+                                    <ol id='feederinfo1'>
 
-                                    <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
-                                        type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
-
+                                    </ol>
+                                    
+                                    <!-- <div class="row"> -->
+                                        <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply1'
+                                        type="button" class="btn btn-sm btn-outline-primary col-12 px-5 fs-6">Mark Pet as Fed</button>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="row">
                             <div id='locationbox1'
-                                class='container-fluid d-flex justify-content-center align-items-center col-12 text-center'
+                                class='container-fluid d-flex justify-content-center align-items-center text-center col-12'
                                 style='width:100%; background-color: #FCDFCE'>
                             </div>
                         </div>

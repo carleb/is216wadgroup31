@@ -810,7 +810,26 @@ function populateSideBar() {
               Add Pet
             </div>
           </a>
-        </div>`
+        </div>
+        <div id='nearbyPet' class='mx-xl-2 rounded2'>
+          <a href='#' class='text-decoration-none text-dark'>
+            <div class=' row d-none d-xl-flex' style='white-space:nowrap'>       
+              <div class='col-xl-4 my-auto'>    
+              </div>
+              <div class='col-xl-4 text-center'>
+                  <p class='fw-bold mt-3'>No Pets Added Yet</p>                   
+                </div>
+              <div class='col-xl-4 text-center'>             
+              </div>
+            </div>
+          </a>  
+          <div class='mx-xl-auto d-flex d-xl-none overflow-visible mb-4' style='height:118px; '>
+              <div class=' overflow-visible my-auto'>
+                <span class='fw-bold ms-5'>No Pets Added Yet</span>
+              </div>       
+          </div> 
+        </div>
+        `
         return
       }
       for (let pet of response.data) {
@@ -851,7 +870,8 @@ function populateSideBar() {
               Add Pet
             </div>
           </a>
-        </div>`
+        </div>
+        `
       // console.log(all_pets_arr)
 
       for (arr of all_pets_arr) {

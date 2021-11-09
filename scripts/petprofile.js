@@ -33,17 +33,14 @@ function getAddress(lati, long) {
     url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lati + "%2C" + long + "&lang=en-US&apikey=1f5cJ82OkUvyuWK4_er_fJRfdH6YMfTxx5KdPmZ1Pyw"
     axios.get(url)
         .then((response) => {
-            // console.log("address", response)
             address = response.data.items[0].title
-            arr = address.split(',')
+            // arr = address.split(',')
+            // add = arr.slice(0, -1).join(', ')
+            // console.log("address", address)
             // console.log("arr", arr)
-            add = arr.slice(0, -1).join(', ')
-            // console.log("hold", hold)
-            // add = hold.join(', ')
-            // console.log("add", add)
             html = document.getElementById("lastseenaddress").innerHTML
-            document.getElementById("lastseenaddress").innerHTML = html.replace('Loading Address...', add)
-            // document.getElementById("lastseenaddress").innerHTML += address
+            // console.log("add", add)
+            document.getElementById("lastseenaddress").innerHTML = html.replace('Loading Address...', address)
         })
 }
 petData = null
@@ -86,35 +83,39 @@ function getPetByID(petID) {
             }
             else{
                 document.getElementById('details').innerHTML = 
-                `<b>More details: </b>` + details1
+                `<span class="row text-center"><b class="col-6 text-end">More Details: </b><span class="text-start col-6">` + details1 + `</span></span>`
 
                 // for mobile view
                 document.getElementById('details1').innerHTML = 
-                `<b>More details: </b>` + details1
+                `<span class="row text-center"><b class="col-5 text-end">More Details: </b><span class="text-start col-7">` + details1 + `</span></span>`
             }
             
             arr = foundedDate.split(',')
             string = arr[0] + ", " + arr[1]
 
-            document.getElementById('founded').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founder: </b><span class="col-6">' + string + `</span></span>`;
-            document.getElementById('founder').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founder: </b><span class="col-6">' + founder + `</span></span>`;
+            document.getElementById('founded').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founded: </b><span class="text-start col-6">' + string + `</span></span>`;
+            document.getElementById('founder').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founder: </b><span class="text-start col-6">' + founder + `</span></span>`;
             emojis = emoji()
             document.getElementById('petName').innerText = petName + " " + emojis
-            document.getElementById('gender').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Gender: </b><span class="col-6">' + pet_gender + `</span></span>`;
+            document.getElementById('gender').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Gender: </b><span class="text-start col-6">' + pet_gender + `</span></span>`;
             document.getElementById('petimg').src = petPictureUrl;
-            document.getElementById('breed').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Breed: </b><span class="col-6">' + breed + `</span></span>`;
+            document.getElementById('breed').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Breed: </b><span class="text-start col-6">' + breed + `</span></span>`;
             //document.getElementById('lastseenaddress').innerText=lastSeenLocation;
             document.getElementById('feederapply').innerHTML = `<b>Mark ${petName} as fed</b>`;
 
+            // mobile view
+            document.getElementById('feederapply1').innerHTML = `<b>Mark ${petName} as fed</b>`;
+
             // for mobile view
-            document.getElementById('founded1').innerHTML = '<span class="row"><span class="col-12 text-center"><b>Founded on: </b>&nbsp&nbsp&nbsp&nbsp' + string + '</span></span>'
-            document.getElementById('founder1').innerHTML = '<span class="row"><b class="col-6 text-end">Founder: </b><span class="col-6">' + founder + `</span></span>`;
-            document.getElementById('breed1').innerHTML = '<span class="row"><b class="col-6 text-end">Breed: </b><span class="col-6">' + breed + `</span></span>`;
-            document.getElementById('gender1').innerHTML = '<span class="row"><b class="col-6 text-end">Gender: </b><span class="col-6">' + pet_gender + `</span></span>`;
+            document.getElementById('founded1').innerHTML = '<span class="row"><b class="col-5 text-end">Founded: </b><span class="col-7 text-start">' + string + `</span></span>`
+            document.getElementById('founder1').innerHTML = '<span class="row"><b class="col-5 text-end">Founder: </b><span class="col-7 text-start">' + founder + `</span></span>`;
+            document.getElementById('breed1').innerHTML = '<span class="row"><b class="col-5 text-end">Breed: </b><span class="col-7">' + breed + `</span></span>`;
+            document.getElementById('gender1').innerHTML = '<span class="row"><b class="col-5 text-end">Gender: </b><span class="col-7">' + pet_gender + `</span></span>`;
 
             //Adding Past Feeders
             if (output.feeders == undefined) {
-
+                document.getElementById('feeder-header').innerHTML = ""
+                document.getElementById('feeder-header1').innerHTML = ""
             } else {
                 console.log("feeders")
                 feeders = output.feeders.reverse()
@@ -124,6 +125,7 @@ function getPetByID(petID) {
 
                 console.log(feeders)
                 feederHtml = ''
+                feederHtml1 = ''
 
                 for (feeder of feeders) {
                     feedDate = feeder.feedDate
@@ -132,17 +134,29 @@ function getPetByID(petID) {
                     feederImg = feeder.feederImg
                     feederName = feeder.feederName
                     clickedFeederData[feederID] = [feedDate, feedTime, feederName, feederImg]
-                    button = `<span><button onclick='reloadFeederModal("` + feederID + `")' class='btn btn-sm btn-outline-secondary rounded ms-lg-3 d-flex hover-color' data-bs-toggle="modal"
-                            data-bs-target="#viewFeederDetails""><span style='color:blue'>View Image</span>
-                        </button></span>`
-                    htmlRow = `<li class='fsResponsive'>${feederName} at ${feedTime} ${feedDate} ${button}</li>`
+                    button = `<button onclick='reloadFeederModal("` + feederID + `")' class='btn btn-sm btn-outline-primary rounded ms-lg-3 d-flex hover-color fs-5 px-3 mx-auto' data-bs-toggle="modal"
+                            data-bs-target="#viewFeederDetails"">View Image
+                        </button>`
+                    button1 =
+                    `
+                    <button onclick='reloadFeederModal("` + feederID + `")' class='btn btn-sm btn-outline-primary rounded ms-lg-3 d-flex hover-color px-3 mx-auto' data-bs-toggle="modal"
+                            data-bs-target="#viewFeederDetails"">View Image
+                    </button>
+                    `
+                    htmlRow = `<li class='fsResponsive mb-2'><span class="d-flex">${feederName} at ${feedTime} ${feedDate} ${button}</span></li>`
                     feederHtml += htmlRow
-                }
-                document.getElementById('feederinfo').innerHTML = 
-                `<b>Past Feeders: </b><br>` + feederHtml
 
-                document.getElementById('feederinfo1').innerHTML = 
-                `<b>Past Feeders: </b><br>` + feederHtml
+                    // mobile view
+                    htmlRow1 = `<li class='fsResponsive mb-2'><span>${feederName} at ${feedTime} ${feedDate}<div class="mt-2">${button1}</div></span></li>`
+                    feederHtml1 += htmlRow1
+                }
+                document.getElementById('feeder-header').innerHTML = "<span class='mx-2 px-1 fs-3'>Past Feeders: </span>"
+                // mobile view
+                document.getElementById('feeder-header1').innerHTML = "<span class='fs-5'>Past Feeders: </span>"
+
+                document.getElementById('feederinfo').innerHTML += feederHtml
+                // mobile view
+                document.getElementById('feederinfo1').innerHTML += feederHtml1
 
             }
 
@@ -307,7 +321,7 @@ function get_pet_post_by_id(petID) {
                     <!-- caption end-->
                     <!-- number of likes -->
                     <div class='popover__wrapper overflow-visible'>
-                    <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
+                    <a class='text-decoration-none text-dark fw-bold' href="javascript:void(0)" id='numLikes-`+ postId + `'></a>
                     <div class="popover__content">
                         <p class="popover__message" id="popLikes-`+ postId + `"></p>
                     </div>
@@ -393,7 +407,7 @@ function get_pet_post_by_id(petID) {
                 
                     <!-- number of likes end-->
                     <div class='popover__wrapper overflow-visible'>
-                    <a class='text-decoration-none text-dark fw-bold' id='numLikes-`+ postId + `'></a>
+                    <a class='text-decoration-none text-dark fw-bold' href="javascript:void(0)" id='numLikes-`+ postId + `'></a>
                     <div class="popover__content">
                         <p class="popover__message" id="popLikes-`+ postId + `"></p>
                     </div>
@@ -468,8 +482,9 @@ function get_pet_post_by_id(petID) {
                 oldData = allPostData
 
                 allDateTimeOfPost.push(dateTimeText)
-
-                document.getElementById('lastseentime').innerText = allDateTimeOfPost[0]
+                // console.log("allDateTimeOfPost", allDateTallDateTimeOfPost[0]imeOfPost)
+                tmp = allDateTimeOfPost[0].split(',').join(', ')
+                document.getElementById('lastseentime').innerText = tmp
                 for (update of allPostIdPictureToUpdate) {
                     console.log(update)
                     postID = update[0]
@@ -848,7 +863,7 @@ setTimeout(function () {
         <li class='fs-6'>Yourself</li>
         <li  class='fs-6'>Pet consuming the food</li>
     </ul>
-    <button type="button" class="btn themebg hover-color2 rounded2 mb-1"> <label id='uploadFeederImageLabel'
+    <button type="button" class="btn themebg hover-color2 rounded2 mb-1 btn-color"> <label id='uploadFeederImageLabel'
     for="feederImg">Upload an Image</label></button>
     <input type="file" class="button button-secondary m-2" style="display:none" id="feederImg"
         accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadFeederImageDisplay(event)">
@@ -857,19 +872,37 @@ setTimeout(function () {
         <img id="feederImgOutput" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>
     </div>
     `
+
+    // document.getElementById('feederFormBody1').innerHTML +=
+    // `
+    // <h5 class='overflow-hidden'>To mark ${petData.petName} as fed, you need to first upload an image as proof.</h5><hr>
+    // <h5 class='overflow-hidden'>Please ensure that your image includes:</h5>
+    // <ul>
+    //     <li class='fs-6'>Yourself</li>
+    //     <li  class='fs-6'>Pet consuming the food</li>
+    // </ul>
+    // <button type="button" class="btn themebg hover-color2 rounded2 mb-1"> <label id='uploadFeederImageLabel'
+    // for="feederImg">Upload an Image</label></button>
+    // <input type="file" class="button button-secondary m-2" style="display:none" id="feederImg"
+    //     accept="image/png, image/jpeg, image/heic" name="file" multiple onchange="loadFeederImageDisplay(event)">
+    // </div>
+    // <div class='ml-3'>
+    //     <img id="feederImgOutput" class="card-img-top rounded2 shadow" style='max-height:500px; object-fit:cover'>
+    // </div>
+    // `
     // console.log(petData.feeders)
     if (petData.feeders == undefined) {
-        document.getElementById('lastFed').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
+        document.getElementById('feeder-header').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
 
         // mobile view
-        document.getElementById('lastFed1').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
-        document.getElementById('recommendedFeeding').innerText = ``
+        document.getElementById('feeder-header').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
+        document.getElementById('recommendedFeeding1').innerText = ``
     }
     else {
 
         lastFedTime = petData.feeders[0].feedTime
         lastFedPerson = petData.feeders[0].feederName
-        document.getElementById('lastFed').innerHTML = `<b>Last Fed: </b><span>${lastFedTime} by ${lastFedPerson}</span>`
+        // document.getElementById('lastFed').innerHTML = `<b>Last Fed: </b><span>${lastFedTime} by ${lastFedPerson}</span>`
         lastFedTime24 = petData.feeders[0].feedTime24
 
         lastFedDate = petData.feeders[0].feedDate + ' ' + lastFedTime24
@@ -883,33 +916,47 @@ setTimeout(function () {
         hours = hours.toFixed(0)
         days = hours / 24
         days = days.toFixed(0)
-        document.getElementById('lastFed').innerHTML = 'Last Fed: ' + lastFedTime + ' by ' + lastFedPerson
+        // document.getElementById('lastFed').innerHTML = 'Last Fed: ' + lastFedTime + ' by ' + lastFedPerson
         if (seconds < 60) {
             document.getElementById('recommendedFeeding').innerText = `Fed ${seconds} seconds ago`
+            document.getElementById('recommendedFeeding1').innerText = `Fed ${seconds} seconds ago`
+
         }
         else if (seconds < 3600) {
             if (minutes == 1) {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${minutes} minute ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${minutes} minute ago`
+
             }
             else {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${minutes} minutes ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${minutes} minutes ago`
+
             }
 
         }
         else if (seconds < 86400) {
             if (hours == 1) {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${hours} hour ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${hours} hour ago`
+
             }
             else {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${hours} hours ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${hours} hours ago`
+
             }
         }
         else if (seconds < 2678400) {
             if (days == 1) {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${days} day ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${days} day ago`
+
             }
             else {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${days} days ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${days} days ago`
+
             }
         }
         else if (seconds < 31536000) {
@@ -917,9 +964,13 @@ setTimeout(function () {
             months = months.toFixed(0)
             if (months == 1) {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${months} month ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${months} month ago`
+
             }
             else {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${months} months ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${months} months ago`
+
             }
         }
         else if (seconds >= 31536000) {
@@ -927,9 +978,13 @@ setTimeout(function () {
             years = years.toFixed(0)
             if (years == 1) {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${years} year ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${years} year ago`
+
             }
             else {
                 document.getElementById('recommendedFeeding').innerText = `Fed ${years} years ago`
+                document.getElementById('recommendedFeeding1').innerText = `Fed ${years} years ago`
+
             }
         }
 
@@ -961,7 +1016,7 @@ function feedingProof(ele) {
     const ref = firebase.storage().ref()
     const file = document.getElementById("feederImg").files[0]
     if (file == undefined) {
-        document.getElementById('feederInfoComplete').innerText = 'Please upload an image of proof'
+        document.getElementById('feederInfoComplete').innerText = 'Please upload an image as proof'
         return
     }
     photoName = petID + "-" + time24 + "-" + file.name

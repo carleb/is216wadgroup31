@@ -93,6 +93,7 @@ border-radius   : 10px;
     } */
 }
 
+/* mobile display */
 @media only screen and (max-width: 576px){
     #locationbox1 {
         height: 300px;
@@ -101,8 +102,28 @@ border-radius   : 10px;
     /* #show {
         display: block
     } */
+
 }
 
 body {
     color: #7A6563
+}
+
+::selection {
+    color: #7A6563;
+    background: #FFE7D9;
+}
+
+.btn-color {
+    color: #7A6563
+}
+
+#move-left{
+    position: relative;
+    left: 2%;
+}
+
+#feederinfo > li {
+    font-size: x-large;
+    margin-top: 5px;
 }

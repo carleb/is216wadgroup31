@@ -15,9 +15,9 @@
 
 <li>Lew Yong Jiun | yjlew.2020@scis.smu.edu.sg</li>
 
-<li>Ching Rou</li>
+<li>Ching Rou | crlam.2020@scis.smu.edu.sg</li>
 
-<li>Gerald</li>
+<li>Gerald | gerald.lee.2020@scis.smu.edu.sg</li>
 
 <li>Lin Shuyi (Rinelle) | shuyi.lin.2020@scis.smu.edu.sg</li>
 
@@ -62,6 +62,10 @@ If you see a warning message like in the picture below and have already turned o
 * Log In here: https://is216wadgroup31.vercel.app/screens/login.html
 * Or Sign In with Google
 
+***Dummy Account for Professor Kyong***
+
+* Username/Email: supremeleader@gmail.com
+* Password: krazysupreme99
 
 ![plot](./readmePhotos/LoginRegistraionInstructions.png)
 
