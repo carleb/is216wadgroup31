@@ -30,6 +30,36 @@ a:hover {
     color           : #ef9273;
 }
 
-#loginbutton{
+#loginbutton {
     background-color: #ef9273
+}
+
+
+#fix2 {
+    background-color: #52ab98;
+}
+
+#createbuttonrow {
+    width: 180px
+}
+
+
+#fix3 {
+    width: 50%;
+}
+
+#failedlogin {
+    color  : red;
+    display: none;
+}
+
+#forgotpw {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+
+#fix4 {
+    color          : #ef9273;
+    text-decoration: none;
+    font-size      : small;
 }
