@@ -19,21 +19,31 @@ function loadGoogleMaps(petLati, petLong) {
     if (currentLocation != 'no location') {
         locationHTML = `<iframe width="100%" height="100%" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCJAU__BCNUmAKMUZCGIko6cbRPgodlkRU&origin=` + userLati + `,` + userLong + `&destination=` + petLati + `,` + petLong + `&mode=walking&maptype=roadmap&zoom=15"></iframe>`
     } else {
-        locationHTML = `
-                <div id="location">
-                    <span id="location-msg" style="color: white">Please turn on your location services and refresh this page</span>
-                </div>`
+        locationHTML = 
+                    `
+                    <span id="location-msg">Please turn on your location services and refresh this page</span>
+                    `
     }
     document.getElementById('locationbox').innerHTML = locationHTML
+    document.getElementById('locationbox1').innerHTML = locationHTML
+
 }
 
 function getAddress(lati, long) {
     url = "https://revgeocode.search.hereapi.com/v1/revgeocode?at=" + lati + "%2C" + long + "&lang=en-US&apikey=1f5cJ82OkUvyuWK4_er_fJRfdH6YMfTxx5KdPmZ1Pyw"
     axios.get(url)
         .then((response) => {
-            // console.log(response)
+            // console.log("address", response)
             address = response.data.items[0].title
-            document.getElementById("lastseenaddress").innerText = address
+            arr = address.split(',')
+            // console.log("arr", arr)
+            add = arr.slice(0, -1).join(', ')
+            // console.log("hold", hold)
+            // add = hold.join(', ')
+            // console.log("add", add)
+            html = document.getElementById("lastseenaddress").innerHTML
+            document.getElementById("lastseenaddress").innerHTML = html.replace('Loading Address...', add)
+            // document.getElementById("lastseenaddress").innerHTML += address
         })
 }
 petData = null
@@ -69,26 +79,38 @@ function getPetByID(petID) {
             if (details1 == '' || details1 == null || details1=='null') {
                 // detailstr = `No extra details for this pet yet`;
                 document.getElementById('details').innerHTML = ``
+
+                // for mobile view
+                document.getElementById('details1').innerHTML = ``
+
             }
             else{
                 document.getElementById('details').innerHTML = 
                 `<b>More details: </b>` + details1
-                // detailstr = details1
+
+                // for mobile view
+                document.getElementById('details1').innerHTML = 
+                `<b>More details: </b>` + details1
             }
             
             arr = foundedDate.split(',')
             string = arr[0] + ", " + arr[1]
 
-            // document.getElementById('moredetails').innerHTML = detailstr;
-            // document.getElementById('founded').innerHTML = '<span class="row"><b class="col-6 text-center mr-0 pr-0">Founded on: </b><span class="col-6" >' + string + `</span></span>`;
-            document.getElementById('founded').innerHTML = '<span class="row"><span class="col-12 text-center"><b>Founded on: </b>&nbsp&nbsp&nbsp&nbsp' + string + '</span></span>'
-            document.getElementById('founder').innerHTML = '<span class="row"><b class="col-6 text-end">Founder: </b><span class="col-6">' + founder + `</span></span>`;
-            document.getElementById('petName').innerText = petName;
-            document.getElementById('gender').innerHTML = '<span class="row"><b class="col-6 text-end">Gender: </b><span class="col-6">' + pet_gender + `</span></span>`;
+            document.getElementById('founded').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founder: </b><span class="col-6">' + string + `</span></span>`;
+            document.getElementById('founder').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Founder: </b><span class="col-6">' + founder + `</span></span>`;
+            emojis = emoji()
+            document.getElementById('petName').innerText = petName + " " + emojis
+            document.getElementById('gender').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Gender: </b><span class="col-6">' + pet_gender + `</span></span>`;
             document.getElementById('petimg').src = petPictureUrl;
-            document.getElementById('breed').innerHTML = '<span class="row"><b class="col-6 text-end">Breed: </b><span class="col-6">' + breed + `</span></span>`;
+            document.getElementById('breed').innerHTML = '<span class="row text-center"><b class="col-6 text-end">Breed: </b><span class="col-6">' + breed + `</span></span>`;
             //document.getElementById('lastseenaddress').innerText=lastSeenLocation;
             document.getElementById('feederapply').innerHTML = `<b>Mark ${petName} as fed</b>`;
+
+            // for mobile view
+            document.getElementById('founded1').innerHTML = '<span class="row"><span class="col-12 text-center"><b>Founded on: </b>&nbsp&nbsp&nbsp&nbsp' + string + '</span></span>'
+            document.getElementById('founder1').innerHTML = '<span class="row"><b class="col-6 text-end">Founder: </b><span class="col-6">' + founder + `</span></span>`;
+            document.getElementById('breed1').innerHTML = '<span class="row"><b class="col-6 text-end">Breed: </b><span class="col-6">' + breed + `</span></span>`;
+            document.getElementById('gender1').innerHTML = '<span class="row"><b class="col-6 text-end">Gender: </b><span class="col-6">' + pet_gender + `</span></span>`;
 
             //Adding Past Feeders
             if (output.feeders == undefined) {
@@ -117,6 +139,9 @@ function getPetByID(petID) {
                     feederHtml += htmlRow
                 }
                 document.getElementById('feederinfo').innerHTML = 
+                `<b>Past Feeders: </b><br>` + feederHtml
+
+                document.getElementById('feederinfo1').innerHTML = 
                 `<b>Past Feeders: </b><br>` + feederHtml
 
             }
@@ -835,7 +860,10 @@ setTimeout(function () {
     // console.log(petData.feeders)
     if (petData.feeders == undefined) {
         document.getElementById('lastFed').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
-        document.getElementById('recommendedFeeding').innerText = `No Feeding Data Yet`
+
+        // mobile view
+        document.getElementById('lastFed1').innerHTML = `<span class="fs-4" >Be the first to feed ${petData.petName}!</span>`
+        document.getElementById('recommendedFeeding').innerText = ``
     }
     else {
 
@@ -1009,3 +1037,12 @@ function processLoadImages() {
     //imagesLoaded(gallery,createMasonry(gallery))
     //},1000)
 }
+
+emojis = [
+	'😄','😃','😀','😊','☺','😉','😍','😘','😚','😗','😙','😜','😝','😛','😳','😁','😔','😌','😒','😞','😣','😢','😂','😭','😪','😥','😰','😅','😓','😩','😫','😨','😱','😠','😡','😤','😖','😆','😋','😷','😎','😴','😵','😲','😟','😦','😧','😈','👿','😮','😬','😐','😕','😯','😶','😇','😏','😑','👲','👳','👮','👷','💂','👶','👦','👧','👨','👩','👴','👵','👱','👼','👸','😺','😸','😻','😽','😼','🙀','😿','😹','😾','👹','👺','🙈','🙉','🙊','💀','👽','💩','🔥','✨','🌟','💫','💥','💢','💦','💧','💤','💨','👂','👀','👃','👅','👄','👍','👎','👌','👊','✊','✌','👋','✋','👐','👆','👇','👉','👈','🙌','🙏','☝','👏','💪','🚶','🏃','💃','👫','👪','👬','👭','💏','💑','👯','🙆','🙅','💁','🙋','💆','💇','💅','👰','🙎','🙍','🙇','🎩','👑','👒','👟','👞','👡','👠','👢','👕','👔','👚','👗','🎽','👖','👘','👙','💼','👜','👝','👛','👓','🎀','🌂','💄','💛','💙','💜','💚','❤','💔','💗','💓','💕','💖','💞','💘','💌','💋','💍','💎','👤','👥','💬','👣','💭','🐶','🐺','🐱','🐭','🐹','🐰','🐸','🐯','🐨','🐻','🐷','🐽','🐮','🐗','🐵','🐒','🐴','🐑','🐘','🐼','🐧','🐦','🐤','🐥','🐣','🐔','🐍','🐢','🐛','🐝','🐜','🐞','🐌','🐙','🐚','🐠','🐟','🐬','🐳','🐋','🐄','🐏','🐀','🐃','🐅','🐇','🐉','🐎','🐐','🐓','🐕','🐖','🐁','🐂','🐲','🐡','🐊','🐫','🐪','🐆','🐈','🐩','🐾','💐','🌸','🌷','🍀','🌹','🌻','🌺','🍁','🍃','🍂','🌿','🌾','🍄','🌵','🌴','🌲','🌳','🌰','🌱','🌼','🌐','🌞','🌝','🌚','🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘','🌜','🌛','🌙','🌍','🌎','🌏','🌋','🌌','🌠','⭐','☀','⛅','☁','⚡','☔','❄','⛄','🌀','🌁','🌈','🌊','🎍','💝','🎎','🎒','🎓','🎏','🎆','🎇','🎐','🎑','🎃','👻','🎅','🎄','🎁','🎋','🎉','🎊','🎈','🎌','🔮','🎥','📷','📹','📼','💿','📀','💽','💾','💻','📱','☎','📞','📟','📠','📡','📺','📻','🔊','🔉','🔈','🔇','🔔','🔕','📢','📣','⏳','⌛','⏰','⌚','🔓','🔒','🔏','🔐','🔑','🔎','💡','🔦','🔆','🔅','🔌','🔋','🔍','🛁','🛀','🚿','🚽','🔧','🔩','🔨','🚪','🚬','💣','🔫','🔪','💊','💉','💰','💴','💵','💷','💶','💳','💸','📲','📧','📥','📤','✉','📩','📨','📯','📫','📪','📬','📭','📮','📦','📝','📄','📃','📑','📊','📈','📉','📜','📋','📅','📆','📇','📁','📂','✂','📌','📎','✒','✏','📏','📐','📕','📗','📘','📙','📓','📔','📒','📚','📖','🔖','📛','🔬','🔭','📰','🎨','🎬','🎤','🎧','🎼','🎵','🎶','🎹','🎻','🎺','🎷','🎸','👾','🎮','🃏','🎴','🀄','🎲','🎯','🏈','🏀','⚽','⚾','🎾','🎱','🏉','🎳','⛳','🚵','🚴','🏁','🏇','🏆','🎿','🏂','🏊','🏄','🎣','☕','🍵','🍶','🍼','🍺','🍻','🍸','🍹','🍷','🍴','🍕','🍔','🍟','🍗','🍖','🍝','🍛','🍤','🍱','🍣','🍥','🍙','🍘','🍚','🍜','🍲','🍢','🍡','🍳','🍞','🍩','🍮','🍦','🍨','🍧','🎂','🍰','🍪','🍫','🍬','🍭','🍯','🍎','🍏','🍊','🍋','🍒','🍇','🍉','🍓','🍑','🍈','🍌','🍐','🍍','🍠','🍆','🍅','🌽','🏠','🏡','🏫','🏢','🏣','🏥','🏦','🏪','🏩','🏨','💒','⛪','🏬','🏤','🌇','🌆','🏯','🏰','⛺','🏭','🗼','🗾','🗻','🌄','🌅','🌃','🗽','🌉','🎠','🎡','⛲','🎢','🚢','⛵','🚤','🚣','⚓','🚀','✈','💺','🚁','🚂','🚊','🚉','🚞','🚆','🚄','🚅','🚈','🚇','🚝','🚋','🚃','🚎','🚌','🚍','🚙','🚘','🚗','🚕','🚖','🚛','🚚','🚨','🚓','🚔','🚒','🚑','🚐','🚲','🚡','🚟','🚠','🚜','💈','🚏','🎫','🚦','🚥','⚠','🚧','🔰','⛽','🏮','🎰','♨','🗿','🎪','🎭','📍','🚩','⬆','⬇','⬅','➡','🔠','🔡','🔤','↗','↖','↘','↙','↔','↕','🔄','◀','▶','🔼','🔽','↩','↪','ℹ','⏪','⏩','⏫','⏬','⤵','⤴','🆗','🔀','🔁','🔂','🆕','🆙','🆒','🆓','🆖','📶','🎦','🈁','🈯','🈳','🈵','🈴','🈲','🉐','🈹','🈺','🈶','🈚','🚻','🚹','🚺','🚼','🚾','🚰','🚮','🅿','♿','🚭','🈷','🈸','🈂','Ⓜ','🛂','🛄','🛅','🛃','🉑','㊙','㊗','🆑','🆘','🆔','🚫','🔞','📵','🚯','🚱','🚳','🚷','🚸','⛔','✳','❇','❎','✅','✴','💟','🆚','📳','📴','🅰','🅱','🆎','🅾','💠','➿','♻','♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓','⛎','🔯','🏧','💹','💲','💱','©','®','™','〽','〰','🔝','🔚','🔙','🔛','🔜','❌','⭕','❗','❓','❕','❔','🔃','🕛','🕧','🕐','🕜','🕑','🕝','🕒','🕞','🕓','🕟','🕔','🕠','🕕','🕖','🕗','🕘','🕙','🕚','🕡','🕢','🕣','🕤','🕥','🕦','✖','➕','➖','➗','♠','♥','♣','♦','💮','💯','✔','☑','🔘','🔗','➰','🔱','🔲','🔳','◼','◻','◾','◽','▪','▫','🔺','⬜','⬛','⚫','⚪','🔴','🔵','🔻','🔶','🔷','🔸','🔹'
+];
+emojis = ['🤎', '🤍', '💙', '🧡', '💛', '💜', '❤️', '💖', '🌅']
+
+function emoji(){
+  return emojis[Math.floor(Math.random() * emojis.length)];
+};

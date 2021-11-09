@@ -644,24 +644,19 @@ function postComments(postId) {
         </div>`
         collapse_id = 'collapse-' + postId
         for (ele of output.slice(3, output.length)) {
-          if (ele[4] != null) {
+          console.log(ele)
+          if(ele != null){
             posterId = ele[4]
-            posterURL = "/screens/user_profile.html?userid=" + posterId
-          }
-          else {
-            posterURL = ''
-          }
-          if (ele[2] != null) {
             date_year = ele[2].split(',')
-          }
-          else {
-            date_year = ['Old data']
-          }
-          document.getElementById(collapse_id).innerHTML += `<div class="row">
-                                                                <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+ posterURL + `>` + ele[1] + `:</a>` + ` ` + ele[0] + `</div>
+            name = ele[1]
+            comment = ele[0]
+            time = ele[3]
+            document.getElementById(collapse_id).innerHTML += `<div class="row">
+                                                                <div class='col-8'><a class='text-decoration-none text-dark fw-bold' href=`+ posterURL + `>` + name + `:</a>` + ` ` + comment + `</div>
                                                                 <div class='col-4 text-end'>
-                                                                <span class='d-sm-inline d-none'>`+ date_year[0] + `</span> ` + ele[3] + `</div>
+                                                                <span class='d-sm-inline d-none'>`+ date_year[0] + `</span> ` + time + `</div>
                                                             </div>`
+          }
         }
         document.getElementById(collapse_id).innerHTML += `<a onClick='showLess(` + postId + `)' class='text-decoration-none text-muted' data-bs-toggle="collapse" href="#collapseExample` + postId + `" role="button" aria-expanded="false" aria-controls="collapseExample">
           Show less comments

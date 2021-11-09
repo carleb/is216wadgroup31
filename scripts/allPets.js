@@ -5,7 +5,7 @@ const app = Vue.createApp({
             petlist: [],
             petnumber: 0,
             numpages: 1,
-            resultsperpage: 4,
+            resultsperpage: 12,
             thispage: 1,
         }
     },

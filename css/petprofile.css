@@ -73,41 +73,36 @@ border-radius   : 10px;
     border-color: #E47382 !important;
 }
 
-@media only screen and (min-width: 375px){
-    #location {
-        position: relative;
-        top: 50%;
-        left: 22%
-    }
+#location-msg {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
 
+@media only screen and (min-width: 576px){
     #locationbox {
         height: 500px;
-    }
-
-    #location-msg {
-        font-size: 1.5em;
-        font-weight: bold;
     }
 
     #about {
         height: 300px
     }
+
+    /* #show {
+        display: none
+    } */
 }
 
-@media only screen and (max-width: 375px){
-    #location {
-        position: relative;
-        top: 40%;
-        left: 5%
+@media only screen and (max-width: 576px){
+    #locationbox1 {
+        height: 300px;
     }
 
-    #location-msg {
-        font-size: 1.5em;
-        font-weight: bold;
-        
-    }
+    /* #show {
+        display: block
+    } */
+}
 
-    #locationbox {
-        height: 250px;
-    }
+body {
+    color: #7A6563
 }

@@ -22,87 +22,95 @@
 <body id='petroot' onload='onboarding(),typeWriter()' class='font-monospace'>
 
     <!-- navbar start -->
-    <nav class="shadow-sm navbar navbar-expand-lg navbar-light sticky-top website-topbar">
-        <div class="container-fluid">
-            <div class='mx-md-2 overflow-visible'>
-                <a href="/screens/homeScreen.html">
-                    <img style="position: relative; left: 30%" class='hover-zoom' src='/images/petsoc.png' width=80
-                        height=80>
-                </a>
-            </div>
-            <div id="nav-middle" class="d-flex flex-row" style='left:0px'>
-                <form class='mx-lg-auto' autocomplete="off">
-                    <input style='margin-top:11px;' class="form-control rounded1 me-2 d-md-inline d-none" type="search"
-                        placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'
-                        onkeyup="loadWebSearch()" onclick="loadWebSearchList()">
-                    <ul class='rounded2 themebg position-fixed mt-2 shadow' id="webSearchDisplay"
-                        style='list-style-type: none; padding: 0; margin: 0; border:0;display:none;'>
-                    </ul>
-                </form>
-
-                <!-- modal button start -->
-                <button id="post" class='btn ms-lg-3 d-flex hover-color' data-bs-toggle="modal"
-                    data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=40 height=40
-                        src='/images/icons/pencil-square.svg'><span style='white-space:nowrap'
-                        class="fs-5 ms-1 float-start mt-2" id='newpost'></span>
-                </button>
-            </div>
-            <!-- modal button end -->
-
-            <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul id='navBarIcons' class="navbar-nav" style="--bs-scroll-height: 100px; position: relative;">
-                    <li id="search" class="nav-item mx-4 d-inline d-md-none mt-2 mb-3">
-                        <form class='px-2' autocomplete="off">
-                            <input class="form-control rounded1 me-2" type="search"
-                                placeholder="Search for Users or Pets" aria-label="Search" id='mobilesearchInput'
-                                onkeyup="loadMobileSearch()" onclick="loadMobileSearchList()">
-
-                            <ul id="mobileSearchDisplay" class='rounded2 themebg mt-2 shadow'
-                                style='list-style-type: none; padding: 0; margin: 0;display:none;'>
-                            </ul>
-                        </form>
-                    </li>
-                    <li id="petsgallery" class="nav-item mx-3 hover-color">
-                        <a class="nav-link active px-3" href="/screens/allPets.html"><img
-                                src="/images/icons/animals.png" alt="Bootstrap" width="32" height="32">
-                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Pets
-                                Gallery</span></a>
-                    </li>
-
-                    <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link active px-3" aria-current="page" href="/screens/homeScreen.html"><img
-                                src="/images/icons/house.svg" alt="Bootstrap" width="32" height="32">
-                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Home</span></a>
-                    </li>
-
-                    <!-- right now it navigates to the one for mobile -->
-                    <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
-                        <a class="nav-link px-3" href="/screens/livechat.html"><img src="/images/icons/chat.svg"
-                                alt="Bootstrap" width="32" height="32">
-                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span></a>
-                    </li>
-                    <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
-                        <a class="nav-link px-3 dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
-                                src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
-                            <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Profile</span></a>
-                        <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
-                            <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2" href="#">Your
-                                    Profile</a></li>
-                            <li id="logout" onclick=logout()><a class="dropdown-item hover-color3" href="#"> Log Out
-                                </a></li>
+    <div class="row">
+        <nav class="shadow-sm navbar navbar-expand-lg navbar-light sticky-top website-topbar ccol-12">
+            <div class="container-fluid">
+                <div class='mx-md-2 overflow-visible'>
+                    <a href="/screens/homeScreen.html">
+                        <img style="position: relative; left: 30%" class='hover-zoom' src='/images/petsoc.png' width=80
+                            height=80>
+                    </a>
+                </div>
+                <div id="nav-middle" class="d-flex flex-row">
+                    <form class='mx-lg-auto' autocomplete="off">
+                        <input class="form-control rounded1 me-2 d-md-inline d-none mt-1" type="search"
+                            placeholder="Search for Users or Pets" aria-label="Search" id='websearchInput'
+                            onkeyup="loadWebSearch()" onclick="loadWebSearchList()">
+                        <ul class='rounded2 themebg position-fixed mt-2 shadow' id="webSearchDisplay"
+                            style='list-style-type: none; padding: 0; margin: 0; border:0;display:none;'>
                         </ul>
-                    </li>
+                    </form>
 
-                </ul>
+                    <!-- modal button start -->
+                    <button id="post" class='btn ms-lg-3 d-flex hover-color' data-bs-toggle="modal"
+                        data-bs-target="#createPost" onclick="fillPost(this.id)"><img class='float-start' width=32
+                            height=32 src='/images/icons/pencil-square.svg'><span style='white-space:nowrap'
+                            class="fs-7 ms-1 float-start mt-1" id='newpost'></span>
+                    </button>
+                </div>
+                <!-- modal button end -->
+
+                <button class="navbar-toggler mx-1 border-0 hover-color " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul id='navBarIcons' class="navbar-nav" style="--bs-scroll-height: 100px; position: relative;">
+                        <li id="search" class="nav-item mx-4 d-inline d-md-none mt-2 mb-3">
+                            <form class='px-2' autocomplete="off">
+                                <input class="form-control rounded1 me-2" type="search"
+                                    placeholder="Search for Users or Pets" aria-label="Search" id='mobilesearchInput'
+                                    onkeyup="loadMobileSearch()" onclick="loadMobileSearchList()">
+
+                                <ul id="mobileSearchDisplay" class='rounded2 themebg mt-2 shadow'
+                                    style='list-style-type: none; padding: 0; margin: 0;display:none;'>
+                                </ul>
+                            </form>
+                        </li>
+
+                        <li id="petsgallery" class="nav-item mx-3 hover-color">
+                            <a class="nav-link active px-2" href="/screens/allPets.html"><img
+                                    src="/images/icons/animals.png" alt="Bootstrap" width="32" height="32">
+                                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark'>Pets
+                                    Gallery</span>
+                                <span class='d-none d-xl-inline text-dark'>Pets Gallery</span></a>
+                        </li>
+
+                        <li id="home" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+                            <a class="nav-link active px-2" aria-current="page" href="/screens/homeScreen.html"><img
+                                    src="/images/icons/house.svg" alt="Bootstrap" width="32" height="32">
+                                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Home</span>
+                                <span class='d-none d-xl-inline text-dark'>Home</span></a>
+                        </li>
+
+                        <!-- right now it navigates to the one for mobile -->
+                        <li id="chat" class="nav-item mx-3 hover-color" onclick=fill(this.id)>
+                            <a class="nav-link px-2" href="/screens/livechat.html"><img src="/images/icons/chat.svg"
+                                    alt="Bootstrap" width="32" height="32">
+                                <span class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Chat</span>
+                                <span class='d-none d-xl-inline text-dark'>Chat</span></a>
+                        </li>
+
+                        <li class="nav-item mx-3 hover-color dropdown" onclick=fill(this.id)>
+                            <a class="nav-link px-2  dropdown-toggle" href="#" data-bs-toggle="dropdown"><img
+                                    src="/images/icons/person.svg" alt="Bootstrap" width="32" height="32">
+                                <span
+                                    class='d-sm-inline d-md-inline d-lg-none my-auto mx-3 text-dark '>Profile</span></a>
+                            <ul class="dropdown-menu rounded2 themebg border border-0 shadow">
+                                <li id="profile" class='hover-color2'><a class="dropdown-item hover-color2"
+                                        href="#">Your Profile</a></li>
+                                <li id="logout" onclick=logout()><a class="dropdown-item hover-color3" href="#"> Log Out
+                                    </a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
     <!-- navbar end -->
 
     <!-- Feeder Image Model -->
@@ -195,51 +203,54 @@
     </div>
     <!-- modal end -->
     <!-- top box START-->
-    <div id="topbox" class="py-3 px-3">
+    <div class="row">
+        <div id="topbox" class="px-3 col-12">
 
-        <div id='imagebox' class=" text-center">
-            <img id='petimg' class="card-img-top rounded1 shadow-sm"
-                style=" border-radius:10%;max-height:400px; max-width:400px; object-fit:cover" src='#'
-                alt="Card image cap">
-            <div class="card-body">
-                <div id='livedetails' class='card rounded2 border border-0 my-auto text-center mx-auto'
-                    style=" border-radius:10%;max-height:400px; max-width:400px;">
-                    <div class="card-body">
-                        <h5 id='petName' class='card-title fw-bold' style='font-size: larger;overflow:hidden;'>
-                            Loading Pet Name...
-                        </h5>
-                        <p class='fw-bold mb-0' style='font-size: large;'>
-                            Last Seen:
-                        </p>
-                        <p id='lastseenaddress' class='mb-0'>
-                            Loading Address...
-                        </p>
-                        <p id='lastseentime' class='mb-0' style='font-size: small;'>
-                           
-                        </p>
-                        <p id='lastseentimemsg' class="card-text" style="font-size: small;">
-                            To update his last seen, add a new post!
-                        </p>
-                        <p style="font-size: large;" class='fw-bold mb-0' id='recommendedFeeding'>Loading last fed...
-                        </p>
+            <div id='imagebox' class=" text-center">
+                <img id='petimg' class="card-img-top rounded1 shadow-sm"
+                    style=" border-radius:10%;max-height:400px; max-width:400px; object-fit:cover" src='#'
+                    alt="Card image cap">
+                <div class="card-body">
+                    <div id='livedetails' class='card rounded2 border border-0 my-auto text-center mx-auto'
+                        style=" border-radius:10%;max-height:400px; max-width:400px;">
+                        <div class="card-body">
+                            <h3 id='petName'>
+                                Loading Pet Name...
+                            </h3>
+                            <!-- <p class='fw-bold mb-0' style='font-size: large;'>
+                                Last Seen:
+                            </p> -->
+                            <p id='lastseenaddress' class="mb-1">
+                                <b>Last Seen @ </b>Loading Address...
+                            </p>
+                            <p id='lastseentime' class='mb-0'>
 
+                            </p>
+                            <p id='lastseentimemsg'>
+                                To update his last seen, add a new post!
+                            </p>
+                            <p class='mb-0' id='recommendedFeeding'>
+                                Loading last fed...
+                            </p>
+
+                        </div>
                     </div>
-                </div>
 
-                <button id='follow_or_unfollow' type="button"
-                    class="custom-file-upload rounded mx-auto px-5 py-1 btn-brown mt-3" style='border:0;'
-                    onclick="followandunfollow()">Follow </button>
+                    <button id='follow_or_unfollow' type="button"
+                        class="custom-file-upload rounded mx-auto px-5 py-1 btn-brown my-2" style='border:0;'
+                        onclick="followandunfollow()">Follow </button>
+                </div>
             </div>
         </div>
-
     </div>
     <!-- top box END -->
 
     <!-- bottom box START-->
     <div id="bottombox">
         <!-- navigation tabs START-->
-        <div id='petdetails'>
-            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" style='background-color:#ffe7d9'>
+        <div id='petdetails' class="row">
+            <ul class="nav nav-tabs justify-content-center col-12" id="myTab" role="tablist"
+                style='background-color:#ffe7d9'>
                 <li class="nav-item overflow-hidden" role="presentation">
                     <button class="lead nav-link text-muted active" id="about-tab" data-bs-toggle="tab"
                         data-bs-target="#about" type="button" role="tab" aria-controls="about"
@@ -267,69 +278,113 @@
 
                 <!-- about tab content START-->
                 <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-                    <!-- top box of about content START-->
-                    <div class='row' id="about">
-                        <div id='aboutdetails' class="card col-md themebg2 ms-3">
-                            <div class="card-body my-5">
-                                <p class="fs-5" id='founded'></p>
-                                <p class="fs-5" id='founder'></p>
-                                <p class="fs-5" id='breed'></p>
-                                <p class="fs-5" id='gender'></p>
-                                <p class="fs-5" id='details' class='overflow-hidden'></p>
+                    <div class="d-none d-sm-block">
+                        <!-- top box of about content START-->
+                        <div class='row'>
+                            <div id='aboutdetails' class="card themebg2 col-6">
+                                <div class="card-body my-5">
+                                    <p class="fs-5" id='founded'></p>
+                                    <p class="fs-5" id='founder'></p>
+                                    <p class="fs-5" id='breed'></p>
+                                    <p class="fs-5" id='gender'></p>
+                                    <p class="fs-5" id='details' class='overflow-hidden'></p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div id='feederdetails' class="card col-md themebg2 py-5">
-                            <div class="card-body">
-                                <div id='lastFed'>
+                            <div id='feederdetails' class="card themebg2 py-5 col-6">
+                                <div class="card-body mx-5">
+                                    <div id='lastFed'>
 
-                                </div>
-                                <div id='feederinfo' class="card-text mb-4">
-                                    <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
-                                    <!-- <b>No Past Feeders, be the first!</b> -->
-                                </div>
+                                    </div>
+                                    <div id='feederinfo' class="card-text mb-4">
+                                        <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
+                                        <!-- <b>No Past Feeders, be the first!</b> -->
+                                    </div>
 
-                                <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
-                                    type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
+                                        type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
 
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- top box of about content END-->
-                    <!-- Feeder Modal -->
-                    <div class="modal fade" id="feederForm" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content p-4">
-                                <div class="modal-header">
-                                    <h3 class="modal-title" id="exampleModalLabel">Proof of Feeding</h3>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" id='feederFormBody'>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <p id='feederInfoComplete'></p>
-                                    <button type="button" class="btn btn-brown"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button onClick='feedingProof(this)' type="button" class="btn btn-primary">Mark as
-                                        Fed</button>
                                 </div>
                             </div>
                         </div>
+                        <!-- top box of about content END-->
+                        <!-- Feeder Modal -->
+                        <div class="modal fade col-6" id="feederForm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content p-4">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="exampleModalLabel">Proof of Feeding</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id='feederFormBody'>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <p id='feederInfoComplete'></p>
+                                        <button type="button" class="btn btn-brown"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button onClick='feedingProof(this)' type="button" class="btn btn-primary">Mark
+                                            as
+                                            Fed</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal END -->
+
+                        <!-- bottom of about content(location api) START-->
+                        <div class="row">
+                            <div id='locationbox'
+                                class='container-fluid d-flex justify-content-center align-items-center col-12'
+                                style='width:100%; background-color: #FCDFCE'>
+                            </div>
+                        </div>
+                        <!-- bottom of about content(location api) END -->
+
+
                     </div>
-                    <!-- Modal END -->
-                    <!-- bottom of about content(location api) START-->
-                    <div class='row'>
-                        <div id='locationbox' class='container-fluid'
-                            style='width:100%; background-color: #FCDFCE'>
+                    <!-- mobile view -->
+                    <div class='d-block d-sm-none'>
+                        <div class="col-12">
+                            <div id='aboutdetails1' class="card themebg2">
+                                <div class="card-body my-5">
+                                    <p class="fs-5" id='founded1'></p>
+                                    <p class="fs-5" id='founder1'></p>
+                                    <p class="fs-5" id='breed1'></p>
+                                    <p class="fs-5" id='gender1'></p>
+                                    <p class="fs-5" id='details1' class='overflow-hidden'></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div id='feederdetails1' class="card themebg2">
+                                <div class="card-body text-center">
+                                    <div id='lastFed1'>
+
+                                    </div>
+                                    <div id='feederinfo1' class="card-text mb-4">
+                                        <!-- <h5 class="card-title overflow-hidden">Past Feeders:</h5> -->
+                                        <!-- <b>No Past Feeders, be the first!</b> -->
+                                    </div>
+
+                                    <button data-bs-toggle="modal" data-bs-target="#feederForm" id='feederapply'
+                                        type="button" class="btn btn-lg btn-outline-primary">Mark Pet as Fed</button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div id='locationbox1'
+                                class='container-fluid d-flex justify-content-center align-items-center col-12 text-center'
+                                style='width:100%; background-color: #FCDFCE'>
+                            </div>
                         </div>
                     </div>
-                    <!-- bottom of about content(location api) END -->
-
                 </div>
+
                 <!-- about tab content END-->
 
                 <!-- followers tab content START-->
