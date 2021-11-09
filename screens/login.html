@@ -13,16 +13,13 @@
     img-src 'self' https://*; 
     manifest-src 'self' https://*; 
     media-src 'self' https://*; 
-    object-src 'none' https://*; 
-    report-uri https://*; 
-    script-src 'report-sample' 'self' https://* https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js; 
-    style-src 'report-sample' 'self' https://* https://fonts.googleapis.com https://stackpath.bootstrapcdn.com https://www.gstatic.com; 
-    worker-src 'none' https://*;">
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';"> -->
-    <title>Login</title>
-
+    object-src 'self' https://*; 
+    script-src 'report-sample' 'self' 'sha256-lS09hoh94YB5+dPlaAM8sPFkyvnjC4au5HxO7Aq7BZA='  https://* https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js; 
+    style-src 'report-sample' 'self'   https://* https://fonts.googleapis.com https://stackpath.bootstrapcdn.com https://www.gstatic.com; 
+    worker-src 'self' https://*;
+    style-src-elem 'self'  https://* ">
 </head>
-
+<title>Login</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="login.css">
