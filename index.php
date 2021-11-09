@@ -1,6 +1,6 @@
 <?php
 include_once "index.html";
-header("base-uri 'self';
+header("Content-Security-Policy: base-uri 'self';
 connect-src 'self' https://wadgroup31-e83d0-default-rtdb.asia-southeast1.firebasedatabase.app;
 default-src 'self';
 font-src 'self' https://fonts.gstatic.com;
